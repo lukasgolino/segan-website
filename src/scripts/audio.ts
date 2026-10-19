@@ -145,13 +145,26 @@ export class Voice {
 }
 
 // one thing plays at a time across the page: starting a player stops the others
-let current: { stop: () => void } | null = null;
-export function claim(owner: { stop: () => void }): void {
+interface Owner {
+  stop: () => void;
+  /** where its controls are on the page, for stopWithin */
+  root?: Node;
+}
+let current: Owner | null = null;
+export function claim(owner: Owner): void {
   if (current && current !== owner) current.stop();
   current = owner;
 }
-export function release(owner: { stop: () => void }): void {
+export function release(owner: Owner): void {
   if (current === owner) current = null;
+}
+/** Stop what plays if its controls are inside `node` (before `node` is emptied, so nothing plays on unstoppable). */
+export function stopWithin(node: Node): void {
+  const c = current;
+  if (c?.root && node.contains(c.root)) {
+    current = null;
+    c.stop();
+  }
 }
 
 export function fmt(seconds: number): string {

@@ -1,7 +1,7 @@
 // The scripted demo: a conversation tree whose every agent turn is a real SEGAN project build
 // (public/demo/<scenario>/<step>.json, written by tools/build_site_assets.py).
 
-import { reducedMotion, withBase, type Out } from "./audio";
+import { reducedMotion, stopWithin, withBase, type Out } from "./audio";
 import { escapeHtml, highlightDiff, highlightLine, highlightSource } from "./highlight";
 import { Player } from "./player";
 import { phases, stems, variations } from "./widgets";
@@ -71,6 +71,7 @@ function loadStep(scenario: string, id: string): Promise<Step> {
       if (!r.ok) throw new Error(`${key}: ${r.status}`);
       return r.json() as Promise<Step>;
     });
+    p.catch(() => stepCache.delete(key));
     stepCache.set(key, p);
   }
   return p;
@@ -296,7 +297,17 @@ export function mountDemo(root: HTMLElement): void {
   const agentTurn = async (scenario: Index, id: string, parent: Step | null, my: number, scroll: boolean) => {
     const index = scenario;
     setChoices(el("span", "typing", "Agent is working…"));
-    const step = await loadStep(index.id, id);
+    let step: Step;
+    try {
+      step = await loadStep(index.id, id);
+    } catch {
+      if (my !== run) return;
+      const retry = el("button", "choice", "Couldn't load this turn. Try again");
+      retry.type = "button";
+      retry.addEventListener("click", () => void agentTurn(scenario, id, parent, my, scroll));
+      setChoices(retry);
+      return;
+    }
     if (my !== run) return;
     const parentStep = parent && index.steps[id].parents.includes(parent.id) ? parent : null;
     const body = bubble("agent", "");
@@ -319,6 +330,7 @@ export function mountDemo(root: HTMLElement): void {
   const start = (i: Index) => {
     index = i;
     run++;
+    stopWithin(log);
     log.replaceChildren();
     bubble("you", escapeHtml(i.steps[i.start].user));
     void agentTurn(i, i.start, null, run, true);
@@ -328,6 +340,7 @@ export function mountDemo(root: HTMLElement): void {
   const pick = (scroll = false) => {
     index = null;
     run++;
+    stopWithin(log);
     log.replaceChildren();
     bubble("agent", "<p>What are you building? Pick one. You can start over at any point and take another path.</p>");
     setChoices(

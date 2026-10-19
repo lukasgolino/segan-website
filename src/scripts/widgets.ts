@@ -69,7 +69,7 @@ export function phases(opts: PlayerOptions, holdLabel: string): { root: HTMLElem
   let voices: Voice[] = [];
   let timer = 0;
   let held = false;
-  const owner = { stop: () => end(false) };
+  const owner = { stop: () => void end(false), root: player.root };
   const url = (o: Out) => withBase(opts.base + o.audio);
 
   async function begin(): Promise<void> {
