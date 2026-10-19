@@ -18,8 +18,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - name: SEGAN checkout (for CHANGELOG.md)
+      - name: SEGAN's CHANGELOG.md at the pinned tag
         run: |
           tag=$(sed -n 's/^segan @ .*@\(v[0-9.]*\)$/\1/p' requirements.txt)
-          git clone --depth 1 --branch "$tag" https://github.com/lukasgolino/segan.git segan-src
+          mkdir segan-src
+          curl -fsSL "https://raw.githubusercontent.com/lukasgolino/segan/$tag/CHANGELOG.md" -o segan-src/CHANGELOG.md
       - run: python tools/build_site_assets.py --check --segan-repo segan-src
