@@ -1,0 +1,389 @@
+@import "@fontsource/silkscreen/400.css";
+@import "@fontsource/silkscreen/700.css";
+@import "@fontsource-variable/inter/index.css";
+@import "@fontsource/jetbrains-mono/400.css";
+
+:root {
+  /* the brand palette (art/brand/palettes/brand.pal.yaml): PAGAN's token structure, blue and violet hues */
+  --ink: #0a0b16;
+  --night: #10121f;
+  --panel: #171a2b;
+  --panel-2: #1f2337;
+  --line: #2a2f4a;
+  --muted: #969cb8;
+  --text: #e8eaf6;
+  --paper: #eef1fb;
+  --violet: #8b5cf6;
+  --wave: #6b9dff;
+  --ice: #a5d8ff;
+  --amber: #ffb86b;
+  --amber-deep: #8a5a22;
+  --add: #8fd18a;
+  --del: #f08a7a;
+
+  --font-pixel: "Silkscreen", ui-monospace, monospace;
+  --font-body: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --radius: 6px;
+  --gutter: 16px;
+  --max: 1160px;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img.px,
+canvas.px {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+a {
+  color: var(--amber);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--ice);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.5em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5.2vw, 3.6rem);
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+}
+
+h3 {
+  font-size: 1.15rem;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+}
+
+:not(pre) > code {
+  background: var(--panel-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0.05em 0.35em;
+}
+
+pre {
+  margin: 0;
+  overflow: auto;
+  line-height: 1.5;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+section {
+  padding: 88px 0;
+  border-top: 1px solid var(--line);
+}
+
+.eyebrow {
+  font-family: var(--font-pixel);
+  color: var(--wave);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.lede {
+  color: var(--muted);
+  font-size: 1.12rem;
+  max-width: 46rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-pixel);
+  font-size: 1rem;
+  padding: 0.75em 1.2em;
+  border-radius: var(--radius);
+  border: 2px solid var(--ink);
+  background: var(--violet);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 4px 0 var(--ink);
+  cursor: pointer;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.btn:hover {
+  color: var(--ink);
+  background: var(--wave);
+}
+
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line);
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.btn.ghost:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.code {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: 13.5px;
+}
+
+/* syntax colours shared by build-time and in-browser highlighting */
+.t-key {
+  color: #8fb3ff;
+}
+.t-str {
+  color: #8fd18a;
+}
+.t-num {
+  color: #ffb86b;
+}
+.t-com {
+  color: #7a7f9f;
+  font-style: italic;
+}
+.t-punc {
+  color: #969cb8;
+}
+.d-add {
+  color: var(--add);
+  background: rgba(143, 209, 138, 0.08);
+  display: block;
+}
+.d-del {
+  color: var(--del);
+  background: rgba(240, 138, 122, 0.08);
+  display: block;
+}
+.d-hunk {
+  color: #b18cff;
+  display: block;
+}
+.d-ctx {
+  display: block;
+}
+.d-add,
+.d-del,
+.d-hunk,
+.d-ctx {
+  min-height: 1.5em;
+  white-space: pre;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ice);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* checker background for transparent sprites */
+.checker {
+  background-color: #1b1e30;
+  background-image: linear-gradient(45deg, #232740 25%, transparent 25%),
+    linear-gradient(-45deg, #232740 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #232740 75%),
+    linear-gradient(-45deg, transparent 75%, #232740 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+/* --- the sound player (src/scripts/player.ts) --- */
+.player {
+  margin: 0;
+  min-width: 0;
+}
+.player .sheet {
+  position: relative;
+  line-height: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #10141a;
+  cursor: pointer;
+}
+.player .sheet img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.player .head {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--ice);
+  box-shadow: 0 0 6px rgba(165, 216, 255, 0.8);
+  pointer-events: none;
+}
+.player .pbar,
+.vary,
+.holdrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+.player button,
+.vary button,
+.stems button,
+.holdrow button {
+  font: 0.8rem var(--font-pixel);
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 5px 9px;
+  cursor: pointer;
+}
+.player button:hover,
+.vary button:hover,
+.stems button:hover,
+.holdrow button:hover {
+  border-color: var(--wave);
+}
+.player .pp,
+.vary .again,
+.holdrow .hold {
+  background: var(--violet);
+  color: var(--ink);
+  border-color: var(--violet);
+  min-width: 6.2em;
+}
+.player .pp:hover,
+.vary .again:hover,
+.holdrow .hold:hover {
+  background: var(--wave);
+  border-color: var(--wave);
+}
+.holdrow .hold {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.holdrow .hold[aria-pressed="true"] {
+  background: var(--ice);
+}
+.player [aria-pressed="true"],
+.stems button[aria-pressed="true"] {
+  background: #2c2366;
+  border-color: var(--violet);
+}
+.stems button[aria-pressed="false"] {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.player .choices-out {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.player .time,
+.vlabel {
+  font: 0.75rem var(--font-mono);
+  color: var(--muted);
+  margin-left: auto;
+}
+.vlabel {
+  margin-left: 0;
+}
+.player .pnote {
+  font-size: 0.82rem;
+  color: var(--del);
+  margin: 6px 0 0;
+}
+.dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.dots i {
+  width: 8px;
+  height: 8px;
+  background: var(--line);
+}
+.dots i.on {
+  background: var(--ice);
+}
+.stems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
