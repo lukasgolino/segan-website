@@ -556,7 +556,7 @@ def og_images(public: Path, demo: Path) -> None:
     image = Image.new("RGBA", (1200, 630), (16, 18, 31, 255))
     hero_data = json.loads((demo / "hero.json").read_text())
     with Image.open(demo / hero_data["sounds"]["theme"]["outputs"][0]["sheet"]) as sheet:
-        crop = sheet.convert("RGBA").crop((0, 140, 1200, min(sheet.height, 140 + 470)))
+        crop = sheet.convert("RGBA").crop((0, 152, 1200, min(sheet.height, 152 + 470)))
     image.alpha_composite(crop, (0, 630 - crop.height))
     brand_project = pagan_api.open_project(ART / "brand")
     logo = frame_image(pagan_api.load(ART / "brand/sprites/logo.sprite.yaml", brand_project), "main")
