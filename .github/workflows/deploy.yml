@@ -44,3 +44,6 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v5
+        # v5's bundled artifact client prints DEP0040 (punycode) on every deploy: actions/deploy-pages#434
+        env:
+          NODE_OPTIONS: --no-deprecation
