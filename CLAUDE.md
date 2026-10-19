@@ -21,6 +21,7 @@ in a `.venv` with `pip install -r requirements.txt` (pinned segan, pagan, numpy,
 ## Decisions log
 
 - 2026-10-19: Separate repo `lukasgolino/segan-website` (public), like pagan-website; GitHub Pages.
+- 2026-10-19: Custom domain segan.top (owner); Pages serves at the root, so `base` is "/". HTTPS enforced.
 - 2026-10-19: Structure, components, build tooling and CI copied from pagan-website and adapted; same pinned Astro
   7.3.8 / fonts; CSS tokens renamed (ember→violet, glow→wave, spark→ice, teal→amber).
 - 2026-10-19: Logo/icon are PAGAN v0.6.1 sprites (art/brand); every sound and sheet is SEGAN v0.1.0 output.

@@ -93,7 +93,7 @@ SEGAN library's report/README for its strongest demo assets.
 1. Read pagan-website + SEGAN; scaffold the Astro site from pagan-website's structure with the blue/purple brand.
 2. `art/` demo projects + `tools/build_site_assets.py` + CI check.
 3. Landing page sections, demo with all scenarios, feature widgets, gallery, install, docs from SEGAN's files.
-4. Deploy to GitHub Pages (`lukasgolino.com/segan-website/`), verify the live site (links, mobile width,
+4. Deploy to GitHub Pages (<https://segan.top/>), verify the live site (links, mobile width,
    audio playback, Lighthouse ≥ 90 if measurable), OG image, README with commands as on pagan-website.
 5. Final pass: look at screenshots of every section (desktop + phone width) side by side with pagan-website to
    check the family resemblance; fix. Log open questions in QUESTIONS.md.

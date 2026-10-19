@@ -5,7 +5,7 @@ the recommendation is listed first. Everything below already works with the defa
 
 ## Setup (from the initial session, 2026-10-19)
 
-1. **Public repo + GitHub Pages** at `lukasgolino.com/segan-website/` (same setup as pagan-website). OK? (Recommended: yes.)
+1. ~~Public repo + GitHub Pages~~: decided, live at <https://segan.top/> (custom domain, owner 2026-10-19).
 2. **Cross-links**: add a "sister library" link to SEGAN on pagan-website (and in PAGAN's README)? Nothing outside the
    SEGAN repos was changed. This site links to PAGAN in the nav ("PAGAN ↗"), hero, open-source section, docs and footer.
    (Recommended: yes, a one-line link both ways.)

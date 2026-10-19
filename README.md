@@ -3,7 +3,7 @@
 The website for [SEGAN](https://github.com/lukasgolino/segan) (Sound Effect Grammar And Notation), the sister
 library of [PAGAN](https://github.com/lukasgolino/PAGAN): one long page (hero, scripted demo, features,
 comparison, install, gallery, FAQ), docs generated from SEGAN's own files, and three short topic pages.
-Static Astro site, no backend, deployed to GitHub Pages at <https://lukasgolino.com/segan-website/>.
+Static Astro site, no backend, deployed to GitHub Pages at <https://segan.top/> (custom domain).
 Its sister site is [pagan-website](https://github.com/lukasgolino/pagan-website): same structure, red/orange
 instead of blue/violet.
 
