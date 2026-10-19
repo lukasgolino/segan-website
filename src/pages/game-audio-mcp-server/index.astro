@@ -1,0 +1,26 @@
+---
+import Landing from "../../layouts/Landing.astro";
+---
+
+<Landing
+  title="Game audio MCP server · SEGAN"
+  description="SEGAN's MCP server gives any AI agent tools to write, lint, preview and build game audio: sound effects, music loops, kits and a shared mix. Listen sheets come back as images. Free, open source, local."
+  heading="A game audio MCP server for agents that can't hear"
+  points={[
+    "22 tools: <code>write_asset</code> (writes, lints and returns the listen sheet), <code>preview</code>, <code>lint</code>, <code>kit_show</code>, <code>mix_adjust</code>, <code>build</code>, <code>manifest</code>, <code>import_midi</code> and more.",
+    "Listen sheets come back as images (piano roll, waveform, spectrogram, loudness), WAVs as audio, so the model checks what it made.",
+    "Resources: the full workflow and notation reference, the project's brief, sound bible and manifest.",
+    "The same JSON as the CLI's <code>--json</code>: one contract for agents and scripts.",
+    "Works with Claude Desktop, Claude Code, Cursor or your own agent. Runs locally over stdio; no cloud, no key.",
+  ]}
+  code={`pip install "segan[mcp] @ git+https://github.com/lukasgolino/segan.git@v0.1.0"
+claude mcp add segan -- segan mcp --project ./audio
+
+# any other client: command "segan", args ["mcp", "--project", "./audio"]`}
+>
+  <p>
+    Audio models return a file you can't edit. SEGAN's tools work on source files instead: the agent writes
+    a kit, a song or a sound effect, SEGAN lints it, renders it and shows it the result as a picture, and
+    every sound in the game comes out matching.
+  </p>
+</Landing>

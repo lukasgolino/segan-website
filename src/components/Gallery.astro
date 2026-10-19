@@ -1,0 +1,160 @@
+---
+import { readJson } from "../lib/data";
+
+interface Item {
+  name: string;
+  group: string;
+  kind: string;
+  category: string;
+  description: string;
+  status: string;
+  seconds: number;
+  lufs: number | null;
+  target: number | null;
+  loop: [number, number] | null;
+  audio: string;
+  rate: number;
+  samples: number;
+  cell: string | null;
+  variants: number;
+  variations: number;
+  phases: string[];
+}
+const items = readJson<Item[]>("public/demo/gallery.json");
+const kits = readJson("public/demo/showcase.json").kits.length;
+const note = (it: Item) =>
+  [
+    it.category,
+    `${it.seconds.toFixed(2)} s`,
+    it.lufs !== null ? `${it.lufs.toFixed(1)} LUFS` : "",
+    it.loop ? "loops" : "",
+    it.variations ? `${it.variations} variations` : "",
+    it.variants ? `${it.variants} variant${it.variants > 1 ? "s" : ""}` : "",
+    it.phases.length ? `phases ${it.phases.join(", ")}` : "",
+  ]
+    .filter(Boolean)
+    .join(" · ");
+const player = (it: Item) =>
+  JSON.stringify({
+    base: "demo/",
+    outputs: [{ id: "main", label: "main", audio: it.audio, rate: it.rate, samples: it.samples, seconds: it.seconds, channels: 1, loop: it.loop, sheet: it.cell }],
+    name: it.name,
+    description: it.description,
+    sheetX: [0, 1],
+    compact: true,
+    loop: true,
+  });
+const filters = [
+  ["all", "All"],
+  ["sfx", "Sound effects"],
+  ["song", "Music"],
+];
+const songs = items.filter((i) => i.kind === "song").length;
+---
+
+<section id="gallery">
+  <div class="wrap">
+    <span class="eyebrow">Gallery</span>
+    <h2>Everything on this page</h2>
+    <p class="lede">
+      All {items.length} sounds the site's SEGAN projects build ({items.length - songs} SFX, {songs} songs, from {kits}{" "}
+      kits in SEGAN's own demo project and the demo above), each with its cell from <code>segan gallery</code>.
+      Status: <b>draft</b>: no human has approved them yet.
+    </p>
+    <div class="filters" role="group" aria-label="Filter the gallery">
+      {filters.map(([id, label], i) => <button type="button" data-f={id} aria-pressed={i === 0 ? "true" : "false"}>{label}</button>)}
+    </div>
+    <ul class="items" id="gallery-items">
+      {
+        items.map((it) => (
+          <li data-kind={it.kind}>
+            <segan-player data-player={player(it)} />
+            <p>
+              <b>{it.name}</b>
+              <span>{note(it)}</span>
+              <span class="desc">{it.description}</span>
+              <span class="from">{it.group}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  import "../scripts/widgets";
+  const buttons = document.querySelectorAll<HTMLButtonElement>("#gallery .filters button");
+  const items = document.querySelectorAll<HTMLElement>("#gallery-items li");
+  buttons.forEach((b) =>
+    b.addEventListener("click", () => {
+      buttons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      items.forEach((li) => (li.hidden = b.dataset.f !== "all" && li.dataset.kind !== b.dataset.f));
+    }),
+  );
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 24px 0 18px;
+  }
+  .filters button {
+    font: 0.8rem var(--font-pixel);
+    background: var(--panel);
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 7px 12px;
+    cursor: pointer;
+  }
+  .filters button[aria-pressed="true"] {
+    color: var(--ink);
+    background: var(--wave);
+    border-color: var(--wave);
+  }
+  .items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 14px;
+  }
+  .items li {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    padding: 10px 10px 0;
+  }
+  .items li[hidden] {
+    display: none;
+  }
+  .items p {
+    margin: 0;
+    padding: 10px 2px 12px;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .items p b {
+    font-family: var(--font-mono);
+    font-weight: 400;
+  }
+  .items p span {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+  .items p .desc {
+    color: #b9bdd3;
+  }
+  .items p .from {
+    font: 0.7rem var(--font-pixel);
+    color: var(--wave);
+    margin-top: 4px;
+  }
+</style>

@@ -1,0 +1,449 @@
+---
+import { SHEET_X, asset, playerData, readJson, step } from "../lib/data";
+import { escapeHtml, highlightDiff, highlightSource } from "../scripts/highlight";
+
+const danger = step("dungeon", "02-danger");
+const dangerDiff = danger.diffs["01-loop"].find((d: any) => d.path === "music/dungeon.song.yaml");
+const show = readJson("public/demo/showcase.json");
+const kits = show.kits;
+const before = step("platformer", "01-set");
+const after = step("platformer", "02-punchy");
+const mixSets = before.sounds.map((s: any, i: number) => ({ name: s.name, a: s.outputs[0].audio, b: after.sounds[i].outputs[0].audio }));
+const stomp = step("platformer", "02-stomp");
+const first = stomp.before;
+const lead = first.lint.findings.find((f: any) => f.rule === "W005");
+const loop = step("dungeon", "01-loop");
+const dungeon = loop.sounds[0];
+const dangerSound = danger.sounds[0];
+const outs = [dangerSound.outputs[0], ...dangerSound.outputs.filter((o: any) => o.id.startsWith("variant:"))];
+const bar = (beat: number) => beat * dangerSound.timing.meter[0];
+const variantPlayer = JSON.stringify({
+  base: "demo/",
+  outputs: outs,
+  name: "dungeon",
+  description: dangerSound.description,
+  sheetX: SHEET_X,
+  choices: outs.map((o: any) => (o.id === "main" ? `normal ${dangerSound.timing.bpm} bpm` : `${o.label} ${dangerSound.variant_timing[o.label].bpm} bpm`)),
+  choiceLabel: "Variant",
+  keep: "bars",
+  barSeconds: outs.map((o: any) => bar(o.id === "main" ? dangerSound.timing.beat_seconds : dangerSound.variant_timing[o.label].beat_seconds)),
+});
+const footstep = show.sounds.step;
+const stems = step("dungeon", "03-stems");
+const m = stems.manifest.dungeon;
+const manifest = JSON.stringify(
+  {
+    dungeon: {
+      kind: m.kind,
+      file: m.file,
+      samples: m.samples,
+      sample_rate: m.sample_rate,
+      bpm: m.bpm,
+      bars: m.bars,
+      loop: m.loop,
+      lufs: m.lufs,
+      variants: { danger: { file: m.variants.danger.file, bpm: m.variants.danger.bpm, loop: { start: m.variants.danger.loop.start, end: m.variants.danger.loop.end } } },
+      stems: { drums: m.stems.drums, "…": `${Object.keys(m.stems).length - 1} more` },
+      godot_stems: m.godot_stems,
+    },
+  },
+  null,
+  1,
+).replace(/\[\n\s*([^\[\]{}]*?)\n\s*\]/g, (_, s: string) => `[${s.replace(/\s*\n\s*/g, " ")}]`);
+const drums = Object.keys(m.stems).indexOf("drums");
+const gd = `var music: AudioStreamSynchronized = load("${m.godot_stems}")
+music.set_sync_stream_volume(${drums}, -60.0)   # stream_${drums} = drums: out while exploring
+$Music.stream = music
+$Music.play()                       # every stem in sync
+
+# a fight starts: bring the drums in
+music.set_sync_stream_volume(${drums}, 0.0)
+
+$Coin.stream = load("res://assets/generated/audio/sfx/coin.tres")
+$Coin.play()                        # a different variation each time`;
+---
+
+<section id="features">
+  <div class="wrap">
+    <span class="eyebrow">Why SEGAN</span>
+    <h2>Built for a whole game's worth of sound</h2>
+    <p class="lede">
+      Everything below is real build output from the demo projects, played in your browser from the same
+      files and loop points a game loads.
+    </p>
+
+    <div class="cards">
+      <article class="card wide">
+        <div class="text">
+          <h3><span>1</span> Sound as source code</h3>
+          <p>
+            The agent writes text you can read, diff, review and keep in git. "A danger version for when
+            enemies are near" is a one-line change, and the review is a normal pull request.
+          </p>
+        </div>
+        <pre class="code"><code set:html={`<span class="t-com">music/dungeon.song.yaml</span>\n` + highlightDiff(dangerDiff.diff)} /></pre>
+      </article>
+
+      <article class="card wide">
+        <div class="text">
+          <h3><span>2</span> Kits are the palette</h3>
+          <p>
+            A kit maps one-character keys to synth instruments and drum macros. Songs write those keys in
+            their step grids, whose rows are the notes of the song's key, so an off-key note can't be
+            written. Every song made with a kit sounds like the same game. Click a key to hear it.
+          </p>
+        </div>
+        <div class="kits" id="kits">
+          <div class="kit-tabs" role="tablist" aria-label="Kit">
+            {kits.map((k: any, i: number) => <button type="button" role="tab" aria-selected={i === 0 ? "true" : "false"} data-kit={k.name}>{k.name}</button>)}
+          </div>
+          {
+            kits.map((k: any, i: number) => (
+              <div class="kit" data-kit={k.name} hidden={i !== 0}>
+                <p class="kdesc">{k.description}</p>
+                <div class="keys">
+                  {k.instruments.map((ins: any) => (
+                    <button type="button" class="key" data-audio={asset(`demo/${ins.audio}`)} aria-label={`Play ${ins.name} (key ${ins.key})`}>
+                      <b>{ins.key}</b>
+                      <span>{ins.name}</span>
+                      <small>{ins.source}</small>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </article>
+
+      <article class="card">
+        <h3><span>3</span> One mix for everything</h3>
+        <p>
+          Every sound goes through one shared mix: room, tone, crush, limiter and loudness targets. "Punchier
+          and drier" is <code>segan mix adjust --room -0.1 --brightness 2</code>, and every asset follows.
+        </p>
+        <div class="mix" id="mix" data-sets={JSON.stringify(mixSets.map((s: any) => ({ name: s.name, a: asset(`demo/${s.a}`), b: asset(`demo/${s.b}`) })))}>
+          <div class="ab" role="group" aria-label="Mix">
+            <button type="button" data-v="a" aria-pressed="false">A: before</button>
+            <button type="button" data-v="b" aria-pressed="true">B: after</button>
+          </div>
+          <div class="pads">
+            {mixSets.map((s: any) => <button type="button" class="pad" data-name={s.name}>▶ {s.name}</button>)}
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3><span>4</span> It checks its own work</h3>
+        <p>
+          Lint catches what an agent can't hear: lead-in silence (input lag), clicks at loop points,
+          clipping, aliasing, off-key clashes, loudness out of reach. A real finding, from the stomp's first
+          version:
+        </p>
+        <p class="find"><b>{lead.rule}</b> {lead.message.replace(/: it will feel.*$/, "")}</p>
+        <segan-player data-player={playerData(first.sound, "demo/", { compact: true, name: "stomp (first version)" })}></segan-player>
+        <p class="ok">Fixed: every layer starts at 0, <b>0 warnings</b></p>
+        <segan-player data-player={playerData(stomp.sounds[0], "demo/", { compact: true })}></segan-player>
+      </article>
+
+      <article class="card">
+        <h3><span>5</span> Loops that don't click</h3>
+        <p>
+          Looping songs end with the loop's first bar again, so the tail rings into the start, and the
+          manifest gives loop points in samples. This player loops on them, sample-exact, like a game.
+        </p>
+        <segan-player data-player={playerData(dungeon, "demo/", { loop: true, compact: true })}></segan-player>
+        <img class="seam" src={asset(`demo/${dungeon.outputs[0].seam}`)} alt="SEGAN's seam view of the dungeon loop: the end spliced onto the start, with no jump at the splice" loading="lazy" width="1200" />
+      </article>
+
+      <article class="card">
+        <h3><span>6</span> Variations, not repetition</h3>
+        <p>
+          Sounds that play all the time get <code>variations</code>: small pitch and timbre changes, each
+          normalised. Godot gets an AudioStreamRandomizer. Press "play again" a few times.
+        </p>
+        <segan-player data-player={playerData(footstep, "demo/", { compact: true })}></segan-player>
+      </article>
+
+      <article class="card">
+        <h3><span>7</span> Variants that switch in time</h3>
+        <p>
+          <code>danger: {"{"} tempo: 124, instrument_swap: {"{"} q: r {"}"} {"}"}</code> is a whole second
+          version of the song. Switch while it plays: it jumps to the same bar, from the manifest's timing.
+        </p>
+        <segan-player data-player={variantPlayer}></segan-player>
+      </article>
+
+      <article class="card">
+        <h3><span>8</span> Loudness that matches</h3>
+        <p>
+          Every asset is normalised to its category's target (music -16 LUFS, SFX -14, UI -20, footsteps -22),
+          so nothing jumps out. <code>segan gallery</code> draws all of them, with this chart at the bottom:
+        </p>
+        <a href={asset(`demo/${show.gallery}`)}><img class="gallery-img" src={asset(`demo/${show.gallery}`)} alt="segan gallery of SEGAN's demo project: every asset's waveform and spectrogram, and a loudness chart by category with each target" loading="lazy" width="1200" /></a>
+      </article>
+
+      <article class="card">
+        <h3><span>9</span> Free, open, local</h3>
+        <p>
+          MIT-licensed. Runs on your machine, offline. No account, no credits, no API key, no cloud. Builds
+          are deterministic: the same sources give byte-identical WAVs.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3><span>10</span> Built for agents</h3>
+        <p>
+          A Claude skill that teaches the whole workflow (including how to read a listen sheet honestly), an
+          MCP server with 22 tools that returns listen sheets as images, <code>--json</code> on every command,
+          and a long-term memory in the project: <code>BRIEF.md</code>, <code>SOUND.md</code>, asset status.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3><span>11</span> Honest about hearing</h3>
+        <p>
+          An agent can't hear, so SEGAN never lets it pretend: every asset stays <code>status: draft</code> until a
+          human listens and runs <code>segan mark --status approved</code>. Everything on this page is still a
+          draft.
+        </p>
+      </article>
+
+      <article class="card wide">
+        <div class="text">
+          <h3><span>12</span> Engine-ready</h3>
+          <p>
+            <code>manifest.json</code> describes every file: length and loop points in samples, sections, bars
+            and markers, variants, variations, phases and stems. Any engine can read it. For Godot 4, SEGAN
+            also writes the loop points into each WAV's <code>.import</code>, an AudioStreamRandomizer per
+            varied SFX and an AudioStreamSynchronized per song with stems.
+          </p>
+        </div>
+        <div class="two">
+          <pre class="code"><code set:html={`<span class="t-com">manifest.json (shortened)</span>\n` + highlightSource(manifest)} /></pre>
+          <pre class="code"><code set:html={`<span class="t-com"># Godot 4</span>\n` + escapeHtml(gd)} /></pre>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/widgets";
+  import { Voice, audio, claim, load, release } from "../scripts/audio";
+
+  // one-shot pads (kit keys, the mix A/B): play a file once, stopping whatever else plays
+  let voice: Voice | null = null;
+  const owner = {
+    stop: () => {
+      voice?.stop();
+      voice = null;
+    },
+  };
+  async function shot(url: string, button: HTMLElement): Promise<void> {
+    audio();
+    claim(owner);
+    button.classList.add("on");
+    try {
+      const buffer = await load(url);
+      voice?.stop();
+      const v = new Voice([buffer], { id: "", label: "", audio: url, rate: buffer.sampleRate, samples: buffer.length, seconds: buffer.duration, channels: buffer.numberOfChannels, loop: null, sheet: null }, false);
+      voice = v;
+      v.onended = () => {
+        button.classList.remove("on");
+        if (voice === v) release(owner);
+      };
+    } catch {
+      button.classList.remove("on");
+      button.title = "This browser couldn't play the sound";
+    }
+  }
+
+  const kits = document.getElementById("kits")!;
+  const tabs = [...kits.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+  tabs.forEach((t) =>
+    t.addEventListener("click", () => {
+      tabs.forEach((x) => x.setAttribute("aria-selected", String(x === t)));
+      kits.querySelectorAll<HTMLElement>(".kit").forEach((k) => (k.hidden = k.dataset.kit !== t.dataset.kit));
+    }),
+  );
+  kits.querySelectorAll<HTMLButtonElement>(".key").forEach((b) => b.addEventListener("click", () => void shot(b.dataset.audio!, b)));
+
+  const mix = document.getElementById("mix")!;
+  const sets: { name: string; a: string; b: string }[] = JSON.parse(mix.dataset.sets!);
+  let version: "a" | "b" = "b";
+  const ab = [...mix.querySelectorAll<HTMLButtonElement>(".ab button")];
+  ab.forEach((b) =>
+    b.addEventListener("click", () => {
+      version = b.dataset.v as "a" | "b";
+      ab.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    }),
+  );
+  mix.querySelectorAll<HTMLButtonElement>(".pad").forEach((b) =>
+    b.addEventListener("click", () => {
+      const s = sets.find((x) => x.name === b.dataset.name)!;
+      void shot(s[version], b);
+    }),
+  );
+</script>
+
+<style>
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 36px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    min-width: 0;
+  }
+  .card.wide {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: 28px;
+    align-items: center;
+  }
+  .card h3 span {
+    display: inline-grid;
+    place-items: center;
+    width: 1.6em;
+    height: 1.6em;
+    background: var(--violet);
+    color: var(--ink);
+    margin-right: 6px;
+    font-size: 0.8em;
+  }
+  .card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .card .code {
+    font-size: 12.5px;
+    max-height: 340px;
+  }
+  .kit-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .kit-tabs button {
+    font: 0.8rem var(--font-pixel);
+    background: var(--panel-2);
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+  .kit-tabs button[aria-selected="true"] {
+    color: var(--ink);
+    background: var(--wave);
+    border-color: var(--wave);
+  }
+  .kdesc {
+    margin: 0 0 10px;
+    font-size: 0.85rem !important;
+  }
+  .keys {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: 6px;
+  }
+  .key {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    text-align: left;
+    background: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 8px 10px;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .key:hover,
+  .key:global(.on),
+  .pad:global(.on) {
+    border-color: var(--ice);
+  }
+  .key b {
+    font: 1.4rem var(--font-pixel);
+    color: var(--wave);
+    line-height: 1;
+  }
+  .key span {
+    font: 0.75rem var(--font-mono);
+  }
+  .key small {
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+  .ab,
+  .pads {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .ab button,
+  .pad {
+    font: 0.8rem var(--font-pixel);
+    background: var(--panel-2);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 7px 11px;
+    cursor: pointer;
+  }
+  .ab button[aria-pressed="true"] {
+    background: var(--violet);
+    border-color: var(--violet);
+    color: var(--ink);
+  }
+  .pad {
+    flex: 1;
+    min-width: 5.5em;
+    padding: 14px 10px;
+  }
+  .find {
+    color: var(--del) !important;
+    font-family: var(--font-mono);
+    font-size: 0.78rem !important;
+    margin: 10px 0 6px;
+  }
+  .ok {
+    color: var(--add) !important;
+    font-size: 0.85rem !important;
+    margin: 12px 0 6px;
+  }
+  .seam,
+  .gallery-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    margin-top: 10px;
+  }
+  .two {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 960px) {
+    .cards {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .card.wide,
+    .two {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

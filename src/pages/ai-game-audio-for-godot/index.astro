@@ -1,0 +1,31 @@
+---
+import Landing from "../../layouts/Landing.astro";
+---
+
+<Landing
+  title="AI game audio for Godot 4 · SEGAN"
+  description="Let your AI agent make sound effects and music loops for your Godot 4 game: WAVs with loop points in their .import files, AudioStreamRandomizer and AudioStreamSynchronized resources. Free and open source."
+  heading="AI game audio for Godot 4, as resources Godot loads"
+  points={[
+    "Loop points written into each WAV's <code>.import</code>: music loops by itself, sample-exact.",
+    "An <b>AudioStreamRandomizer</b> <code>.tres</code> for every SFX with variations: play it, get a different one each time.",
+    "An <b>AudioStreamSynchronized</b> <code>.tres</code> per song with stems: fade layers in and out for adaptive music.",
+    "Sections, bars and markers in <code>manifest.json</code>, in samples and seconds, for syncing game events; <code>segan build --verify-godot</code> loads and plays everything in headless Godot.",
+    "Free, MIT, offline. Your agent writes the sounds; you review them like code, and approve them by ear.",
+  ]}
+  code={`# segan.toml, next to your Godot project
+output_dir = "../game/assets/generated/audio"
+export = ["wav", "godot", "stems"]
+
+# in GDScript
+$Music.stream = load("res://assets/generated/audio/music/dungeon.wav")
+$Music.play()      # loops on its own loop points
+$Coin.stream = load("res://assets/generated/audio/sfx/coin.tres")
+$Coin.play()       # a different variation each time`}
+>
+  <p>
+    SEGAN is a text language for game audio. Your agent (Claude with the SEGAN skill, or any agent over
+    MCP) writes the kits, sound effects and songs; <code>segan build</code> turns them into WAVs and Godot
+    resources that drop straight into your project.
+  </p>
+</Landing>

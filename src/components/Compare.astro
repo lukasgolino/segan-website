@@ -1,0 +1,113 @@
+---
+const rows: [string, string, string, string, string][] = [
+  ["How sound is made", "A generative model renders audio from a text prompt", "Sliders and randomise buttons over one synth patch", "A human enters notes into pattern grids", "The agent writes a source file in a text notation that SEGAN compiles"],
+  ["Sound is stored as", "MP3/WAV files", "Parameter sets, or exported WAVs", "Module files (.ftm, .fur, …) + exports", "Text in git: diffable, reviewable, editable by hand or by agent"],
+  ["What it makes", "SFX, ambience, voice, full songs", "Short SFX", "Music (and SFX by hand)", "SFX, layered and phased; looping music with variants and stems"],
+  ["Cost / access", "Credits or subscriptions, cloud, account", "Free, mostly in the browser", "Free (some open source)", "Free, MIT, offline"],
+  ["Realism", "Best of the four: recorded-sounding audio and vocals", "Retro synth only", "Chip / synth (sample playback in some)", "Synth only: chiptune and 80s synth; no samples, no vocals"],
+  ["Consistency across a game", "Per prompt", "Per sound", "Per module", "One shared kit palette, mix, room and loudness targets; change one setting, every asset re-renders"],
+  ["Quality checks", "None", "None", "Your ears", "Lint the agent reads and fixes (lead-in silence, loop clicks, clipping, aliasing, clashes, loudness), and listen sheets it can look at"],
+  ["Engine output", "Audio files", "WAV", "WAV / NSF / chip formats", "WAVs with smpl loop points, manifest.json for any engine, Godot .import loops, randomizers and synchronized stems"],
+  ["Agent access", "APIs; ElevenLabs has an official MCP server", "ZzFX's sounds are short code arrays", "None", "Claude skill, MCP server (22 tools), --json CLI"],
+  ["Deterministic", "No", "Yes", "Yes", "Yes: byte-identical builds"],
+];
+---
+
+<section id="compare">
+  <div class="wrap">
+    <span class="eyebrow">How it compares</span>
+    <h2>Four kinds of tool</h2>
+    <p class="lede">
+      Facts as of October 2026, from each tool's own documentation. Pick what fits your game.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">AI audio generators<small>ElevenLabs Sound Effects, Stable Audio, Suno, Udio</small></th>
+            <th scope="col">Procedural SFX tools<small>sfxr / jsfxr / bfxr, ChipTone, ZzFX</small></th>
+            <th scope="col">Trackers<small>FamiTracker, Furnace</small></th>
+            <th scope="col" class="us">SEGAN</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map(([k, a, b, c, d]) => (
+              <tr>
+                <th scope="row">{k}</th>
+                <td>{a}</td>
+                <td>{b}</td>
+                <td>{c}</td>
+                <td class="us">{d}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="where">
+      <b>Where SEGAN loses:</b> it isn't a recording studio or a composer. For realistic foley, orchestral
+      scores or vocals, a sample library or an audio generator is better, and SEGAN can't judge taste: a
+      human has to listen. SEGAN wins on a whole game's worth of retro-synth sounds and loops that match,
+      loop cleanly, and change together.
+    </p>
+  </div>
+</section>
+<style>
+  .scroll {
+    overflow-x: auto;
+    margin-top: 28px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 920px;
+    font-size: 0.92rem;
+  }
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  thead th {
+    font: 0.85rem var(--font-pixel);
+    background: var(--panel);
+  }
+  thead small {
+    display: block;
+    font: 0.75rem var(--font-body);
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  tbody th {
+    font-weight: 600;
+    color: var(--muted);
+    width: 13%;
+  }
+  td {
+    color: var(--muted);
+  }
+  .us {
+    color: var(--text);
+    background: rgba(139, 92, 246, 0.09);
+  }
+  thead .us {
+    color: var(--wave);
+  }
+  tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+  .where {
+    margin-top: 20px;
+    color: var(--muted);
+    max-width: 52rem;
+  }
+  .where b {
+    color: var(--text);
+  }
+</style>

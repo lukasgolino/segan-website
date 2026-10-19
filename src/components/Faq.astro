@@ -1,0 +1,87 @@
+---
+import { asset } from "../lib/data";
+
+const faqs: [string, string][] = [
+  [
+    "Is SEGAN an AI audio generator?",
+    "No. SEGAN doesn't generate audio with a model: it compiles. Your AI agent writes SEGAN source files (kits, step-grid songs, layered SFX); SEGAN checks them and renders them with a deterministic synthesizer. The results are exact, repeatable and editable, and they sound like synths, not recordings.",
+  ],
+  [
+    "Does it sound good?",
+    "We can't promise that, and neither can your agent: it can't hear. SEGAN gives it listen sheets and numbers (pitch, loudness, clicks, timing), which catch mistakes but not taste. Every sound on this site is still a draft that no human has signed off yet; listen and judge for yourself. Your own sounds stay drafts until you approve them.",
+  ],
+  [
+    "When should I use something else?",
+    "For realistic foley, orchestral scores, vocals or anything that should sound recorded, use a sample library or an audio generator: SEGAN is synth only (chiptune and 80s synth styles). For one quick retro blip, sfxr-style tools are faster. SEGAN wins when you need a whole game's worth of sounds and loops that match and change together.",
+  ],
+  [
+    "Is it a composer?",
+    "No. It makes wrong notes impossible to write (grid rows are the notes of the key) and flags clashes, but the music is only as good as what the agent writes. The skill teaches it the craft (chords, bass on the beats, phrases); you decide if it works.",
+  ],
+  [
+    "Which agents work with it?",
+    "Any agent that speaks MCP (Claude Desktop, Claude Code, Cursor, your own). The SEGAN skill, which teaches the full workflow, is for Claude. Without either, the CLI's --json output is easy for any program to drive.",
+  ],
+  [
+    "Which engines?",
+    "Any: manifest.json describes every file, its loop points in samples, sections, bars, markers, variants and stems, and the WAVs carry their loop points in a smpl chunk. Godot 4 gets loop points in .import files, randomizers and synchronized stems out of the box.",
+  ],
+  [
+    "Who owns the sounds?",
+    "You do. SEGAN is MIT-licensed and runs locally; nothing is uploaded and nothing is claimed.",
+  ],
+  [
+    "Is the demo a live AI?",
+    "No. It's a scripted conversation, so it can't make things up. But every sound, listen sheet, source file, diff, lint result and file listing in it is real SEGAN output, rebuilt from the project files in this site's repository. Music is served as Ogg Vorbis to keep the page light; it has the same length in samples, so the loop points are exact.",
+  ],
+];
+---
+
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">FAQ</span>
+    <h2>Straight answers</h2>
+    <div class="list">
+      {
+        faqs.map(([q, a]) => (
+          <details>
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </details>
+        ))
+      }
+    </div>
+    <p class="more">More in the <a href={asset("docs/")}>docs</a>.</p>
+  </div>
+</section>
+<style>
+  .list {
+    margin-top: 24px;
+    max-width: 52rem;
+  }
+  details {
+    border-bottom: 1px solid var(--line);
+  }
+  summary {
+    cursor: pointer;
+    padding: 16px 0;
+    font-weight: 600;
+    list-style: none;
+  }
+  summary::before {
+    content: "+ ";
+    color: var(--wave);
+    font-family: var(--font-pixel);
+  }
+  details[open] summary::before {
+    content: "− ";
+  }
+  details p {
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+  .more {
+    margin-top: 20px;
+    color: var(--muted);
+  }
+</style>

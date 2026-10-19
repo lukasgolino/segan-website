@@ -1,0 +1,26 @@
+---
+import Landing from "../../layouts/Landing.astro";
+---
+
+<Landing
+  title="Free, open-source AI sound effect generator · SEGAN"
+  description="Make game sound effects and music loops with your AI agent, free: no credits, no account, no cloud. SEGAN renders synth SFX and chiptune loops that match, with variations, loop points and a manifest."
+  heading="A free, open-source AI sound effect generator"
+  points={[
+    "<b>Free forever</b>: MIT-licensed, runs offline on your machine. No credits, no subscription, no API key.",
+    "<b>Consistent</b>: one shared mix, room and loudness targets for every sound in the game.",
+    "<b>Editable</b>: the sound is text in your repo. Change one line and rebuild; review changes like code.",
+    "<b>Game-ready</b>: WAVs with loop points, variations, phases, stems, manifest.json for any engine, Godot resources.",
+    "<b>Honest about limits</b>: synth only (chiptune, 80s synth). For realistic or orchestral audio, use a sample library or a generator.",
+  ]}
+  code={`You:   "a coin pickup, bright and short"
+Agent: writes sfx/coin.sfx.yaml
+       segan lint      -> 0 errors, 0 warnings
+       segan preview   -> reads the listen sheet, fixes
+       segan build     -> coin.wav, coin.tres, manifest.json`}
+>
+  <p>
+    SEGAN doesn't generate sound with an audio model. Your AI agent writes it in SEGAN's notation and
+    SEGAN synthesizes it, which is why the sounds match each other, loop cleanly and cost nothing.
+  </p>
+</Landing>
