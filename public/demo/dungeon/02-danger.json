@@ -1,0 +1,276 @@
+{
+ "scenario": "dungeon",
+ "id": "02-danger",
+ "agent": "Added a variant in one line: `danger: { tempo: 124, instrument_swap: { q: r } }`. Same notes, faster, with a thinner, edgier pulse on the arpeggio. The manifest gives both versions' bars in samples, so your game can switch at the same bar. Try it: switch while it plays.",
+ "ran": [
+  "segan lint",
+  "segan preview dungeon --output variant:danger"
+ ],
+ "show": {
+  "sounds": [
+   "dungeon"
+  ],
+  "variants": true
+ },
+ "lint": {
+  "errors": 0,
+  "warnings": 0,
+  "findings": []
+ },
+ "diffs": {
+  "01-loop": [
+   {
+    "path": "music/dungeon.song.yaml",
+    "status": "modified",
+    "added": 3,
+    "removed": 0,
+    "diff": "@@ -105,3 +105,6 @@\n   main: [a, b, a, c]\n arrangement: [main]\n loop: main                    # the whole song loops\n+\n+variants:                     # each one is music/dungeon.<variant>.wav, same bars and loop points in bars\n+  danger: { tempo: 124, instrument_swap: { q: r } }   # enemies near: faster, a thinner, edgier arpeggio"
+   },
+   {
+    "path": "BRIEF.md",
+    "status": "modified",
+    "added": 2,
+    "removed": 1,
+    "diff": "@@ -16,7 +16,7 @@\n \n For each: what it is, when it plays, length, looping or one-shot, variations. Example:\n \n-- **Dungeon loop** (`music/dungeon.song.yaml`): D harmonic minor, 100 bpm, 8 bars, loops seamlessly; kit `crypt`.\n+- **Dungeon loop** (`music/dungeon.song.yaml`): D harmonic minor, 100 bpm, 8 bars, loops seamlessly; kit `crypt`; variant `danger` (enemies near).\n \n ## Wishlist\n \n@@ -40,3 +40,4 @@\n Dated notes on what the owner asked for and decided, so later sounds stay consistent with it. Example:\n \n - 2026-01-01: \"Everything sounds too dry\" -> `segan mix adjust --room +0.1` (applies to every asset).\n+- 2026-10-19: \"A danger version for when enemies are near\" -> variant `danger` (124 bpm, thin pulse arpeggio); the game switches at the same bar."
+   }
+  ]
+ },
+ "sounds": [
+  {
+   "name": "dungeon",
+   "kind": "song",
+   "category": "music",
+   "description": "Dungeon exploration loop: D harmonic minor, 100 bpm, a vibrato pulse lead over a soft arpeggio, triangle bass and sparse drums. Tense, not scary; 8 bars, loops seamlessly.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "dungeon/01-loop/dungeon.ogg",
+     "rate": 44100,
+     "samples": 952560,
+     "seconds": 21.6,
+     "channels": 2,
+     "loop": [
+      105840,
+      952560
+     ],
+     "sheet": "dungeon/01-loop/dungeon.listen.webp",
+     "seam": null,
+     "lufs": -16.0,
+     "target": -16.0,
+     "peak": -5.13,
+     "seam_click": 0.0
+    },
+    {
+     "id": "variant:danger",
+     "label": "danger",
+     "audio": "dungeon/02-danger/dungeon.danger.ogg",
+     "rate": 44100,
+     "samples": 768194,
+     "seconds": 17.419365,
+     "channels": 2,
+     "loop": [
+      85355,
+      768194
+     ],
+     "sheet": "dungeon/02-danger/dungeon.danger.listen.webp",
+     "seam": null,
+     "lufs": -16.0,
+     "target": -16.0,
+     "peak": -5.07,
+     "seam_click": 0.0
+    }
+   ],
+   "timing": {
+    "bpm": 100.0,
+    "bars": 8.0,
+    "beat_seconds": 0.6,
+    "meter": [
+     4,
+     4
+    ],
+    "key": "D harmonic_minor"
+   },
+   "variant_timing": {
+    "danger": {
+     "bpm": 124.0,
+     "beat_seconds": 0.483871
+    }
+   }
+  }
+ ],
+ "manifest": {
+  "dungeon": {
+   "arrangement": [
+    {
+     "end": 846720,
+     "end_bar": 9.0,
+     "end_seconds": 19.2,
+     "patterns": [
+      "a",
+      "b",
+      "a",
+      "c"
+     ],
+     "section": "main",
+     "start": 0,
+     "start_bar": 1.0,
+     "start_seconds": 0.0
+    }
+   ],
+   "bars": 8.0,
+   "beat_count": 32,
+   "beat_seconds": 0.6,
+   "bpm": 100.0,
+   "category": "music",
+   "channels": 2,
+   "description": "Dungeon exploration loop: D harmonic minor, 100 bpm, a vibrato pulse lead over a soft arpeggio, triangle bass and sparse drums. Tense, not scary; 8 bars, loops seamlessly.",
+   "file": "res://assets/generated/audio/music/dungeon.wav",
+   "key": "D harmonic_minor",
+   "kind": "song",
+   "limiting_db": 0.0,
+   "loop": {
+    "end": 952560,
+    "end_seconds": 21.6,
+    "offset": 105840,
+    "section": "main",
+    "start": 105840,
+    "start_seconds": 2.4
+   },
+   "lufs": -16.0,
+   "markers": {},
+   "meter": [
+    4,
+    4
+   ],
+   "sample_rate": 44100,
+   "samples": 952560,
+   "seconds": 21.6,
+   "sections": {
+    "main": {
+     "end": 846720,
+     "end_bar": 9.0,
+     "end_seconds": 19.2,
+     "patterns": [
+      "a",
+      "b",
+      "a",
+      "c"
+     ],
+     "start": 0,
+     "start_bar": 1.0,
+     "start_seconds": 0.0
+    }
+   },
+   "status": "draft",
+   "steps_per_beat": 4,
+   "style_version": 1,
+   "tags": [
+    "music",
+    "dungeon",
+    "loop"
+   ],
+   "target_lufs": -16.0,
+   "variants": {
+    "danger": {
+     "arrangement": [
+      {
+       "end": 682839,
+       "end_bar": 9.0,
+       "end_seconds": 15.483871,
+       "patterns": [
+        "a",
+        "b",
+        "a",
+        "c"
+       ],
+       "section": "main",
+       "start": 0,
+       "start_bar": 1.0,
+       "start_seconds": 0.0
+      }
+     ],
+     "bars": 8.0,
+     "beat_count": 32,
+     "beat_seconds": 0.483871,
+     "bpm": 124.0,
+     "channels": 2,
+     "file": "res://assets/generated/audio/music/dungeon.danger.wav",
+     "key": "D harmonic_minor",
+     "limiting_db": 0.0,
+     "loop": {
+      "end": 768194,
+      "end_seconds": 17.419365,
+      "offset": 85355,
+      "section": "main",
+      "start": 85355,
+      "start_seconds": 1.935488
+     },
+     "lufs": -16.0,
+     "markers": {},
+     "meter": [
+      4,
+      4
+     ],
+     "samples": 768194,
+     "seconds": 17.419365,
+     "sections": {
+      "main": {
+       "end": 682839,
+       "end_bar": 9.0,
+       "end_seconds": 15.483871,
+       "patterns": [
+        "a",
+        "b",
+        "a",
+        "c"
+       ],
+       "start": 0,
+       "start_bar": 1.0,
+       "start_seconds": 0.0
+      }
+     },
+     "steps_per_beat": 4,
+     "target_lufs": -16.0
+    }
+   }
+  }
+ },
+ "files": [
+  {
+   "path": "assets/generated/audio/manifest.json",
+   "bytes": 3584
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.danger.wav",
+   "bytes": 3072888
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.danger.wav.import",
+   "bytes": 133
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.wav",
+   "bytes": 3810352
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.wav.import",
+   "bytes": 134
+  }
+ ],
+ "godot": {
+  "path": "assets/generated/audio/music/dungeon.wav.import",
+  "text": "[remap]\n\nimporter=\"wav\"\ntype=\"AudioStreamWAV\"\n\n[params]\n\nedit/loop_mode=2\nedit/loop_begin=105839\nedit/loop_end=952559\ncompress/mode=2"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ],
+ "next": [
+  {
+   "to": "03-stems",
+   "say": "Can the drums come in only when there's a fight?"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+name: brand
+# The SEGAN site's colours: night ink, a violet-to-ice ramp for the wordmark, a blue ramp for the icon. 13 colors.
+colors:
+  "0": { hex: "#0a0b16", name: ink }
+  "1": { hex: "#171a2b", name: night }
+  "2": { hex: "#2a2f4a", name: dusk }
+  "3": { hex: "#3b2a7a", name: violet_deep }
+  "4": { hex: "#6d4bd1", name: violet }
+  "5": { hex: "#8b5cf6", name: violet_light }
+  "6": { hex: "#6b9dff", name: wave }
+  "7": { hex: "#a5d8ff", name: ice }
+  "8": { hex: "#1e3a7a", name: blue_deep }
+  "9": { hex: "#3e6fd8", name: blue }
+  "a": { hex: "#7fb0ff", name: blue_light }
+  "b": { hex: "#eef1fb", name: paper }
+  "c": { hex: "#ffb86b", name: amber }
+ramps:
+  violet: ["3", "4", "5", "6", "7"]
+  blue:   ["8", "9", "a"]
+  ink:    ["0", "1", "2"]

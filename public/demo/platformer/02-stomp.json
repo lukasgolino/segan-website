@@ -1,0 +1,191 @@
+{
+ "scenario": "platformer",
+ "id": "02-stomp",
+ "agent": "Added `stomp`: a fat square bouncing down an octave over a short kick thud, with a soft pop. My first version waited 38 ms before making a sound, and lint flagged it (W005: lead-in silence feels like input lag), plus W001 (too peaky to reach its loudness). Now every layer starts at 0 with more body: 0 warnings.",
+ "ran": [
+  "segan new sfx stomp --description \"Landing on an enemy...\"",
+  "segan lint sfx/stomp.sfx.yaml",
+  "segan preview stomp",
+  "segan lint sfx/stomp.sfx.yaml"
+ ],
+ "show": {
+  "sounds": [
+   "stomp"
+  ],
+  "before": "features/stomp-v1"
+ },
+ "lint": {
+  "errors": 0,
+  "warnings": 0,
+  "findings": []
+ },
+ "diffs": {
+  "01-set": [
+   {
+    "path": "sfx/stomp.sfx.yaml",
+    "status": "added",
+    "added": 27,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,27 @@\n+name: stomp\n+description: \"Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop.\"\n+category: sfx\n+status: draft\n+style_version: 1\n+tags: [player, enemy]\n+duration: 0.34\n+layers:\n+  - id: squash                # the bounce: a fat square dropping an octave\n+    osc: pulse\n+    duty: 0.5\n+    pitch: [[0, A4], [0.14, A3]]\n+    slide: true\n+    env: [0.001, 0.1, 0.55, 0.09]\n+    length: 0.16\n+    gain: -6\n+  - id: thud\n+    drum: kick\n+    tune: 60\n+    decay: 0.22\n+    punch: 12\n+    gain: -5\n+  - id: pop\n+    osc: noise\n+    filter: { type: bp, cutoff: 1800, resonance: 0.3 }\n+    env: [0.001, 0.03, 0.0, 0.02]\n+    gain: -16"
+   },
+   {
+    "path": "BRIEF.md",
+    "status": "modified",
+    "added": 2,
+    "removed": 0,
+    "diff": "@@ -19,6 +19,7 @@\n - **Jump** (`sfx/jump.sfx.yaml`): springy upward sweep, < 0.3 s, plays on every jump.\n - **Coin** (`sfx/coin.sfx.yaml`): bright two-note chime, category `pickup`.\n - **Hurt** (`sfx/hurt.sfx.yaml`): gritty falling square, readable over music.\n+- **Stomp** (`sfx/stomp.sfx.yaml`): landing on an enemy; squashy bounce + thud, starts at once.\n \n ## Wishlist\n \n@@ -34,6 +35,7 @@\n \n Assets an agent made that a human hasn't approved yet (agents can't hear: they check listen sheets and numbers).\n \n+- `stomp`: lead-in fixed (W005: was 38 ms late), loudness on target.\n - `jump`, `coin`, `hurt`: listen sheets checked (pitch, loudness on target, no lead-in, no clipping).\n \n ## Decisions and feedback log"
+   }
+  ]
+ },
+ "sounds": [
+  {
+   "name": "stomp",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/02-stomp/stomp.wav",
+     "rate": 44100,
+     "samples": 28458,
+     "seconds": 0.645306,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/02-stomp/stomp.listen.webp",
+     "seam": null,
+     "lufs": -14.14,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    }
+   ]
+  }
+ ],
+ "manifest": {
+  "stomp": {
+   "category": "sfx",
+   "channels": 1,
+   "description": "Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop.",
+   "file": "res://assets/generated/audio/sfx/stomp.wav",
+   "kind": "sfx",
+   "limiting_db": 1.15,
+   "loop": null,
+   "lufs": -14.14,
+   "sample_rate": 44100,
+   "samples": 28458,
+   "seconds": 0.645306,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "player",
+    "enemy"
+   ],
+   "target_lufs": -14.0
+  }
+ },
+ "files": [
+  {
+   "path": "assets/generated/audio/manifest.json",
+   "bytes": 2498
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.wav",
+   "bytes": 61160
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/hurt.wav",
+   "bytes": 61468
+  },
+  {
+   "path": "assets/generated/audio/sfx/hurt.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.wav",
+   "bytes": 56964
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.wav",
+   "bytes": 56960
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.wav.import",
+   "bytes": 125
+  }
+ ],
+ "godot": {
+  "path": "assets/generated/audio/sfx/stomp.wav.import",
+  "text": "[remap]\n\nimporter=\"wav\"\ntype=\"AudioStreamWAV\"\n\n[params]\n\nedit/loop_mode=1\nedit/loop_begin=0\nedit/loop_end=-1\ncompress/mode=2"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ],
+ "before": {
+  "lint": {
+   "errors": 0,
+   "warnings": 2,
+   "findings": [
+    {
+     "rule": "W001",
+     "severity": "warning",
+     "message": "stomp reaches only -15.5 LUFS of its -14 target: it's too peaky to get louder without more than 3 dB of limiting. Give it more body (longer decay/sustain, less transient) or a quieter category",
+     "path": "sfx/stomp.sfx.yaml",
+     "line": null,
+     "where": "stomp"
+    },
+    {
+     "rule": "W005",
+     "severity": "warning",
+     "message": "stomp starts after 38 ms of near-silence (> 5 ms): it will feel late in game. Start the main layer at 0 and use a fast attack",
+     "path": "sfx/stomp.sfx.yaml",
+     "line": null,
+     "where": "stomp"
+    }
+   ]
+  },
+  "source": "name: stomp\ndescription: \"Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop.\"\ncategory: sfx\nstatus: draft\nstyle_version: 1\ntags: [player, enemy]\nduration: 0.32\nlayers:\n  - id: squash                # the bounce: a fat square dropping an octave\n    osc: pulse\n    duty: 0.5\n    start: 0.038              # wait for the pop... (lint: W005)\n    pitch: [[0, A4], [0.12, A3]]\n    slide: true\n    env: [0.001, 0.08, 0.4, 0.08]\n    length: 0.12\n    gain: -6\n  - id: thud\n    drum: kick\n    start: 0.038\n    tune: 60\n    decay: 0.18\n    punch: 12\n    gain: -4\n  - id: pop\n    osc: noise\n    start: 0.038\n    filter: { type: bp, cutoff: 1800, resonance: 0.3 }\n    env: [0.001, 0.03, 0.0, 0.02]\n    gain: -14\n",
+  "sound": {
+   "name": "stomp",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "features/stomp-v1/stomp.wav",
+     "rate": 44100,
+     "samples": 27881,
+     "seconds": 0.632222,
+     "channels": 1,
+     "loop": null,
+     "sheet": "features/stomp-v1/stomp.listen.webp",
+     "seam": null,
+     "lufs": -15.5,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 38.07
+    }
+   ]
+  }
+ },
+ "next": [
+  {
+   "to": "03-vary-stomp",
+   "say": "They'll play all the time. Can they vary a bit?"
+  }
+ ]
+}

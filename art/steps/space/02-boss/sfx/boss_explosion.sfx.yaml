@@ -1,0 +1,21 @@
+name: boss_explosion
+description: "The boss blows up: the explosion stretched to 2.4 s, a lower thump, an echoing second blast; louder than normal SFX (category boss)."
+preset: explosion        # starting point; `segan bake sfx boss_explosion --in-place` writes out every field to tune
+category: boss                # its own loudness target in segan.toml [loudness]
+status: draft
+style_version: 1
+tags: [enemy, boss, explosion]
+duration: 2.4
+layers:
+  - { id: crunch, pitch: [[0, A4], [1.8, A1]], cutoff: [[0, 6000], [0.5, 1800], [2.0, 200]], length: 1.1 }
+  - { id: thump, tune: 32, decay: 1.0 }
+  - id: second                # a second, deeper blast a beat later
+    osc: bitnoise
+    start: 0.35
+    pitch: [[0, E4], [1.2, E1]]
+    slide: true
+    filter: { type: lp, cutoff: 2500 }
+    env: [0.002, 0.3, 0.4, 0.8]
+    length: 0.6
+    delay: { time: 0.18, feedback: 0.35, mix: 0.3 }
+    gain: -6

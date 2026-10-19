@@ -1,0 +1,25 @@
+name: mark
+description: 'Site icon: a blue speech bubble holding a waveform (you speak, your agent speaks SEGAN).'
+outline: auto
+status: draft
+style_version: 1
+tags: [brand]
+size: [16, 16]
+frames:
+  main: |
+    ................
+    ...aaaaaaaaaa...
+    ..999999999999..
+    .a9333733333398.
+    .a9337773337398.
+    .99367776367698.
+    .99667776667698.
+    .99367776367698.
+    .99337773337398.
+    .99333733333398.
+    ..999999999999..
+    ...8888888888...
+    ....888.........
+    ....8...........
+    ................
+    ................

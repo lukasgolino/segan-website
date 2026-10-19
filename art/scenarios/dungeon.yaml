@@ -1,0 +1,57 @@
+# The dungeon-music scenario of the website's scripted demo (steps/dungeon/<step>/).
+id: dungeon
+title: Dungeon music
+order: 2
+pitch: "A seamless loop, a danger variant that switches in time, stems for adaptive music."
+start: 01-loop
+steps:
+  01-loop:
+    user: "I need a dungeon exploration loop. Tense, but not scary."
+    agent: >
+      Done: `dungeon`, 8 bars in D harmonic minor at 100 bpm (its raised 7th, C#, gives the tension). A
+      vibrato pulse lead over a soft arpeggio, triangle bass and sparse drums, in a small kit I made for it
+      (`crypt`). The pitch check found every note within 1 cent of what I wrote, it's on -16 LUFS, and the
+      loop seam has no click. The yellow lines are the loop points: turn on loop and let it come round.
+    ran:
+      - segan init audio --style chiptune --godot ../game
+      - segan new kit crypt
+      - segan kit show crypt
+      - segan config set default_kit crypt
+      - segan new song dungeon --key "D harmonic_minor" --tempo 100 --bars 2
+      - segan lint
+      - segan preview dungeon
+    show: { sounds: [dungeon], seam: true }
+    next: [02-danger, 02-retro]
+  02-danger:
+    user: "Add a danger version for when enemies are near."
+    agent: >
+      Added a variant in one line: `danger: { tempo: 124, instrument_swap: { q: r } }`. Same notes, faster,
+      with a thinner, edgier pulse on the arpeggio. The manifest gives both versions' bars in samples,
+      so your game can switch at the same bar. Try it: switch while it plays.
+    ran:
+      - segan lint
+      - segan preview dungeon --output variant:danger
+    show: { sounds: [dungeon], variants: true }
+    next: [03-stems]
+  02-retro:
+    user: "Make it sound more retro."
+    agent: >
+      `segan mix adjust --crush 8`: an 8-bit crush in the shared mix, so everything in the game (this song
+      and any future sound) gets it. Same notes, same loudness, grittier top end. Toggle A/B to compare.
+    ran:
+      - segan mix adjust --crush 8 --dry-run
+      - segan mix adjust --crush 8
+      - segan preview dungeon
+    show: { sounds: [dungeon], compare: true }
+    next: []
+  03-stems:
+    user: "Can the drums come in only when there's a fight?"
+    agent: >
+      Yes: I turned on stems (`segan config set export '["wav", "godot", "stems"]'`). Each track is now its
+      own sample-aligned WAV, and Godot gets an AudioStreamSynchronized (`stems/dungeon.tres`): play it and
+      fade the drums stream's volume in when a fight starts. Mute and unmute the tracks below while it plays.
+    ran:
+      - segan config set export '["wav", "godot", "stems"]'
+      - segan build
+    show: { sounds: [dungeon], stems: true }
+    next: []

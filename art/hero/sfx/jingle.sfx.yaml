@@ -1,0 +1,19 @@
+name: jingle
+description: "SEGAN's sound logo: five rising square notes (S-E-G-A-N: E5 G5 A5 C6 E6) with a triangle echo an octave up."
+category: ui
+status: draft
+duration: 0.75
+layers:
+  - id: notes
+    osc: pulse
+    duty: 0.25
+    pitch: [[0, E5], [0.07, G5], [0.14, A5], [0.21, C6], [0.28, E6]]
+    env: [0.002, 0.1, 0.6, 0.25]
+    length: 0.42
+    gain: -6
+  - id: echo
+    osc: triangle
+    pitch: [[0, E6], [0.07, G6], [0.14, A6], [0.21, C7], [0.28, E7]]
+    env: [0.002, 0.08, 0.3, 0.2]
+    length: 0.4
+    gain: -18

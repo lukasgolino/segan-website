@@ -1,0 +1,5 @@
+name: hit
+description: "Melee impact on an enemy: noise crack, falling low knock and a short body."
+preset: hit
+status: draft
+style_version: 1

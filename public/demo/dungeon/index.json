@@ -1,0 +1,48 @@
+{
+ "id": "dungeon",
+ "title": "Dungeon music",
+ "pitch": "A seamless loop, a danger variant that switches in time, stems for adaptive music.",
+ "start": "01-loop",
+ "steps": {
+  "01-loop": {
+   "user": "I need a dungeon exploration loop. Tense, but not scary.",
+   "next": [
+    {
+     "to": "02-danger",
+     "say": "Add a danger version for when enemies are near."
+    },
+    {
+     "to": "02-retro",
+     "say": "Make it sound more retro."
+    }
+   ],
+   "parents": []
+  },
+  "02-danger": {
+   "user": "Add a danger version for when enemies are near.",
+   "next": [
+    {
+     "to": "03-stems",
+     "say": "Can the drums come in only when there's a fight?"
+    }
+   ],
+   "parents": [
+    "01-loop"
+   ]
+  },
+  "02-retro": {
+   "user": "Make it sound more retro.",
+   "next": [],
+   "parents": [
+    "01-loop"
+   ]
+  },
+  "03-stems": {
+   "user": "Can the drums come in only when there's a fight?",
+   "next": [],
+   "parents": [
+    "02-danger"
+   ]
+  }
+ }
+}

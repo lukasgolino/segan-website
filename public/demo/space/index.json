@@ -1,0 +1,48 @@
+{
+ "id": "space",
+ "title": "Space shooter",
+ "pitch": "Laser and explosion, an engine loop with phases, a louder boss category.",
+ "start": "01-shots",
+ "steps": {
+  "01-shots": {
+   "user": "Space shooter, 80s arcade style. A laser and an explosion, please.",
+   "next": [
+    {
+     "to": "02-engine",
+     "say": "The ship needs an engine sound while thrusting."
+    },
+    {
+     "to": "02-boss",
+     "say": "The boss needs a much bigger explosion."
+    }
+   ],
+   "parents": []
+  },
+  "02-engine": {
+   "user": "The ship needs an engine sound while thrusting.",
+   "next": [
+    {
+     "to": "03-charge",
+     "say": "And a charge shot: hold to charge, release to fire."
+    }
+   ],
+   "parents": [
+    "01-shots"
+   ]
+  },
+  "02-boss": {
+   "user": "The boss needs a much bigger explosion.",
+   "next": [],
+   "parents": [
+    "01-shots"
+   ]
+  },
+  "03-charge": {
+   "user": "And a charge shot: hold to charge, release to fire.",
+   "next": [],
+   "parents": [
+    "02-engine"
+   ]
+  }
+ }
+}

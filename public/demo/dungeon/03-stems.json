@@ -1,0 +1,391 @@
+{
+ "scenario": "dungeon",
+ "id": "03-stems",
+ "agent": "Yes: I turned on stems (`segan config set export '[\"wav\", \"godot\", \"stems\"]'`). Each track is now its own sample-aligned WAV, and Godot gets an AudioStreamSynchronized (`stems/dungeon.tres`): play it and fade the drums stream's volume in when a fight starts. Mute and unmute the tracks below while it plays.",
+ "ran": [
+  "segan config set export '[\"wav\", \"godot\", \"stems\"]'",
+  "segan build"
+ ],
+ "show": {
+  "sounds": [
+   "dungeon"
+  ],
+  "stems": true
+ },
+ "lint": {
+  "errors": 0,
+  "warnings": 0,
+  "findings": []
+ },
+ "diffs": {
+  "02-danger": [
+   {
+    "path": "segan.toml",
+    "status": "modified",
+    "added": 1,
+    "removed": 1,
+    "diff": "@@ -18,7 +18,7 @@\n # What `segan build` produces: WAVs + manifest.json always (\"wav\"); add \"godot\" (loop points and compression in\n # each WAV's .import, AudioStreamRandomizer for SFX variations, AudioStreamSynchronized for stems) and\n # \"stems\" (one WAV per song track, sample-aligned, for adaptive layering).\n-export = [\"wav\", \"godot\"]\n+export = [\"wav\", \"godot\", \"stems\"]\n \n # Bump this when SOUND.md changes in a way that means existing sounds should be revisited. Assets record\n # the style_version they were made under; older ones get lint warning W006. [mix] changes need no bump:"
+   },
+   {
+    "path": "BRIEF.md",
+    "status": "modified",
+    "added": 1,
+    "removed": 0,
+    "diff": "@@ -41,3 +41,4 @@\n \n - 2026-01-01: \"Everything sounds too dry\" -> `segan mix adjust --room +0.1` (applies to every asset).\n - 2026-10-19: \"A danger version for when enemies are near\" -> variant `danger` (124 bpm, thin pulse arpeggio); the game switches at the same bar.\n+- 2026-10-19: \"Drums only when there's a fight\" -> export `stems` (one WAV per track, sample-aligned) + a Godot AudioStreamSynchronized; the game fades the drums stem in."
+   }
+  ]
+ },
+ "sounds": [
+  {
+   "name": "dungeon",
+   "kind": "song",
+   "category": "music",
+   "description": "Dungeon exploration loop: D harmonic minor, 100 bpm, a vibrato pulse lead over a soft arpeggio, triangle bass and sparse drums. Tense, not scary; 8 bars, loops seamlessly.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "dungeon/01-loop/dungeon.ogg",
+     "rate": 44100,
+     "samples": 952560,
+     "seconds": 21.6,
+     "channels": 2,
+     "loop": [
+      105840,
+      952560
+     ],
+     "sheet": "dungeon/01-loop/dungeon.listen.webp",
+     "seam": null,
+     "lufs": -16.0,
+     "target": -16.0,
+     "peak": -5.13,
+     "seam_click": 0.0
+    },
+    {
+     "id": "stem:bass",
+     "label": "bass",
+     "audio": "dungeon/03-stems/stems/bass.ogg",
+     "rate": 44100,
+     "samples": 952560,
+     "seconds": 21.6,
+     "channels": 2,
+     "loop": [
+      105840,
+      952560
+     ],
+     "sheet": null,
+     "seam": null
+    },
+    {
+     "id": "stem:drums",
+     "label": "drums",
+     "audio": "dungeon/03-stems/stems/drums.ogg",
+     "rate": 44100,
+     "samples": 952560,
+     "seconds": 21.6,
+     "channels": 2,
+     "loop": [
+      105840,
+      952560
+     ],
+     "sheet": null,
+     "seam": null
+    },
+    {
+     "id": "stem:harmony",
+     "label": "harmony",
+     "audio": "dungeon/03-stems/stems/harmony.ogg",
+     "rate": 44100,
+     "samples": 952560,
+     "seconds": 21.6,
+     "channels": 2,
+     "loop": [
+      105840,
+      952560
+     ],
+     "sheet": null,
+     "seam": null
+    },
+    {
+     "id": "stem:lead",
+     "label": "lead",
+     "audio": "dungeon/03-stems/stems/lead.ogg",
+     "rate": 44100,
+     "samples": 952560,
+     "seconds": 21.6,
+     "channels": 2,
+     "loop": [
+      105840,
+      952560
+     ],
+     "sheet": null,
+     "seam": null
+    }
+   ],
+   "timing": {
+    "bpm": 100.0,
+    "bars": 8.0,
+    "beat_seconds": 0.6,
+    "meter": [
+     4,
+     4
+    ],
+    "key": "D harmonic_minor"
+   },
+   "variant_timing": {
+    "danger": {
+     "bpm": 124.0,
+     "beat_seconds": 0.483871
+    }
+   }
+  }
+ ],
+ "manifest": {
+  "dungeon": {
+   "arrangement": [
+    {
+     "end": 846720,
+     "end_bar": 9.0,
+     "end_seconds": 19.2,
+     "patterns": [
+      "a",
+      "b",
+      "a",
+      "c"
+     ],
+     "section": "main",
+     "start": 0,
+     "start_bar": 1.0,
+     "start_seconds": 0.0
+    }
+   ],
+   "bars": 8.0,
+   "beat_count": 32,
+   "beat_seconds": 0.6,
+   "bpm": 100.0,
+   "category": "music",
+   "channels": 2,
+   "description": "Dungeon exploration loop: D harmonic minor, 100 bpm, a vibrato pulse lead over a soft arpeggio, triangle bass and sparse drums. Tense, not scary; 8 bars, loops seamlessly.",
+   "file": "res://assets/generated/audio/music/dungeon.wav",
+   "godot_stems": "res://assets/generated/audio/stems/dungeon.tres",
+   "key": "D harmonic_minor",
+   "kind": "song",
+   "limiting_db": 0.0,
+   "loop": {
+    "end": 952560,
+    "end_seconds": 21.6,
+    "offset": 105840,
+    "section": "main",
+    "start": 105840,
+    "start_seconds": 2.4
+   },
+   "lufs": -16.0,
+   "markers": {},
+   "meter": [
+    4,
+    4
+   ],
+   "sample_rate": 44100,
+   "samples": 952560,
+   "seconds": 21.6,
+   "sections": {
+    "main": {
+     "end": 846720,
+     "end_bar": 9.0,
+     "end_seconds": 19.2,
+     "patterns": [
+      "a",
+      "b",
+      "a",
+      "c"
+     ],
+     "start": 0,
+     "start_bar": 1.0,
+     "start_seconds": 0.0
+    }
+   },
+   "status": "draft",
+   "stems": {
+    "bass": {
+     "channels": 2,
+     "file": "res://assets/generated/audio/stems/dungeon/bass.wav",
+     "loop": {
+      "end": 952560,
+      "start": 105840
+     },
+     "samples": 952560,
+     "seconds": 21.6
+    },
+    "drums": {
+     "channels": 2,
+     "file": "res://assets/generated/audio/stems/dungeon/drums.wav",
+     "loop": {
+      "end": 952560,
+      "start": 105840
+     },
+     "samples": 952560,
+     "seconds": 21.6
+    },
+    "harmony": {
+     "channels": 2,
+     "file": "res://assets/generated/audio/stems/dungeon/harmony.wav",
+     "loop": {
+      "end": 952560,
+      "start": 105840
+     },
+     "samples": 952560,
+     "seconds": 21.6
+    },
+    "lead": {
+     "channels": 2,
+     "file": "res://assets/generated/audio/stems/dungeon/lead.wav",
+     "loop": {
+      "end": 952560,
+      "start": 105840
+     },
+     "samples": 952560,
+     "seconds": 21.6
+    }
+   },
+   "steps_per_beat": 4,
+   "style_version": 1,
+   "tags": [
+    "music",
+    "dungeon",
+    "loop"
+   ],
+   "target_lufs": -16.0,
+   "variants": {
+    "danger": {
+     "arrangement": [
+      {
+       "end": 682839,
+       "end_bar": 9.0,
+       "end_seconds": 15.483871,
+       "patterns": [
+        "a",
+        "b",
+        "a",
+        "c"
+       ],
+       "section": "main",
+       "start": 0,
+       "start_bar": 1.0,
+       "start_seconds": 0.0
+      }
+     ],
+     "bars": 8.0,
+     "beat_count": 32,
+     "beat_seconds": 0.483871,
+     "bpm": 124.0,
+     "channels": 2,
+     "file": "res://assets/generated/audio/music/dungeon.danger.wav",
+     "key": "D harmonic_minor",
+     "limiting_db": 0.0,
+     "loop": {
+      "end": 768194,
+      "end_seconds": 17.419365,
+      "offset": 85355,
+      "section": "main",
+      "start": 85355,
+      "start_seconds": 1.935488
+     },
+     "lufs": -16.0,
+     "markers": {},
+     "meter": [
+      4,
+      4
+     ],
+     "samples": 768194,
+     "seconds": 17.419365,
+     "sections": {
+      "main": {
+       "end": 682839,
+       "end_bar": 9.0,
+       "end_seconds": 15.483871,
+       "patterns": [
+        "a",
+        "b",
+        "a",
+        "c"
+       ],
+       "start": 0,
+       "start_bar": 1.0,
+       "start_seconds": 0.0
+      }
+     },
+     "steps_per_beat": 4,
+     "target_lufs": -16.0
+    }
+   }
+  }
+ },
+ "files": [
+  {
+   "path": "assets/generated/audio/manifest.json",
+   "bytes": 4919
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.danger.wav",
+   "bytes": 3072888
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.danger.wav.import",
+   "bytes": 133
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.wav",
+   "bytes": 3810352
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.wav.import",
+   "bytes": 134
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon/bass.wav",
+   "bytes": 3810352
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon/bass.wav.import",
+   "bytes": 134
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon/drums.wav",
+   "bytes": 3810352
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon/drums.wav.import",
+   "bytes": 134
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon/harmony.wav",
+   "bytes": 3810352
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon/harmony.wav.import",
+   "bytes": 134
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon/lead.wav",
+   "bytes": 3810352
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon/lead.wav.import",
+   "bytes": 134
+  },
+  {
+   "path": "assets/generated/audio/stems/dungeon.tres",
+   "bytes": 764
+  }
+ ],
+ "godot": {
+  "path": "assets/generated/audio/stems/dungeon.tres",
+  "text": "[gd_resource type=\"AudioStreamSynchronized\" format=3]\n\n[ext_resource type=\"AudioStream\" path=\"res://assets/generated/audio/stems/dungeon/lead.wav\" id=\"1_lead\"]\n[ext_resource type=\"AudioStream\" path=\"res://assets/generated/audio/stems/dungeon/harmony.wav\" id=\"2_harmony\"]\n[ext_resource type=\"AudioStream\" path=\"res://assets/generated/audio/stems/dungeon/bass.wav\" id=\"3_bass\"]\n[ext_resource type=\"AudioStream\" path=\"res://assets/generated/audio/stems/dungeon/drums.wav\" id=\"4_drums\"]\n\n[resource]\nstream_count = 4\nstream_0/stream = ExtResource(\"1_lead\")\nstream_0/volume = 0.0\nstream_1/stream = ExtResource(\"2_harmony\")\nstream_1/volume = 0.0\nstream_2/stream = ExtResource(\"3_bass\")\nstream_2/volume = 0.0\nstream_3/stream = ExtResource(\"4_drums\")\nstream_3/volume = 0.0"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ],
+ "next": []
+}

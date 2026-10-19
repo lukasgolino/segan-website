@@ -1,0 +1,30 @@
+name: charge
+description: "Charge shot: a rising, trembling square while the button is held (looping), then a heavy blast on release."
+category: sfx
+status: draft
+style_version: 1
+tags: [player, weapon, loop]
+duration: 0.8
+layers:
+  - id: whine
+    osc: pulse
+    duty: 0.25
+    pitch: [[0, E4], [0.7, E6]]
+    slide: true
+    vibrato: [14, 0.3]
+    env: [0.002, 0.1, 0.8, 0.05]
+    gain: -8
+phases:
+  charge:                     # charge.charge.wav: loops while the button is held
+    duration: 0.5
+    loop: true
+    crossfade: 0.08
+    layers:
+      - { id: whine, osc: pulse, duty: 0.25, pitch: E6, vibrato: [14, 0.3], tremolo: [12, 0.4], env: [0.002, 0.1, 0.8, 0.002], gain: -8 }
+      - { id: sparkle, osc: triangle, pitch: E7, tremolo: [20, 0.6], env: [0.002, 0.1, 0.6, 0.002], gain: -18 }
+  release:                    # charge.release.wav: the shot itself
+    duration: 0.6
+    layers:
+      - { id: blast, osc: pulse, duty: 0.5, pitch: [[0, E6], [0.35, E3]], slide: true, env: [0.001, 0.1, 0.6, 0.15], length: 0.3, gain: -5 }
+      - { id: crunch, osc: bitnoise, pitch: [[0, E5], [0.4, E2]], slide: true, env: [0.001, 0.15, 0.2, 0.1], gain: -10 }
+      - { id: thump, drum: kick, tune: 45, decay: 0.3, punch: 24, gain: -6 }

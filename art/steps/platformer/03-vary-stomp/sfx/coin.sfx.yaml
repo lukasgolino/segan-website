@@ -1,0 +1,8 @@
+name: coin
+description: "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail."
+preset: coin             # starting point; `segan bake sfx coin --in-place` writes out every field to tune
+category: pickup
+status: draft
+style_version: 1
+variations: { count: 4, seed: 11, pitch: 0.5, timbre: 0.1, gain: 1 }
+tags: [pickup]

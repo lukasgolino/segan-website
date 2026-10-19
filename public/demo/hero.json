@@ -1,0 +1,136 @@
+{
+ "sounds": {
+  "theme": {
+   "name": "theme",
+   "kind": "song",
+   "category": "music",
+   "description": "Title theme: A minor, 128 bpm, a pulse lead over driving triangle-bass eighths and noise drums. Am F | C G, four bars, loops seamlessly.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "hero/theme.ogg",
+     "rate": 44100,
+     "samples": 413438,
+     "seconds": 9.375011,
+     "channels": 2,
+     "loop": [
+      82688,
+      413438
+     ],
+     "sheet": "hero/theme.listen.webp",
+     "seam": null,
+     "lufs": -16.0,
+     "target": -16.0,
+     "peak": -5.5,
+     "seam_click": 0.0
+    }
+   ],
+   "timing": {
+    "bpm": 128.0,
+    "bars": 4.0,
+    "beat_seconds": 0.46875,
+    "meter": [
+     4,
+     4
+    ],
+    "key": "A minor"
+   },
+   "variant_timing": {}
+  },
+  "jingle": {
+   "name": "jingle",
+   "kind": "sfx",
+   "category": "ui",
+   "description": "SEGAN's sound logo: five rising square notes (S-E-G-A-N: E5 G5 A5 C6 E6) with a triangle echo an octave up.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "hero/jingle.wav",
+     "rate": 44100,
+     "samples": 40643,
+     "seconds": 0.92161,
+     "channels": 1,
+     "loop": null,
+     "sheet": "hero/jingle.listen.webp",
+     "seam": null,
+     "lufs": -20.0,
+     "target": -20.0,
+     "peak": -10.7,
+     "lead_in_ms": 0.09
+    }
+   ]
+  }
+ },
+ "manifest": {
+  "arrangement": [
+   {
+    "end": 330750,
+    "end_bar": 5.0,
+    "end_seconds": 7.5,
+    "patterns": [
+     "a",
+     "b"
+    ],
+    "section": "main",
+    "start": 0,
+    "start_bar": 1.0,
+    "start_seconds": 0.0
+   }
+  ],
+  "bars": 4.0,
+  "beat_count": 16,
+  "beat_seconds": 0.46875,
+  "bpm": 128.0,
+  "category": "music",
+  "channels": 2,
+  "description": "Title theme: A minor, 128 bpm, a pulse lead over driving triangle-bass eighths and noise drums. Am F | C G, four bars, loops seamlessly.",
+  "file": "res://assets/generated/audio/music/theme.wav",
+  "key": "A minor",
+  "kind": "song",
+  "limiting_db": 0.0,
+  "loop": {
+   "end": 413438,
+   "end_seconds": 9.375011,
+   "offset": 82688,
+   "section": "main",
+   "start": 82688,
+   "start_seconds": 1.875011
+  },
+  "lufs": -16.0,
+  "markers": {},
+  "meter": [
+   4,
+   4
+  ],
+  "sample_rate": 44100,
+  "samples": 413438,
+  "seconds": 9.375011,
+  "sections": {
+   "main": {
+    "end": 330750,
+    "end_bar": 5.0,
+    "end_seconds": 7.5,
+    "patterns": [
+     "a",
+     "b"
+    ],
+    "start": 0,
+    "start_bar": 1.0,
+    "start_seconds": 0.0
+   }
+  },
+  "status": "draft",
+  "steps_per_beat": 4,
+  "style_version": 1,
+  "tags": [],
+  "target_lufs": -16.0
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ]
+}

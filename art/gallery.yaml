@@ -1,0 +1,9 @@
+# What the website's gallery lists: every sound on the site, newest state of each. tools/build_site_assets.py
+# reads it; each group's sounds come from a project it has already built (a final demo step, hero, showcase).
+groups:
+  - { project: showcase, label: "SEGAN's demo project" }
+  - { project: hero, label: Hero }
+  - { step: platformer/03-vary-stomp, label: Platformer demo }
+  - { step: dungeon/03-stems, label: Dungeon demo }
+  - { step: space/03-charge, label: Space shooter demo }
+  - { step: space/02-boss, label: Space shooter demo, only: [boss_explosion] }

@@ -1,0 +1,30 @@
+name: stomp
+description: "Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop."
+category: sfx
+status: draft
+style_version: 1
+tags: [player, enemy]
+duration: 0.32
+layers:
+  - id: squash                # the bounce: a fat square dropping an octave
+    osc: pulse
+    duty: 0.5
+    start: 0.038              # wait for the pop... (lint: W005)
+    pitch: [[0, A4], [0.12, A3]]
+    slide: true
+    env: [0.001, 0.08, 0.4, 0.08]
+    length: 0.12
+    gain: -6
+  - id: thud
+    drum: kick
+    start: 0.038
+    tune: 60
+    decay: 0.18
+    punch: 12
+    gain: -4
+  - id: pop
+    osc: noise
+    start: 0.038
+    filter: { type: bp, cutoff: 1800, resonance: 0.3 }
+    env: [0.001, 0.03, 0.0, 0.02]
+    gain: -14

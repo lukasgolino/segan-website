@@ -1,0 +1,71 @@
+# The platformer scenario of the website's scripted demo. Each step is a real SEGAN project in
+# steps/platformer/<step>/; `next` lists the replies a visitor can pick. tools/build_site_assets.py builds it.
+id: platformer
+title: Platformer SFX
+order: 1
+pitch: "Jump, coin and hurt sounds: a whole-set mix change, a lint fix, variations."
+start: 01-set
+steps:
+  01-set:
+    user: "I'm making a pixel platformer. I need a jump, a coin pickup and a hurt sound."
+    agent: >
+      Done: three SFX, each started from a SEGAN preset and tuned. I set up the audio project first
+      (chiptune kit, builds into your Godot project) and checked every listen sheet: the jump sweeps C4 to
+      G5 in 0.14 s, the coin steps up a fourth, the hurt falls a fifth with a fast wobble. Each starts
+      within 1 ms and sits on its loudness target. I can't hear them, so they stay `draft` until you listen.
+    ran:
+      - segan init audio --style chiptune --godot ../game
+      - segan new sfx jump --preset jump --description "Springy platformer jump..."
+      - segan new sfx coin --preset coin --description "Coin pickup..."
+      - segan new sfx hurt --preset hurt --description "Player takes damage..."
+      - segan lint
+      - segan preview jump coin hurt
+    show: { sounds: [jump, coin, hurt] }
+    next: [02-punchy, 02-stomp]
+  02-punchy:
+    user: "Make them punchier and drier."
+    agent: >
+      One command for the whole set: `segan mix adjust --room -0.1 --brightness 2`. Less of the shared
+      room (0.15 to 0.05) and a 2 dB brighter tilt, applied to every sound at once, so they still match.
+      Each sound got shorter (less room tail) and stays on its loudness target. Toggle A/B to compare.
+    ran:
+      - segan mix adjust --room -0.1 --brightness 2 --dry-run
+      - segan mix adjust --room -0.1 --brightness 2
+      - segan gallery
+    show: { sounds: [jump, coin, hurt], compare: true }
+    next: [03-vary]
+  02-stomp:
+    user: "Add a stomp for landing on an enemy."
+    agent: >
+      Added `stomp`: a fat square bouncing down an octave over a short kick thud, with a soft pop. My
+      first version waited 38 ms before making a sound, and lint flagged it (W005: lead-in silence feels
+      like input lag), plus W001 (too peaky to reach its loudness). Now every layer starts at 0 with more
+      body: 0 warnings.
+    ran:
+      - segan new sfx stomp --description "Landing on an enemy..."
+      - segan lint sfx/stomp.sfx.yaml
+      - segan preview stomp
+      - segan lint sfx/stomp.sfx.yaml
+    show: { sounds: [stomp], before: features/stomp-v1 }
+    next: [03-vary-stomp]
+  03-vary: &vary
+    user: "They'll play all the time. Can they vary a bit?"
+    agent: >
+      Added `variations` to the jump and the coin: 4 each, with small pitch and timbre changes, every one
+      normalised to the same loudness. Your game gets `jump.1-4.wav` and an AudioStreamRandomizer
+      (`jump.tres`) that picks a different one each time. Press "play again".
+    ran:
+      - segan lint
+      - segan preview jump coin
+    show: { sounds: [jump, coin], variations: true }
+    next: []
+  03-vary-stomp:
+    <<: *vary
+    agent: >
+      Added `variations` to the jump, the coin and the stomp: 4 each, with small pitch and timbre changes,
+      every one normalised to the same loudness. Your game gets `stomp.1-4.wav` and an
+      AudioStreamRandomizer (`stomp.tres`) that picks a different one each time. Press "play again".
+    ran:
+      - segan lint
+      - segan preview jump coin stomp
+    show: { sounds: [jump, coin, stomp], variations: true }

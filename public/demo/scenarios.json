@@ -1,0 +1,17 @@
+[
+ {
+  "id": "platformer",
+  "title": "Platformer SFX",
+  "pitch": "Jump, coin and hurt sounds: a whole-set mix change, a lint fix, variations."
+ },
+ {
+  "id": "dungeon",
+  "title": "Dungeon music",
+  "pitch": "A seamless loop, a danger variant that switches in time, stems for adaptive music."
+ },
+ {
+  "id": "space",
+  "title": "Space shooter",
+  "pitch": "Laser and explosion, an engine loop with phases, a louder boss category."
+ }
+]

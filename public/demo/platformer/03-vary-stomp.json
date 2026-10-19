@@ -1,0 +1,644 @@
+{
+ "scenario": "platformer",
+ "id": "03-vary-stomp",
+ "agent": "Added `variations` to the jump, the coin and the stomp: 4 each, with small pitch and timbre changes, every one normalised to the same loudness. Your game gets `stomp.1-4.wav` and an AudioStreamRandomizer (`stomp.tres`) that picks a different one each time. Press \"play again\".",
+ "ran": [
+  "segan lint",
+  "segan preview jump coin stomp"
+ ],
+ "show": {
+  "sounds": [
+   "jump",
+   "coin",
+   "stomp"
+  ],
+  "variations": true
+ },
+ "lint": {
+  "errors": 0,
+  "warnings": 0,
+  "findings": []
+ },
+ "diffs": {
+  "02-stomp": [
+   {
+    "path": "sfx/coin.sfx.yaml",
+    "status": "modified",
+    "added": 1,
+    "removed": 0,
+    "diff": "@@ -4,4 +4,5 @@\n category: pickup\n status: draft\n style_version: 1\n+variations: { count: 4, seed: 11, pitch: 0.5, timbre: 0.1, gain: 1 }\n tags: [pickup]"
+   },
+   {
+    "path": "sfx/jump.sfx.yaml",
+    "status": "modified",
+    "added": 1,
+    "removed": 0,
+    "diff": "@@ -4,6 +4,7 @@\n category: sfx\n status: draft\n style_version: 1\n+variations: { count: 4, seed: 3, pitch: 0.8, timbre: 0.2 }   # jump.1-4.wav + a Godot randomizer\n tags: [player, movement]\n layers:\n   - { id: tone, pitch: [[0, C4], [0.14, G5]] }"
+   },
+   {
+    "path": "sfx/stomp.sfx.yaml",
+    "status": "modified",
+    "added": 1,
+    "removed": 0,
+    "diff": "@@ -3,6 +3,7 @@\n category: sfx\n status: draft\n style_version: 1\n+variations: { count: 4, seed: 5, pitch: 1, timbre: 0.3 }\n tags: [player, enemy]\n duration: 0.34\n layers:"
+   },
+   {
+    "path": "BRIEF.md",
+    "status": "modified",
+    "added": 4,
+    "removed": 3,
+    "diff": "@@ -16,10 +16,10 @@\n \n For each: what it is, when it plays, length, looping or one-shot, variations. Example:\n \n-- **Jump** (`sfx/jump.sfx.yaml`): springy upward sweep, < 0.3 s, plays on every jump.\n-- **Coin** (`sfx/coin.sfx.yaml`): bright two-note chime, category `pickup`.\n+- **Jump** (`sfx/jump.sfx.yaml`): springy upward sweep, < 0.3 s, plays on every jump; 4 variations.\n+- **Coin** (`sfx/coin.sfx.yaml`): bright two-note chime, category `pickup`; 4 variations.\n - **Hurt** (`sfx/hurt.sfx.yaml`): gritty falling square, readable over music.\n-- **Stomp** (`sfx/stomp.sfx.yaml`): landing on an enemy; squashy bounce + thud, starts at once.\n+- **Stomp** (`sfx/stomp.sfx.yaml`): landing on an enemy; squashy bounce + thud, starts at once; 4 variations.\n \n ## Wishlist\n \n@@ -43,3 +43,4 @@\n Dated notes on what the owner asked for and decided, so later sounds stay consistent with it. Example:\n \n - 2026-01-01: \"Everything sounds too dry\" -> `segan mix adjust --room +0.1` (applies to every asset).\n+- 2026-10-19: \"They'll play a lot, vary them a bit\" -> `variations` (4 each); Godot plays them through an AudioStreamRandomizer."
+   }
+  ]
+ },
+ "sounds": [
+  {
+   "name": "jump",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/01-set/jump.wav",
+     "rate": 44100,
+     "samples": 28460,
+     "seconds": 0.645351,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/01-set/jump.listen.webp",
+     "seam": null,
+     "lufs": -14.15,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    },
+    {
+     "id": "variation:1",
+     "label": "1",
+     "audio": "platformer/03-vary-stomp/jump.1.wav",
+     "rate": 44100,
+     "samples": 28305,
+     "seconds": 0.641837,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.14,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    },
+    {
+     "id": "variation:2",
+     "label": "2",
+     "audio": "platformer/03-vary-stomp/jump.2.wav",
+     "rate": 44100,
+     "samples": 28016,
+     "seconds": 0.635283,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.15,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    },
+    {
+     "id": "variation:3",
+     "label": "3",
+     "audio": "platformer/03-vary-stomp/jump.3.wav",
+     "rate": 44100,
+     "samples": 28124,
+     "seconds": 0.637732,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.14,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    },
+    {
+     "id": "variation:4",
+     "label": "4",
+     "audio": "platformer/03-vary-stomp/jump.4.wav",
+     "rate": 44100,
+     "samples": 27742,
+     "seconds": 0.62907,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.16,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.09
+    }
+   ]
+  },
+  {
+   "name": "coin",
+   "kind": "sfx",
+   "category": "pickup",
+   "description": "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/01-set/coin.wav",
+     "rate": 44100,
+     "samples": 30558,
+     "seconds": 0.692925,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/01-set/coin.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -4.29,
+     "lead_in_ms": 0.05
+    },
+    {
+     "id": "variation:1",
+     "label": "1",
+     "audio": "platformer/03-vary-stomp/coin.1.wav",
+     "rate": 44100,
+     "samples": 27332,
+     "seconds": 0.619773,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -13.29,
+     "target": -13.286436,
+     "peak": -4.12,
+     "lead_in_ms": 0.05
+    },
+    {
+     "id": "variation:2",
+     "label": "2",
+     "audio": "platformer/03-vary-stomp/coin.2.wav",
+     "rate": 44100,
+     "samples": 29240,
+     "seconds": 0.663039,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -13.08,
+     "target": -13.076431,
+     "peak": -4.01,
+     "lead_in_ms": 0.05
+    },
+    {
+     "id": "variation:3",
+     "label": "3",
+     "audio": "platformer/03-vary-stomp/coin.3.wav",
+     "rate": 44100,
+     "samples": 29408,
+     "seconds": 0.666848,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.43,
+     "target": -14.426505,
+     "peak": -4.91,
+     "lead_in_ms": 0.05
+    },
+    {
+     "id": "variation:4",
+     "label": "4",
+     "audio": "platformer/03-vary-stomp/coin.4.wav",
+     "rate": 44100,
+     "samples": 28416,
+     "seconds": 0.644354,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.78,
+     "target": -14.778473,
+     "peak": -5.71,
+     "lead_in_ms": 0.05
+    }
+   ]
+  },
+  {
+   "name": "stomp",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/02-stomp/stomp.wav",
+     "rate": 44100,
+     "samples": 28458,
+     "seconds": 0.645306,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/02-stomp/stomp.listen.webp",
+     "seam": null,
+     "lufs": -14.14,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    },
+    {
+     "id": "variation:1",
+     "label": "1",
+     "audio": "platformer/03-vary-stomp/stomp.1.wav",
+     "rate": 44100,
+     "samples": 27932,
+     "seconds": 0.633379,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.14,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.09
+    },
+    {
+     "id": "variation:2",
+     "label": "2",
+     "audio": "platformer/03-vary-stomp/stomp.2.wav",
+     "rate": 44100,
+     "samples": 27505,
+     "seconds": 0.623696,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.14,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.09
+    },
+    {
+     "id": "variation:3",
+     "label": "3",
+     "audio": "platformer/03-vary-stomp/stomp.3.wav",
+     "rate": 44100,
+     "samples": 27581,
+     "seconds": 0.62542,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.14,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.09
+    },
+    {
+     "id": "variation:4",
+     "label": "4",
+     "audio": "platformer/03-vary-stomp/stomp.4.wav",
+     "rate": 44100,
+     "samples": 27241,
+     "seconds": 0.61771,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -14.13,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    }
+   ]
+  }
+ ],
+ "manifest": {
+  "jump": {
+   "category": "sfx",
+   "channels": 1,
+   "description": "Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.",
+   "file": "res://assets/generated/audio/sfx/jump.wav",
+   "godot_randomizer": "res://assets/generated/audio/sfx/jump.tres",
+   "kind": "sfx",
+   "limiting_db": 1.21,
+   "loop": null,
+   "lufs": -14.15,
+   "sample_rate": 44100,
+   "samples": 28460,
+   "seconds": 0.645351,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "player",
+    "movement"
+   ],
+   "target_lufs": -14.0,
+   "variations": [
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/jump.1.wav",
+     "loop": null,
+     "pitch_offset_semitones": 0.2385,
+     "samples": 28305,
+     "seconds": 0.641837
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/jump.2.wav",
+     "loop": null,
+     "pitch_offset_semitones": -0.1668,
+     "samples": 28016,
+     "seconds": 0.635283
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/jump.3.wav",
+     "loop": null,
+     "pitch_offset_semitones": -0.4058,
+     "samples": 28124,
+     "seconds": 0.637732
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/jump.4.wav",
+     "loop": null,
+     "pitch_offset_semitones": 0.3456,
+     "samples": 27742,
+     "seconds": 0.62907
+    }
+   ]
+  },
+  "coin": {
+   "category": "pickup",
+   "channels": 1,
+   "description": "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.",
+   "file": "res://assets/generated/audio/sfx/coin.wav",
+   "godot_randomizer": "res://assets/generated/audio/sfx/coin.tres",
+   "kind": "sfx",
+   "limiting_db": 0.0,
+   "loop": null,
+   "lufs": -14.0,
+   "sample_rate": 44100,
+   "samples": 30558,
+   "seconds": 0.692925,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "pickup"
+   ],
+   "target_lufs": -14.0,
+   "variations": [
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/coin.1.wav",
+     "loop": null,
+     "pitch_offset_semitones": 0.2268,
+     "samples": 27332,
+     "seconds": 0.619773
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/coin.2.wav",
+     "loop": null,
+     "pitch_offset_semitones": 0.295,
+     "samples": 29240,
+     "seconds": 0.663039
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/coin.3.wav",
+     "loop": null,
+     "pitch_offset_semitones": 0.4563,
+     "samples": 29408,
+     "seconds": 0.666848
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/coin.4.wav",
+     "loop": null,
+     "pitch_offset_semitones": 0.338,
+     "samples": 28416,
+     "seconds": 0.644354
+    }
+   ]
+  },
+  "stomp": {
+   "category": "sfx",
+   "channels": 1,
+   "description": "Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop.",
+   "file": "res://assets/generated/audio/sfx/stomp.wav",
+   "godot_randomizer": "res://assets/generated/audio/sfx/stomp.tres",
+   "kind": "sfx",
+   "limiting_db": 1.15,
+   "loop": null,
+   "lufs": -14.14,
+   "sample_rate": 44100,
+   "samples": 28458,
+   "seconds": 0.645306,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "player",
+    "enemy"
+   ],
+   "target_lufs": -14.0,
+   "variations": [
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/stomp.1.wav",
+     "loop": null,
+     "pitch_offset_semitones": -0.293,
+     "samples": 27932,
+     "seconds": 0.633379
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/stomp.2.wav",
+     "loop": null,
+     "pitch_offset_semitones": 0.5491,
+     "samples": 27505,
+     "seconds": 0.623696
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/stomp.3.wav",
+     "loop": null,
+     "pitch_offset_semitones": -0.8324,
+     "samples": 27581,
+     "seconds": 0.62542
+    },
+    {
+     "channels": 1,
+     "file": "res://assets/generated/audio/sfx/stomp.4.wav",
+     "loop": null,
+     "pitch_offset_semitones": 0.3868,
+     "samples": 27241,
+     "seconds": 0.61771
+    }
+   ]
+  }
+ },
+ "files": [
+  {
+   "path": "assets/generated/audio/manifest.json",
+   "bytes": 5983
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.1.wav",
+   "bytes": 54708
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.1.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.2.wav",
+   "bytes": 58524
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.2.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.3.wav",
+   "bytes": 58860
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.3.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.4.wav",
+   "bytes": 56876
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.4.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.tres",
+   "bytes": 647
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.wav",
+   "bytes": 61160
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/hurt.wav",
+   "bytes": 61468
+  },
+  {
+   "path": "assets/generated/audio/sfx/hurt.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.1.wav",
+   "bytes": 56654
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.1.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.2.wav",
+   "bytes": 56076
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.2.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.3.wav",
+   "bytes": 56292
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.3.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.4.wav",
+   "bytes": 55528
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.4.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.tres",
+   "bytes": 647
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.wav",
+   "bytes": 56964
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.1.wav",
+   "bytes": 55908
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.1.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.2.wav",
+   "bytes": 55054
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.2.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.3.wav",
+   "bytes": 55206
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.3.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.4.wav",
+   "bytes": 54526
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.4.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.tres",
+   "bytes": 659
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.wav",
+   "bytes": 56960
+  },
+  {
+   "path": "assets/generated/audio/sfx/stomp.wav.import",
+   "bytes": 125
+  }
+ ],
+ "godot": {
+  "path": "assets/generated/audio/sfx/jump.tres",
+  "text": "[gd_resource type=\"AudioStreamRandomizer\" format=3]\n\n[ext_resource type=\"AudioStream\" path=\"res://assets/generated/audio/sfx/jump.1.wav\" id=\"1_jump_1\"]\n[ext_resource type=\"AudioStream\" path=\"res://assets/generated/audio/sfx/jump.2.wav\" id=\"2_jump_2\"]\n[ext_resource type=\"AudioStream\" path=\"res://assets/generated/audio/sfx/jump.3.wav\" id=\"3_jump_3\"]\n[ext_resource type=\"AudioStream\" path=\"res://assets/generated/audio/sfx/jump.4.wav\" id=\"4_jump_4\"]\n\n[resource]\nstreams_count = 4\nstream_0/stream = ExtResource(\"1_jump_1\")\nstream_1/stream = ExtResource(\"2_jump_2\")\nstream_2/stream = ExtResource(\"3_jump_3\")\nstream_3/stream = ExtResource(\"4_jump_4\")"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ],
+ "next": []
+}

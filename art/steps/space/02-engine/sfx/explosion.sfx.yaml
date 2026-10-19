@@ -1,0 +1,7 @@
+name: explosion
+description: "Enemy ship explodes: falling crunch noise through a closing low-pass over a deep thump, about 1.3 s."
+preset: explosion        # starting point; `segan bake sfx explosion --in-place` writes out every field to tune
+category: sfx
+status: draft
+style_version: 1
+tags: [enemy, explosion]

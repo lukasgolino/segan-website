@@ -1,0 +1,43 @@
+name: engine
+description: "Ship engine while thrusting: a detuned saw drone with a low pulse and filtered rumble. Three phases: spin up, a seamless hum loop, spin down."
+category: sfx
+status: draft
+style_version: 1
+tags: [player, engine, loop]
+duration: 1.0
+layers:                       # the hum; each phase below reuses these layers unless it lists its own
+  - id: drone
+    osc: saw
+    unison: 3
+    detune: 12
+    pitch: A1
+    filter: { type: lp, cutoff: 900, resonance: 0.3 }
+    tremolo: [9, 0.25]
+    env: [0.002, 0.1, 1.0, 0.002]
+    gain: -6
+  - id: body
+    osc: pulse
+    duty: 0.3
+    pitch: A2
+    filter: { type: lp, cutoff: 600 }
+    env: [0.002, 0.1, 1.0, 0.002]
+    gain: -12
+  - id: rumble
+    osc: noise
+    filter: { type: lp, cutoff: 400 }
+    env: [0.002, 0.1, 1.0, 0.002]
+    gain: -16
+phases:
+  start:                      # engine.start.wav: spinning up from silence to the hum
+    duration: 0.6
+    layers:
+      - { id: drone, osc: saw, unison: 3, detune: 12, pitch: [[0, A0], [0.55, A1]], slide: true, filter: { type: lp, cutoff: 900, resonance: 0.3 }, env: [0.002, 0.1, 1.0, 0.05], gain: -6 }
+      - { id: rumble, osc: noise, filter: { type: lp, cutoff: 400 }, env: [0.002, 0.1, 1.0, 0.05], gain: -16 }
+  hum:                        # engine.hum.wav: loops seamlessly while thrusting
+    duration: 1.0
+    loop: true
+    crossfade: 0.1
+  stop:                       # engine.stop.wav: winding down
+    duration: 0.7
+    layers:
+      - { id: drone, osc: saw, unison: 3, detune: 12, pitch: [[0, A1], [0.6, A0]], slide: true, filter: { type: lp, cutoff: 900, resonance: 0.3 }, env: [0.002, 0.1, 1.0, 0.1], length: 0.55, gain: -6 }

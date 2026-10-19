@@ -1,0 +1,25 @@
+# Rebuild the site's sounds, listen sheets and demo data with the pinned SEGAN release and fail if the
+# committed output differs, so the site can never play or show anything SEGAN doesn't produce.
+name: assets
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: SEGAN checkout (for CHANGELOG.md)
+        run: |
+          tag=$(sed -n 's/^segan @ .*@\(v[0-9.]*\)$/\1/p' requirements.txt)
+          git clone --depth 1 --branch "$tag" https://github.com/lukasgolino/segan.git segan-src
+      - run: python tools/build_site_assets.py --check --segan-repo segan-src

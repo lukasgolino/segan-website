@@ -1,0 +1,706 @@
+{
+ "kits": [
+  {
+   "name": "arcade_synth",
+   "description": "Bright 80s arcade synth: filtered saw lead, square bass, fast arpeggio, punchy drums.",
+   "sheet": "showcase/kits/arcade_synth.listen.webp",
+   "instruments": [
+    {
+     "key": "l",
+     "name": "saw_lead",
+     "source": "saw",
+     "audio": "showcase/kits/arcade_synth.saw_lead.ogg"
+    },
+    {
+     "key": "m",
+     "name": "square_bass",
+     "source": "pulse duty 0.5",
+     "audio": "showcase/kits/arcade_synth.square_bass.ogg"
+    },
+    {
+     "key": "a",
+     "name": "arp",
+     "source": "pulse duty 0.25",
+     "audio": "showcase/kits/arcade_synth.arp.ogg"
+    },
+    {
+     "key": "z",
+     "name": "zap",
+     "source": "pulse duty 0.3",
+     "audio": "showcase/kits/arcade_synth.zap.ogg"
+    },
+    {
+     "key": "k",
+     "name": "kick",
+     "source": "drum kick",
+     "audio": "showcase/kits/arcade_synth.kick.ogg"
+    },
+    {
+     "key": "s",
+     "name": "snare",
+     "source": "drum snare",
+     "audio": "showcase/kits/arcade_synth.snare.ogg"
+    },
+    {
+     "key": "c",
+     "name": "clap",
+     "source": "drum clap",
+     "audio": "showcase/kits/arcade_synth.clap.ogg"
+    },
+    {
+     "key": "h",
+     "name": "hat",
+     "source": "drum hat",
+     "audio": "showcase/kits/arcade_synth.hat.ogg"
+    }
+   ]
+  },
+  {
+   "name": "fm_soft",
+   "description": "Soft two-operator FM: electric piano, bell, round bass and a warm pad; gentle drums.",
+   "sheet": "showcase/kits/fm_soft.listen.webp",
+   "instruments": [
+    {
+     "key": "e",
+     "name": "epiano",
+     "source": "fm",
+     "audio": "showcase/kits/fm_soft.epiano.ogg"
+    },
+    {
+     "key": "l",
+     "name": "bell",
+     "source": "fm",
+     "audio": "showcase/kits/fm_soft.bell.ogg"
+    },
+    {
+     "key": "f",
+     "name": "flute",
+     "source": "sine",
+     "audio": "showcase/kits/fm_soft.flute.ogg"
+    },
+    {
+     "key": "a",
+     "name": "fm_bass",
+     "source": "fm",
+     "audio": "showcase/kits/fm_soft.fm_bass.ogg"
+    },
+    {
+     "key": "w",
+     "name": "warm_pad",
+     "source": "saw",
+     "audio": "showcase/kits/fm_soft.warm_pad.ogg"
+    },
+    {
+     "key": "k",
+     "name": "soft_kick",
+     "source": "drum kick",
+     "audio": "showcase/kits/fm_soft.soft_kick.ogg"
+    },
+    {
+     "key": "s",
+     "name": "brush",
+     "source": "drum snare",
+     "audio": "showcase/kits/fm_soft.brush.ogg"
+    },
+    {
+     "key": "h",
+     "name": "soft_hat",
+     "source": "drum hat",
+     "audio": "showcase/kits/fm_soft.soft_hat.ogg"
+    },
+    {
+     "key": "t",
+     "name": "tom",
+     "source": "drum tom",
+     "audio": "showcase/kits/fm_soft.tom.ogg"
+    }
+   ]
+  },
+  {
+   "name": "nes",
+   "description": "2A03-flavoured: two pulse leads, triangle bass, noise drums. Mono voices, like the real chip.",
+   "sheet": "showcase/kits/nes.listen.webp",
+   "instruments": [
+    {
+     "key": "p",
+     "name": "pulse_lead",
+     "source": "pulse duty 0.25",
+     "audio": "showcase/kits/nes.pulse_lead.ogg"
+    },
+    {
+     "key": "q",
+     "name": "pulse_soft",
+     "source": "pulse duty 0.5",
+     "audio": "showcase/kits/nes.pulse_soft.ogg"
+    },
+    {
+     "key": "r",
+     "name": "pulse_thin",
+     "source": "pulse duty 0.125",
+     "audio": "showcase/kits/nes.pulse_thin.ogg"
+    },
+    {
+     "key": "b",
+     "name": "tri_bass",
+     "source": "triangle",
+     "audio": "showcase/kits/nes.tri_bass.ogg"
+    },
+    {
+     "key": "n",
+     "name": "crunch",
+     "source": "bitnoise",
+     "audio": "showcase/kits/nes.crunch.ogg"
+    },
+    {
+     "key": "k",
+     "name": "kick",
+     "source": "drum kick",
+     "audio": "showcase/kits/nes.kick.ogg"
+    },
+    {
+     "key": "s",
+     "name": "snare",
+     "source": "drum snare",
+     "audio": "showcase/kits/nes.snare.ogg"
+    },
+    {
+     "key": "h",
+     "name": "hat",
+     "source": "drum hat",
+     "audio": "showcase/kits/nes.hat.ogg"
+    },
+    {
+     "key": "o",
+     "name": "open_hat",
+     "source": "drum hat",
+     "audio": "showcase/kits/nes.open_hat.ogg"
+    },
+    {
+     "key": "c",
+     "name": "crash",
+     "source": "drum cymbal",
+     "audio": "showcase/kits/nes.crash.ogg"
+    }
+   ]
+  }
+ ],
+ "gallery": "showcase/gallery.webp",
+ "sounds": {
+  "blip": {
+   "name": "blip",
+   "kind": "sfx",
+   "category": "ui",
+   "description": "Menu cursor move: a tiny soft square tick.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/blip.wav",
+     "rate": 44100,
+     "samples": 21932,
+     "seconds": 0.497324,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/blip.listen.webp",
+     "seam": null,
+     "lufs": -20.0,
+     "target": -20.0,
+     "peak": -1.16,
+     "lead_in_ms": 0.09
+    }
+   ]
+  },
+  "coin": {
+   "name": "coin",
+   "kind": "sfx",
+   "category": "pickup",
+   "description": "Bright two-note pickup chime for coins: a square blip stepping up a fourth, short, no tail.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/01-set/coin.wav",
+     "rate": 44100,
+     "samples": 30558,
+     "seconds": 0.692925,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/coin.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -4.29,
+     "lead_in_ms": 0.05
+    }
+   ]
+  },
+  "combat": {
+   "name": "combat",
+   "kind": "song",
+   "category": "music",
+   "description": "Driving battle loop: E minor, 150 bpm, filtered saw lead, power-chord arpeggio, octave square bass, four-on-the-floor drums.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/combat.ogg",
+     "rate": 44100,
+     "samples": 635040,
+     "seconds": 14.4,
+     "channels": 2,
+     "loop": [
+      70560,
+      635040
+     ],
+     "sheet": "showcase/combat.listen.webp",
+     "seam": null,
+     "lufs": -16.0,
+     "target": -16.0,
+     "peak": -4.88,
+     "seam_click": 0.0
+    }
+   ],
+   "timing": {
+    "bpm": 150.0,
+    "bars": 8.0,
+    "beat_seconds": 0.4,
+    "meter": [
+     4,
+     4
+    ],
+    "key": "E minor"
+   },
+   "variant_timing": {
+    "boss": {
+     "bpm": 165.0,
+     "beat_seconds": 0.363636
+    }
+   }
+  },
+  "door": {
+   "name": "door",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Wooden door opened and shut: latch click, hinge creak, thud.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/door.wav",
+     "rate": 44100,
+     "samples": 49893,
+     "seconds": 1.131361,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/door.listen.webp",
+     "seam": null,
+     "lufs": -14.68,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.23
+    }
+   ]
+  },
+  "door_creak": {
+   "name": "door_creak",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Slow, eerie wooden door creaking open, about one second: latch click, then a wavering stick-slip creak rising and sagging, no slam.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/door_creak.wav",
+     "rate": 44100,
+     "samples": 59924,
+     "seconds": 1.358821,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/door_creak.listen.webp",
+     "seam": null,
+     "lufs": -14.07,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.16
+    }
+   ]
+  },
+  "explosion": {
+   "name": "explosion",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Big chunky explosion: falling crunch noise through a closing filter over a deep thump.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "space/01-shots/explosion.wav",
+     "rate": 44100,
+     "samples": 57330,
+     "seconds": 1.3,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/explosion.listen.webp",
+     "seam": null,
+     "lufs": -14.02,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.11
+    }
+   ]
+  },
+  "hit": {
+   "name": "hit",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Melee impact on an enemy: noise crack, falling low knock and a short body.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/hit.wav",
+     "rate": 44100,
+     "samples": 27229,
+     "seconds": 0.617438,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/hit.listen.webp",
+     "seam": null,
+     "lufs": -14.31,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.14
+    }
+   ]
+  },
+  "hurt": {
+   "name": "hurt",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Player takes damage: a gritty square falling a fifth with a fast wobble.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/hurt.wav",
+     "rate": 44100,
+     "samples": 31913,
+     "seconds": 0.723651,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/hurt.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -3.73,
+     "lead_in_ms": 0.07
+    }
+   ]
+  },
+  "jump": {
+   "name": "jump",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Platformer jump: a quick square sweep upwards, springy and short.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/jump.wav",
+     "rate": 44100,
+     "samples": 27800,
+     "seconds": 0.630385,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/jump.listen.webp",
+     "seam": null,
+     "lufs": -14.15,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    }
+   ]
+  },
+  "laser": {
+   "name": "laser",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Retro blaster shot: a bright square diving two octaves with a fizzy top.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/laser.wav",
+     "rate": 44100,
+     "samples": 30265,
+     "seconds": 0.686281,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/laser.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -3.53,
+     "lead_in_ms": 0.05
+    }
+   ]
+  },
+  "overworld": {
+   "name": "overworld",
+   "kind": "song",
+   "category": "music",
+   "description": "Upbeat exploration loop: A minor, 120 bpm, NES-style pulse lead over an arpeggio, triangle bass and noise drums. Loops seamlessly after a two-bar intro.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/overworld.ogg",
+     "rate": 44100,
+     "samples": 970200,
+     "seconds": 22.0,
+     "channels": 2,
+     "loop": [
+      264600,
+      970200
+     ],
+     "sheet": "showcase/overworld.listen.webp",
+     "seam": null,
+     "lufs": -16.0,
+     "target": -16.0,
+     "peak": -4.85,
+     "seam_click": 0.0
+    }
+   ],
+   "timing": {
+    "bpm": 120.0,
+    "bars": 10.0,
+    "beat_seconds": 0.5,
+    "meter": [
+     4,
+     4
+    ],
+    "key": "A minor"
+   },
+   "variant_timing": {
+    "calm": {
+     "bpm": 100.0,
+     "beat_seconds": 0.6
+    },
+    "danger": {
+     "bpm": 144.0,
+     "beat_seconds": 0.416667
+    }
+   }
+  },
+  "powerup": {
+   "name": "powerup",
+   "kind": "sfx",
+   "category": "pickup",
+   "description": "Power-up collected: a fast major arpeggio climbing an octave with a sparkle.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/powerup.wav",
+     "rate": 44100,
+     "samples": 44287,
+     "seconds": 1.00424,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/powerup.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -6.93,
+     "lead_in_ms": 0.09
+    }
+   ]
+  },
+  "select": {
+   "name": "select",
+   "kind": "sfx",
+   "category": "ui",
+   "description": "Menu confirm: two quick rising triangle notes a fifth apart.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/select.wav",
+     "rate": 44100,
+     "samples": 24713,
+     "seconds": 0.560385,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/select.listen.webp",
+     "seam": null,
+     "lufs": -20.0,
+     "target": -20.0,
+     "peak": -1.95,
+     "lead_in_ms": 0.05
+    }
+   ]
+  },
+  "shop": {
+   "name": "shop",
+   "kind": "song",
+   "category": "music",
+   "description": "Cosy item-shop loop: F major, 100 bpm, soft FM electric piano and flute over round FM bass and brushed drums; 8 bars, loops seamlessly.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/shop.ogg",
+     "rate": 44100,
+     "samples": 952560,
+     "seconds": 21.6,
+     "channels": 2,
+     "loop": [
+      105840,
+      952560
+     ],
+     "sheet": "showcase/shop.listen.webp",
+     "seam": null,
+     "lufs": -16.0,
+     "target": -16.0,
+     "peak": -5.53,
+     "seam_click": 0.0
+    }
+   ],
+   "timing": {
+    "bpm": 100.0,
+    "bars": 8.0,
+    "beat_seconds": 0.6,
+    "meter": [
+     4,
+     4
+    ],
+    "key": "F major"
+   },
+   "variant_timing": {}
+  },
+  "step": {
+   "name": "step",
+   "kind": "sfx",
+   "category": "foley",
+   "description": "Footstep on stone: a short filtered tap, four variations so repeats don't sound robotic.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "showcase/step.wav",
+     "rate": 44100,
+     "samples": 21053,
+     "seconds": 0.477392,
+     "channels": 1,
+     "loop": null,
+     "sheet": "showcase/step.listen.webp",
+     "seam": null,
+     "lufs": -22.49,
+     "target": -22.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.16
+    },
+    {
+     "id": "variation:1",
+     "label": "1",
+     "audio": "showcase/step.1.wav",
+     "rate": 44100,
+     "samples": 21425,
+     "seconds": 0.485828,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -23.4,
+     "target": -23.404868,
+     "peak": -1.86,
+     "lead_in_ms": 0.14
+    },
+    {
+     "id": "variation:2",
+     "label": "2",
+     "audio": "showcase/step.2.wav",
+     "rate": 44100,
+     "samples": 21070,
+     "seconds": 0.477778,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -22.63,
+     "target": -22.629501,
+     "peak": -1.16,
+     "lead_in_ms": 0.14
+    },
+    {
+     "id": "variation:3",
+     "label": "3",
+     "audio": "showcase/step.3.wav",
+     "rate": 44100,
+     "samples": 21393,
+     "seconds": 0.485102,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -21.99,
+     "target": -21.000111,
+     "peak": -1.0,
+     "lead_in_ms": 0.2
+    },
+    {
+     "id": "variation:4",
+     "label": "4",
+     "audio": "showcase/step.4.wav",
+     "rate": 44100,
+     "samples": 19584,
+     "seconds": 0.444082,
+     "channels": 1,
+     "loop": null,
+     "sheet": null,
+     "seam": null,
+     "lufs": -21.58,
+     "target": -20.753156,
+     "peak": -1.0,
+     "lead_in_ms": 0.16
+    }
+   ]
+  }
+ },
+ "cells": {
+  "blip": "showcase/blip.gallery.webp",
+  "coin": "showcase/coin.gallery.webp",
+  "door": "showcase/door.gallery.webp",
+  "door_creak": "showcase/door_creak.gallery.webp",
+  "explosion": "showcase/explosion.gallery.webp",
+  "hit": "showcase/hit.gallery.webp",
+  "hurt": "showcase/hurt.gallery.webp",
+  "jump": "showcase/jump.gallery.webp",
+  "laser": "showcase/laser.gallery.webp",
+  "powerup": "showcase/powerup.gallery.webp",
+  "select": "showcase/select.gallery.webp",
+  "step": "showcase/step.gallery.webp",
+  "combat": "showcase/combat.gallery.webp",
+  "overworld": "showcase/overworld.gallery.webp",
+  "shop": "showcase/shop.gallery.webp"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ]
+}

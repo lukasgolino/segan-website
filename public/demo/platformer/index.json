@@ -1,0 +1,60 @@
+{
+ "id": "platformer",
+ "title": "Platformer SFX",
+ "pitch": "Jump, coin and hurt sounds: a whole-set mix change, a lint fix, variations.",
+ "start": "01-set",
+ "steps": {
+  "01-set": {
+   "user": "I'm making a pixel platformer. I need a jump, a coin pickup and a hurt sound.",
+   "next": [
+    {
+     "to": "02-punchy",
+     "say": "Make them punchier and drier."
+    },
+    {
+     "to": "02-stomp",
+     "say": "Add a stomp for landing on an enemy."
+    }
+   ],
+   "parents": []
+  },
+  "02-punchy": {
+   "user": "Make them punchier and drier.",
+   "next": [
+    {
+     "to": "03-vary",
+     "say": "They'll play all the time. Can they vary a bit?"
+    }
+   ],
+   "parents": [
+    "01-set"
+   ]
+  },
+  "02-stomp": {
+   "user": "Add a stomp for landing on an enemy.",
+   "next": [
+    {
+     "to": "03-vary-stomp",
+     "say": "They'll play all the time. Can they vary a bit?"
+    }
+   ],
+   "parents": [
+    "01-set"
+   ]
+  },
+  "03-vary": {
+   "user": "They'll play all the time. Can they vary a bit?",
+   "next": [],
+   "parents": [
+    "02-punchy"
+   ]
+  },
+  "03-vary-stomp": {
+   "user": "They'll play all the time. Can they vary a bit?",
+   "next": [],
+   "parents": [
+    "02-stomp"
+   ]
+  }
+ }
+}

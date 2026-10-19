@@ -1,0 +1,10 @@
+name: laser
+description: "Player blaster: a bright square diving two octaves (C7 -> C5) in 0.18 s with a ring-modulated fizz."
+preset: laser            # starting point; `segan bake sfx laser --in-place` writes out every field to tune
+category: sfx
+status: draft
+style_version: 1
+tags: [player, weapon]
+duration: 0.26
+layers:
+  - { id: tone, pitch: [[0, C7], [0.18, C5]], length: 0.15 }

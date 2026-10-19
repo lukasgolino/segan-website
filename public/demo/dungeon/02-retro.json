@@ -1,0 +1,177 @@
+{
+ "scenario": "dungeon",
+ "id": "02-retro",
+ "agent": "`segan mix adjust --crush 8`: an 8-bit crush in the shared mix, so everything in the game (this song and any future sound) gets it. Same notes, same loudness, grittier top end. Toggle A/B to compare.",
+ "ran": [
+  "segan mix adjust --crush 8 --dry-run",
+  "segan mix adjust --crush 8",
+  "segan preview dungeon"
+ ],
+ "show": {
+  "sounds": [
+   "dungeon"
+  ],
+  "compare": true
+ },
+ "lint": {
+  "errors": 0,
+  "warnings": 0,
+  "findings": []
+ },
+ "diffs": {
+  "01-loop": [
+   {
+    "path": "segan.toml",
+    "status": "modified",
+    "added": 1,
+    "removed": 1,
+    "diff": "@@ -35,7 +35,7 @@\n tuning = 440.0            # A4 in Hz\n room = 0.15               # shared reverb amount (0 = dry)\n room_decay = 0.6          # seconds for the room to fall 60 dB\n-crush_bits = 0            # 0 = off; e.g. 8 for a lo-fi era sound\n+crush_bits = 8            # 0 = off; e.g. 8 for a lo-fi era sound\n crush_rate = 0            # Hz, 0 = off; e.g. 11025\n declick = true            # micro-fades at note edges; false = raw chip edges (clicks)\n limiter = -1.0            # true-peak ceiling, dBFS"
+   },
+   {
+    "path": "BRIEF.md",
+    "status": "modified",
+    "added": 1,
+    "removed": 0,
+    "diff": "@@ -40,3 +40,4 @@\n Dated notes on what the owner asked for and decided, so later sounds stay consistent with it. Example:\n \n - 2026-01-01: \"Everything sounds too dry\" -> `segan mix adjust --room +0.1` (applies to every asset).\n+- 2026-10-19: \"More retro\" -> `segan mix adjust --crush 8` (8-bit crush on every asset)."
+   }
+  ]
+ },
+ "sounds": [
+  {
+   "name": "dungeon",
+   "kind": "song",
+   "category": "music",
+   "description": "Dungeon exploration loop: D harmonic minor, 100 bpm, a vibrato pulse lead over a soft arpeggio, triangle bass and sparse drums. Tense, not scary; 8 bars, loops seamlessly.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "dungeon/02-retro/dungeon.ogg",
+     "rate": 44100,
+     "samples": 952560,
+     "seconds": 21.6,
+     "channels": 2,
+     "loop": [
+      105840,
+      952560
+     ],
+     "sheet": "dungeon/02-retro/dungeon.listen.webp",
+     "seam": null,
+     "lufs": -16.0,
+     "target": -16.0,
+     "peak": -5.15,
+     "seam_click": 0.0
+    }
+   ],
+   "timing": {
+    "bpm": 100.0,
+    "bars": 8.0,
+    "beat_seconds": 0.6,
+    "meter": [
+     4,
+     4
+    ],
+    "key": "D harmonic_minor"
+   },
+   "variant_timing": {}
+  }
+ ],
+ "manifest": {
+  "dungeon": {
+   "arrangement": [
+    {
+     "end": 846720,
+     "end_bar": 9.0,
+     "end_seconds": 19.2,
+     "patterns": [
+      "a",
+      "b",
+      "a",
+      "c"
+     ],
+     "section": "main",
+     "start": 0,
+     "start_bar": 1.0,
+     "start_seconds": 0.0
+    }
+   ],
+   "bars": 8.0,
+   "beat_count": 32,
+   "beat_seconds": 0.6,
+   "bpm": 100.0,
+   "category": "music",
+   "channels": 2,
+   "description": "Dungeon exploration loop: D harmonic minor, 100 bpm, a vibrato pulse lead over a soft arpeggio, triangle bass and sparse drums. Tense, not scary; 8 bars, loops seamlessly.",
+   "file": "res://assets/generated/audio/music/dungeon.wav",
+   "key": "D harmonic_minor",
+   "kind": "song",
+   "limiting_db": 0.0,
+   "loop": {
+    "end": 952560,
+    "end_seconds": 21.6,
+    "offset": 105840,
+    "section": "main",
+    "start": 105840,
+    "start_seconds": 2.4
+   },
+   "lufs": -16.0,
+   "markers": {},
+   "meter": [
+    4,
+    4
+   ],
+   "sample_rate": 44100,
+   "samples": 952560,
+   "seconds": 21.6,
+   "sections": {
+    "main": {
+     "end": 846720,
+     "end_bar": 9.0,
+     "end_seconds": 19.2,
+     "patterns": [
+      "a",
+      "b",
+      "a",
+      "c"
+     ],
+     "start": 0,
+     "start_bar": 1.0,
+     "start_seconds": 0.0
+    }
+   },
+   "status": "draft",
+   "steps_per_beat": 4,
+   "style_version": 1,
+   "tags": [
+    "music",
+    "dungeon",
+    "loop"
+   ],
+   "target_lufs": -16.0
+  }
+ },
+ "files": [
+  {
+   "path": "assets/generated/audio/manifest.json",
+   "bytes": 1941
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.wav",
+   "bytes": 3810352
+  },
+  {
+   "path": "assets/generated/audio/music/dungeon.wav.import",
+   "bytes": 134
+  }
+ ],
+ "godot": {
+  "path": "assets/generated/audio/music/dungeon.wav.import",
+  "text": "[remap]\n\nimporter=\"wav\"\ntype=\"AudioStreamWAV\"\n\n[params]\n\nedit/loop_mode=2\nedit/loop_begin=105839\nedit/loop_end=952559\ncompress/mode=2"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ],
+ "next": []
+}

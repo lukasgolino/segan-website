@@ -1,0 +1,264 @@
+{
+ "scenario": "platformer",
+ "id": "01-set",
+ "agent": "Done: three SFX, each started from a SEGAN preset and tuned. I set up the audio project first (chiptune kit, builds into your Godot project) and checked every listen sheet: the jump sweeps C4 to G5 in 0.14 s, the coin steps up a fourth, the hurt falls a fifth with a fast wobble. Each starts within 1 ms and sits on its loudness target. I can't hear them, so they stay `draft` until you listen.",
+ "ran": [
+  "segan init audio --style chiptune --godot ../game",
+  "segan new sfx jump --preset jump --description \"Springy platformer jump...\"",
+  "segan new sfx coin --preset coin --description \"Coin pickup...\"",
+  "segan new sfx hurt --preset hurt --description \"Player takes damage...\"",
+  "segan lint",
+  "segan preview jump coin hurt"
+ ],
+ "show": {
+  "sounds": [
+   "jump",
+   "coin",
+   "hurt"
+  ]
+ },
+ "lint": {
+  "errors": 0,
+  "warnings": 0,
+  "findings": []
+ },
+ "diffs": {
+  "": [
+   {
+    "path": "sfx/coin.sfx.yaml",
+    "status": "added",
+    "added": 7,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,7 @@\n+name: coin\n+description: \"Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.\"\n+preset: coin             # starting point; `segan bake sfx coin --in-place` writes out every field to tune\n+category: pickup\n+status: draft\n+style_version: 1\n+tags: [pickup]"
+   },
+   {
+    "path": "sfx/hurt.sfx.yaml",
+    "status": "added",
+    "added": 9,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,9 @@\n+name: hurt\n+description: \"Player takes damage: a gritty square falling a fifth (E5 -> A4) with a fast wobble, 0.3 s.\"\n+preset: hurt             # starting point; `segan bake sfx hurt --in-place` writes out every field to tune\n+category: sfx\n+status: draft\n+style_version: 1\n+tags: [player, damage]\n+layers:\n+  - { id: grit, gain: -11 }   # more crunch than the preset, so it reads over music"
+   },
+   {
+    "path": "sfx/jump.sfx.yaml",
+    "status": "added",
+    "added": 14,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,14 @@\n+name: jump\n+description: \"Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.\"\n+preset: jump             # starting point; `segan bake sfx jump --in-place` writes out every field to tune\n+category: sfx\n+status: draft\n+style_version: 1\n+tags: [player, movement]\n+layers:\n+  - { id: tone, pitch: [[0, C4], [0.14, G5]] }\n+  - id: lift                  # a breath of noise so the take-off has an edge\n+    osc: noise\n+    filter: { type: hp, cutoff: 5000 }\n+    env: [0.001, 0.04, 0.0, 0.03]\n+    gain: -22"
+   },
+   {
+    "path": "kits/chip.kit.yaml",
+    "status": "added",
+    "added": 17,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,17 @@\n+name: chip\n+description: \"Chiptune starter kit: two pulse leads, triangle bass, noise drums (edit freely).\"\n+instruments:\n+  p: { name: pulse_lead, osc: pulse, duty: 0.25, env: [0.004, 0.08, 0.65, 0.09], gain: -7, range: [C4, C7] }\n+  q: { name: pulse_soft, osc: pulse, duty: 0.5, env: [0.02, 0.2, 0.5, 0.2], gain: -10, vibrato: [5.5, 0.12, 0.15], range: [C3, C6] }\n+  r: { name: pulse_thin, osc: pulse, duty: 0.125, env: [0.002, 0.06, 0.4, 0.06], gain: -10, range: [C4, C7] }\n+  b: { name: tri_bass, osc: triangle, env: [0.002, 0.05, 0.95, 0.04], gain: -2, range: [E1, C4] }\n+  n: { name: crunch, osc: bitnoise, env: [0.001, 0.3, 0.0, 0.05], gain: -12 }\n+  k: { name: kick, drum: kick, tune: 50, decay: 0.22, gain: -2 }\n+  s: { name: snare, drum: snare, tune: 190, noise: 0.7, decay: 0.14, gain: -5 }\n+  h: { name: hat, drum: hat, decay: 0.035, gain: -13 }\n+  o: { name: open_hat, drum: hat, decay: 0.22, gain: -15 }\n+  c: { name: crash, drum: cymbal, decay: 1.2, gain: -14 }\n+groups:\n+  leads: [p, q, r]\n+  bass: [b]\n+  drums: [k, s, h, o, c]"
+   },
+   {
+    "path": "segan.toml",
+    "status": "added",
+    "added": 66,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,66 @@\n+# SEGAN project config. Paths are relative to this file.\n+# Every setting here can also be viewed/changed with `segan config show` / `segan config set <key> <value>`.\n+\n+# \"strict\": songs and SFX use kit files from kits/ (one cohesive sound).\n+# \"open\":   they may also define their own instruments inline.\n+mode = \"strict\"\n+\n+# Kit for songs and SFX that don't name one. Create one with `segan new kit <name>`.\n+default_kit = \"chip\"\n+\n+# Where `segan build` writes final assets, e.g. your game's audio folder. Keep it apart from PAGAN's\n+# output_dir: both write a manifest.json.\n+output_dir = \"../game/assets/generated/audio\"\n+\n+# Scratch output from `segan render` / `segan preview` (WAVs and listen sheets). Keep it out of version control.\n+preview_dir = \"previews\"\n+\n+# What `segan build` produces: WAVs + manifest.json always (\"wav\"); add \"godot\" (loop points and compression in\n+# each WAV's .import, AudioStreamRandomizer for SFX variations, AudioStreamSynchronized for stems) and\n+# \"stems\" (one WAV per song track, sample-aligned, for adaptive layering).\n+export = [\"wav\", \"godot\"]\n+\n+# Bump this when SOUND.md changes in a way that means existing sounds should be revisited. Assets record\n+# the style_version they were made under; older ones get lint warning W006. [mix] changes need no bump:\n+# every asset re-renders with them automatically.\n+style_version = 1\n+\n+# The shared mix: every song and SFX is rendered through the same room, tone, crush and limiter, so the\n+# whole set sounds like one game.\n+[mix]\n+sample_rate = 44100       # Hz; Godot's default mix rate\n+oversample = 2            # synthesis at N x the rate, filtered down: 1, 2, 4, 8 (higher = less aliasing, slower)\n+music_channels = \"stereo\"\n+sfx_channels = \"mono\"     # engines pan SFX themselves\n+tuning = 440.0            # A4 in Hz\n+room = 0.15               # shared reverb amount (0 = dry)\n+room_decay = 0.6          # seconds for the room to fall 60 dB\n+crush_bits = 0            # 0 = off; e.g. 8 for a lo-fi era sound\n+crush_rate = 0            # Hz, 0 = off; e.g. 11025\n+declick = true            # micro-fades at note edges; false = raw chip edges (clicks)\n+limiter = -1.0            # true-peak ceiling, dBFS\n+brightness = 0.0          # tilt EQ, dB: + brighter, - darker\n+warmth = 0.0              # low-mid body, dB\n+\n+# Loudness targets in LUFS, per category. `segan build` normalises every asset to its target.\n+# Songs use integrated loudness; SFX the loudest 400 ms. Any SFX category not listed uses `sfx`.\n+[loudness]\n+music = -16.0\n+sfx = -14.0\n+ui = -20.0\n+foley = -22.0             # footsteps, cloth, small handling sounds: frequent, so quieter\n+\n+# Only with export \"godot\".\n+[godot]\n+compress = \"qoa\"          # how Godot compresses the WAVs: qoa, ima or none\n+\n+[lint]\n+# Warning rule ids to turn off, e.g. [\"W009\"].\n+disable = []\n+max_seam_click = 0.02          # W007: largest click at a loop point (fraction of full scale)\n+max_leading_silence_ms = 5     # W005: silence before an SFX starts adds input latency\n+max_instruments = 8            # W003: most kit instruments in one song\n+max_aliasing_db = -50.0        # W010: raise [mix] oversample if instruments alias more than this\n+max_limiting_db = 3.0          # W001: limiter gain reduction above this means the source is too hot\n+max_dc_offset = 0.01           # W008\n+loudness_tolerance = 1.0       # W013: LU an un-normalised asset may be off its target"
+   },
+   {
+    "path": "BRIEF.md",
+    "status": "added",
+    "added": 43,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,43 @@\n+# Sound brief\n+\n+The long-term memory for this project's audio: what the game is, what it needs, and decisions made along\n+the way. Agents read this (with SOUND.md) before making or changing any sound, and keep it up to date.\n+`segan status` lists what exists; this file says what's *wanted* and why.\n+\n+## The game\n+\n+- **Title / working name:** untitled platformer\n+- **Genre and core loop:** 2D pixel platformer; run, jump, collect coins, avoid enemies\n+- **Sound style:** chiptune: pulse/triangle/noise voices, mono channels, NES/Game Boy era\n+- **Mood / references:** bright NES-era platformers\n+- **Engine:** Godot 4 (`../game`, builds into `assets/generated/audio`)\n+\n+## Key sounds and music\n+\n+For each: what it is, when it plays, length, looping or one-shot, variations. Example:\n+\n+- **Jump** (`sfx/jump.sfx.yaml`): springy upward sweep, < 0.3 s, plays on every jump.\n+- **Coin** (`sfx/coin.sfx.yaml`): bright two-note chime, category `pickup`.\n+- **Hurt** (`sfx/hurt.sfx.yaml`): gritty falling square, readable over music.\n+\n+## Wishlist\n+\n+What's still needed, roughly in priority order. Move items to \"Done\" with the asset name when made.\n+\n+- [ ] Music (not asked for yet)\n+\n+## Done\n+\n+- (nothing yet)\n+\n+## Awaiting a listen\n+\n+Assets an agent made that a human hasn't approved yet (agents can't hear: they check listen sheets and numbers).\n+\n+- `jump`, `coin`, `hurt`: listen sheets checked (pitch, loudness on target, no lead-in, no clipping).\n+\n+## Decisions and feedback log\n+\n+Dated notes on what the owner asked for and decided, so later sounds stay consistent with it. Example:\n+\n+- 2026-01-01: \"Everything sounds too dry\" -> `segan mix adjust --room +0.1` (applies to every asset)."
+   },
+   {
+    "path": "SOUND.md",
+    "status": "added",
+    "added": 48,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,48 @@\n+# Sound bible\n+\n+How this game sounds. Agents check every new sound and song against it; SEGAN enforces what it can\n+(kits, scales, the shared [mix], loudness targets, lint) and the rest is for listening.\n+\n+## 1. Palette (kits)\n+\n+- Default kit: `chip` (`segan kit show chip` plays every instrument).\n+- What each instrument is for, e.g. `p` lead melodies, `b` bass lines only, `k s h` the only drums.\n+- Instruments not in a kit don't exist: add them to the kit (and get them approved) before using them.\n+\n+## 2. Music\n+\n+- Keys and modes: TODO (e.g. minor keys for dungeons, major/mixolydian for towns).\n+- Tempo range: TODO (e.g. 90-140 bpm); meter 4/4 unless stated.\n+- Loops: every in-game track loops seamlessly (W007 clean); intros are separate sections.\n+- Length: 8-32 bars per loop; reuse patterns with derived patterns instead of writing new ones.\n+- Arrangement: at most 4-5 tracks (lead, harmony/arp, bass, drums); bass stays below C4.\n+\n+## 3. Sound effects\n+\n+- Short and immediate: no leading silence (W005), the attack in the first 5 ms.\n+- One family per action: pickups bright and rising, damage low and noisy, UI soft and short.\n+- Frequent sounds (steps, shots, hits) get `variations` so repeats don't fatigue.\n+- Categories: `sfx` (default), `ui` (quieter), add more in segan.toml [loudness].\n+\n+## 4. Mix\n+\n+- One room for everything ([mix] room); no per-asset reverb.\n+- Loudness: music -16 LUFS, SFX -14, UI -20 (segan.toml [loudness]); the build normalises.\n+- Lo-fi: crush settings in [mix] only, so every asset matches.\n+\n+## 5. Do / don't\n+\n+- Do keep melodies inside the scale (strict roll rows make this automatic).\n+- Do write row labels on every grid row (E011 catches shifted rows).\n+- Don't stack more than the instrument's `voices` notes at once (E014).\n+- Don't approve your own music: a human listens first (`status: draft` until then).\n+\n+## 6. Reference sounds\n+\n+2-4 approved assets that define the sound (listen sheets in previews/). Compare new ones against them.\n+\n+## Changelog\n+\n+Versions of this sound bible; segan.toml `style_version` is the current one (`segan style bump` adds entries).\n+\n+- v1: first version."
+   }
+  ]
+ },
+ "sounds": [
+  {
+   "name": "jump",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/01-set/jump.wav",
+     "rate": 44100,
+     "samples": 28460,
+     "seconds": 0.645351,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/01-set/jump.listen.webp",
+     "seam": null,
+     "lufs": -14.15,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    }
+   ]
+  },
+  {
+   "name": "coin",
+   "kind": "sfx",
+   "category": "pickup",
+   "description": "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/01-set/coin.wav",
+     "rate": 44100,
+     "samples": 30558,
+     "seconds": 0.692925,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/01-set/coin.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -4.29,
+     "lead_in_ms": 0.05
+    }
+   ]
+  },
+  {
+   "name": "hurt",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Player takes damage: a gritty square falling a fifth (E5 -> A4) with a fast wobble, 0.3 s.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/01-set/hurt.wav",
+     "rate": 44100,
+     "samples": 30712,
+     "seconds": 0.696417,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/01-set/hurt.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -2.77,
+     "lead_in_ms": 0.07
+    }
+   ]
+  }
+ ],
+ "manifest": {
+  "jump": {
+   "category": "sfx",
+   "channels": 1,
+   "description": "Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.",
+   "file": "res://assets/generated/audio/sfx/jump.wav",
+   "kind": "sfx",
+   "limiting_db": 1.21,
+   "loop": null,
+   "lufs": -14.15,
+   "sample_rate": 44100,
+   "samples": 28460,
+   "seconds": 0.645351,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "player",
+    "movement"
+   ],
+   "target_lufs": -14.0
+  },
+  "coin": {
+   "category": "pickup",
+   "channels": 1,
+   "description": "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.",
+   "file": "res://assets/generated/audio/sfx/coin.wav",
+   "kind": "sfx",
+   "limiting_db": 0.0,
+   "loop": null,
+   "lufs": -14.0,
+   "sample_rate": 44100,
+   "samples": 30558,
+   "seconds": 0.692925,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "pickup"
+   ],
+   "target_lufs": -14.0
+  },
+  "hurt": {
+   "category": "sfx",
+   "channels": 1,
+   "description": "Player takes damage: a gritty square falling a fifth (E5 -> A4) with a fast wobble, 0.3 s.",
+   "file": "res://assets/generated/audio/sfx/hurt.wav",
+   "kind": "sfx",
+   "limiting_db": 0.0,
+   "loop": null,
+   "lufs": -14.0,
+   "sample_rate": 44100,
+   "samples": 30712,
+   "seconds": 0.696417,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "player",
+    "damage"
+   ],
+   "target_lufs": -14.0
+  }
+ },
+ "files": [
+  {
+   "path": "assets/generated/audio/manifest.json",
+   "bytes": 1918
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.wav",
+   "bytes": 61160
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/hurt.wav",
+   "bytes": 61468
+  },
+  {
+   "path": "assets/generated/audio/sfx/hurt.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.wav",
+   "bytes": 56964
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.wav.import",
+   "bytes": 125
+  }
+ ],
+ "godot": {
+  "path": "assets/generated/audio/sfx/jump.wav.import",
+  "text": "[remap]\n\nimporter=\"wav\"\ntype=\"AudioStreamWAV\"\n\n[params]\n\nedit/loop_mode=1\nedit/loop_begin=0\nedit/loop_end=-1\ncompress/mode=2"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ],
+ "next": [
+  {
+   "to": "02-punchy",
+   "say": "Make them punchier and drier."
+  },
+  {
+   "to": "02-stomp",
+   "say": "Add a stomp for landing on an enemy."
+  }
+ ]
+}

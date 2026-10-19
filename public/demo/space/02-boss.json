@@ -1,0 +1,181 @@
+{
+ "scenario": "space",
+ "id": "02-boss",
+ "agent": "Added `boss_explosion`: the explosion preset stretched to 2.4 s, a lower thump and an echoing second blast. It's in a new `boss` loudness category (-11 LUFS in segan.toml) so it's louder than every other SFX on purpose; the normal explosion stays at -14.",
+ "ran": [
+  "segan new sfx boss_explosion --preset explosion --description \"The boss blows up...\"",
+  "segan config show loudness",
+  "segan lint",
+  "segan preview boss_explosion explosion"
+ ],
+ "show": {
+  "sounds": [
+   "boss_explosion",
+   "explosion"
+  ]
+ },
+ "lint": {
+  "errors": 0,
+  "warnings": 0,
+  "findings": []
+ },
+ "diffs": {
+  "01-shots": [
+   {
+    "path": "sfx/boss_explosion.sfx.yaml",
+    "status": "added",
+    "added": 21,
+    "removed": 0,
+    "diff": "@@ -0,0 +1,21 @@\n+name: boss_explosion\n+description: \"The boss blows up: the explosion stretched to 2.4 s, a lower thump, an echoing second blast; louder than normal SFX (category boss).\"\n+preset: explosion        # starting point; `segan bake sfx boss_explosion --in-place` writes out every field to tune\n+category: boss                # its own loudness target in segan.toml [loudness]\n+status: draft\n+style_version: 1\n+tags: [enemy, boss, explosion]\n+duration: 2.4\n+layers:\n+  - { id: crunch, pitch: [[0, A4], [1.8, A1]], cutoff: [[0, 6000], [0.5, 1800], [2.0, 200]], length: 1.1 }\n+  - { id: thump, tune: 32, decay: 1.0 }\n+  - id: second                # a second, deeper blast a beat later\n+    osc: bitnoise\n+    start: 0.35\n+    pitch: [[0, E4], [1.2, E1]]\n+    slide: true\n+    filter: { type: lp, cutoff: 2500 }\n+    env: [0.002, 0.3, 0.4, 0.8]\n+    length: 0.6\n+    delay: { time: 0.18, feedback: 0.35, mix: 0.3 }\n+    gain: -6"
+   },
+   {
+    "path": "segan.toml",
+    "status": "modified",
+    "added": 1,
+    "removed": 0,
+    "diff": "@@ -49,6 +49,7 @@\n sfx = -14.0\n ui = -20.0\n foley = -22.0             # footsteps, cloth, small handling sounds: frequent, so quieter\n+boss = -11.0              # boss moments: louder than every other SFX\n \n # Only with export \"godot\".\n [godot]"
+   },
+   {
+    "path": "BRIEF.md",
+    "status": "modified",
+    "added": 3,
+    "removed": 0,
+    "diff": "@@ -18,6 +18,7 @@\n \n - **Laser** (`sfx/laser.sfx.yaml`): the player's shot; plays several times a second, so short (0.26 s).\n - **Explosion** (`sfx/explosion.sfx.yaml`): an enemy ship blowing up, ~1.3 s.\n+- **Boss explosion** (`sfx/boss_explosion.sfx.yaml`): 2.4 s, category `boss` (-11 LUFS, louder than other SFX).\n \n ## Wishlist\n \n@@ -34,6 +35,7 @@\n \n Assets an agent made that a human hasn't approved yet (agents can't hear: they check listen sheets and numbers).\n \n+- `boss_explosion`: -11.6 LUFS (target -11, 2.5 dB of limiting), second blast at 0.35 s visible on the sheet.\n - `laser`, `explosion`: listen sheets checked (pitch dive as written, loudness on target, no lead-in).\n \n ## Decisions and feedback log\n@@ -41,3 +43,4 @@\n Dated notes on what the owner asked for and decided, so later sounds stay consistent with it. Example:\n \n - 2026-01-01: \"Everything sounds too dry\" -> `segan mix adjust --room +0.1` (applies to every asset).\n+- 2026-10-19: \"Bigger explosion for the boss\" -> `boss_explosion` + a `boss` loudness category (-11 LUFS) in segan.toml."
+   }
+  ]
+ },
+ "sounds": [
+  {
+   "name": "boss_explosion",
+   "kind": "sfx",
+   "category": "boss",
+   "description": "The boss blows up: the explosion stretched to 2.4 s, a lower thump, an echoing second blast; louder than normal SFX (category boss).",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "space/02-boss/boss_explosion.wav",
+     "rate": 44100,
+     "samples": 105840,
+     "seconds": 2.4,
+     "channels": 1,
+     "loop": null,
+     "sheet": "space/02-boss/boss_explosion.listen.webp",
+     "seam": null,
+     "lufs": -11.59,
+     "target": -11.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.11
+    }
+   ]
+  },
+  {
+   "name": "explosion",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Enemy ship explodes: falling crunch noise through a closing low-pass over a deep thump, about 1.3 s.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "space/01-shots/explosion.wav",
+     "rate": 44100,
+     "samples": 57330,
+     "seconds": 1.3,
+     "channels": 1,
+     "loop": null,
+     "sheet": "space/01-shots/explosion.listen.webp",
+     "seam": null,
+     "lufs": -14.02,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.11
+    }
+   ]
+  }
+ ],
+ "manifest": {
+  "boss_explosion": {
+   "category": "boss",
+   "channels": 1,
+   "description": "The boss blows up: the explosion stretched to 2.4 s, a lower thump, an echoing second blast; louder than normal SFX (category boss).",
+   "file": "res://assets/generated/audio/sfx/boss_explosion.wav",
+   "kind": "sfx",
+   "limiting_db": 2.47,
+   "loop": null,
+   "lufs": -11.59,
+   "sample_rate": 44100,
+   "samples": 105840,
+   "seconds": 2.4,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "enemy",
+    "boss",
+    "explosion"
+   ],
+   "target_lufs": -11.0
+  },
+  "explosion": {
+   "category": "sfx",
+   "channels": 1,
+   "description": "Enemy ship explodes: falling crunch noise through a closing low-pass over a deep thump, about 1.3 s.",
+   "file": "res://assets/generated/audio/sfx/explosion.wav",
+   "kind": "sfx",
+   "limiting_db": 0.27,
+   "loop": null,
+   "lufs": -14.02,
+   "sample_rate": 44100,
+   "samples": 57330,
+   "seconds": 1.3,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "enemy",
+    "explosion"
+   ],
+   "target_lufs": -14.0
+  }
+ },
+ "files": [
+  {
+   "path": "assets/generated/audio/manifest.json",
+   "bytes": 2034
+  },
+  {
+   "path": "assets/generated/audio/sfx/boss_explosion.wav",
+   "bytes": 211724
+  },
+  {
+   "path": "assets/generated/audio/sfx/boss_explosion.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/explosion.wav",
+   "bytes": 114704
+  },
+  {
+   "path": "assets/generated/audio/sfx/explosion.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/laser.wav",
+   "bytes": 58912
+  },
+  {
+   "path": "assets/generated/audio/sfx/laser.wav.import",
+   "bytes": 125
+  }
+ ],
+ "godot": {
+  "path": "assets/generated/audio/sfx/boss_explosion.wav.import",
+  "text": "[remap]\n\nimporter=\"wav\"\ntype=\"AudioStreamWAV\"\n\n[params]\n\nedit/loop_mode=1\nedit/loop_begin=0\nedit/loop_end=-1\ncompress/mode=2"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ],
+ "next": []
+}

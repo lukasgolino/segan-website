@@ -1,0 +1,10 @@
+# The SEGAN release the site's sounds are built with, PAGAN for the pixel logo, and the exact versions of
+# everything that touches samples or pixels (the asset build is deterministic only with these).
+# Bump the segan tag, rerun tools/build_site_assets.py, commit.
+segan @ git+https://github.com/lukasgolino/segan.git@v0.1.0
+pagan @ git+https://github.com/lukasgolino/PAGAN@v0.6.1
+numpy==2.5.4
+scipy==1.18.1
+pillow==13.0.0
+PyYAML==6.0.3
+soundfile==0.14.0

@@ -1,0 +1,58 @@
+# The space-shooter scenario of the website's scripted demo (steps/space/<step>/).
+id: space
+title: Space shooter
+order: 3
+pitch: "Laser and explosion, an engine loop with phases, a louder boss category."
+start: 01-shots
+steps:
+  01-shots:
+    user: "Space shooter, 80s arcade style. A laser and an explosion, please."
+    agent: >
+      Done, with the 80s synth starter kit. The laser dives two octaves (C7 to C5) in 0.18 s with a
+      ring-modulated fizz and is only 0.26 s long, because it fires several times a second. The explosion is
+      falling crunch noise through a closing filter over a deep thump. Both start at once and sit on -14 LUFS.
+    ran:
+      - segan init audio --style synth --godot ../game
+      - segan new sfx laser --preset laser --description "Player blaster..."
+      - segan new sfx explosion --preset explosion --description "Enemy ship explodes..."
+      - segan lint
+      - segan preview laser explosion
+    show: { sounds: [laser, explosion] }
+    next: [02-engine, 02-boss]
+  02-engine:
+    user: "The ship needs an engine sound while thrusting."
+    agent: >
+      Added `engine` with three phases: `start` spins up, `hum` loops seamlessly while you thrust (seam click
+      0.0000), `stop` winds down. Each phase is its own WAV with loop points where needed. Play start, loop
+      the hum as long as you like, then stop.
+    ran:
+      - segan new sfx engine --description "Ship engine while thrusting..."
+      - segan lint
+      - segan preview engine
+    show: { sounds: [engine], phases: true }
+    next: [03-charge]
+  02-boss:
+    user: "The boss needs a much bigger explosion."
+    agent: >
+      Added `boss_explosion`: the explosion preset stretched to 2.4 s, a lower thump and an echoing second
+      blast. It's in a new `boss` loudness category (-11 LUFS in segan.toml) so it's louder than every other
+      SFX on purpose; the normal explosion stays at -14.
+    ran:
+      - segan new sfx boss_explosion --preset explosion --description "The boss blows up..."
+      - segan config show loudness
+      - segan lint
+      - segan preview boss_explosion explosion
+    show: { sounds: [boss_explosion, explosion] }
+    next: []
+  03-charge:
+    user: "And a charge shot: hold to charge, release to fire."
+    agent: >
+      Added `charge` with two phases: `charge` loops while the button is held (a trembling square with a
+      sparkle on top, seamless), `release` is the blast (a dive from E6 to E3 with crunch and a thump).
+      Your game plays the loop on press and the release on let-go.
+    ran:
+      - segan new sfx charge --description "Charge shot..."
+      - segan lint
+      - segan preview charge
+    show: { sounds: [charge], phases: true }
+    next: []

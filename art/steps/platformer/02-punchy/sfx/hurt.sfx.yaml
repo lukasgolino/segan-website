@@ -1,0 +1,9 @@
+name: hurt
+description: "Player takes damage: a gritty square falling a fifth (E5 -> A4) with a fast wobble, 0.3 s."
+preset: hurt             # starting point; `segan bake sfx hurt --in-place` writes out every field to tune
+category: sfx
+status: draft
+style_version: 1
+tags: [player, damage]
+layers:
+  - { id: grit, gain: -11 }   # more crunch than the preset, so it reads over music

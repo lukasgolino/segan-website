@@ -1,0 +1,223 @@
+{
+ "scenario": "platformer",
+ "id": "02-punchy",
+ "agent": "One command for the whole set: `segan mix adjust --room -0.1 --brightness 2`. Less of the shared room (0.15 to 0.05) and a 2 dB brighter tilt, applied to every sound at once, so they still match. Each sound got shorter (less room tail) and stays on its loudness target. Toggle A/B to compare.",
+ "ran": [
+  "segan mix adjust --room -0.1 --brightness 2 --dry-run",
+  "segan mix adjust --room -0.1 --brightness 2",
+  "segan gallery"
+ ],
+ "show": {
+  "sounds": [
+   "jump",
+   "coin",
+   "hurt"
+  ],
+  "compare": true
+ },
+ "lint": {
+  "errors": 0,
+  "warnings": 0,
+  "findings": []
+ },
+ "diffs": {
+  "01-set": [
+   {
+    "path": "segan.toml",
+    "status": "modified",
+    "added": 2,
+    "removed": 2,
+    "diff": "@@ -33,13 +33,13 @@\n music_channels = \"stereo\"\n sfx_channels = \"mono\"     # engines pan SFX themselves\n tuning = 440.0            # A4 in Hz\n-room = 0.15               # shared reverb amount (0 = dry)\n+room = 0.05               # shared reverb amount (0 = dry)\n room_decay = 0.6          # seconds for the room to fall 60 dB\n crush_bits = 0            # 0 = off; e.g. 8 for a lo-fi era sound\n crush_rate = 0            # Hz, 0 = off; e.g. 11025\n declick = true            # micro-fades at note edges; false = raw chip edges (clicks)\n limiter = -1.0            # true-peak ceiling, dBFS\n-brightness = 0.0          # tilt EQ, dB: + brighter, - darker\n+brightness = 2.0          # tilt EQ, dB: + brighter, - darker\n warmth = 0.0              # low-mid body, dB\n \n # Loudness targets in LUFS, per category. `segan build` normalises every asset to its target."
+   },
+   {
+    "path": "BRIEF.md",
+    "status": "modified",
+    "added": 1,
+    "removed": 0,
+    "diff": "@@ -41,3 +41,4 @@\n Dated notes on what the owner asked for and decided, so later sounds stay consistent with it. Example:\n \n - 2026-01-01: \"Everything sounds too dry\" -> `segan mix adjust --room +0.1` (applies to every asset).\n+- 2026-10-19: \"Punchier and drier\" -> `segan mix adjust --room -0.1 --brightness 2` (room 0.15 -> 0.05, +2 dB tilt; every asset)."
+   }
+  ]
+ },
+ "sounds": [
+  {
+   "name": "jump",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/02-punchy/jump.wav",
+     "rate": 44100,
+     "samples": 23032,
+     "seconds": 0.522268,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/02-punchy/jump.listen.webp",
+     "seam": null,
+     "lufs": -14.53,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.09
+    }
+   ]
+  },
+  {
+   "name": "coin",
+   "kind": "sfx",
+   "category": "pickup",
+   "description": "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/02-punchy/coin.wav",
+     "rate": 44100,
+     "samples": 23893,
+     "seconds": 0.541791,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/02-punchy/coin.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -2.69,
+     "lead_in_ms": 0.05
+    }
+   ]
+  },
+  {
+   "name": "hurt",
+   "kind": "sfx",
+   "category": "sfx",
+   "description": "Player takes damage: a gritty square falling a fifth (E5 -> A4) with a fast wobble, 0.3 s.",
+   "status": "draft",
+   "outputs": [
+    {
+     "id": "main",
+     "label": "main",
+     "audio": "platformer/02-punchy/hurt.wav",
+     "rate": 44100,
+     "samples": 26413,
+     "seconds": 0.598934,
+     "channels": 1,
+     "loop": null,
+     "sheet": "platformer/02-punchy/hurt.listen.webp",
+     "seam": null,
+     "lufs": -14.0,
+     "target": -14.0,
+     "peak": -1.0,
+     "lead_in_ms": 0.07
+    }
+   ]
+  }
+ ],
+ "manifest": {
+  "jump": {
+   "category": "sfx",
+   "channels": 1,
+   "description": "Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.",
+   "file": "res://assets/generated/audio/sfx/jump.wav",
+   "kind": "sfx",
+   "limiting_db": 3.0,
+   "loop": null,
+   "lufs": -14.53,
+   "sample_rate": 44100,
+   "samples": 23032,
+   "seconds": 0.522268,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "player",
+    "movement"
+   ],
+   "target_lufs": -14.0
+  },
+  "coin": {
+   "category": "pickup",
+   "channels": 1,
+   "description": "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.",
+   "file": "res://assets/generated/audio/sfx/coin.wav",
+   "kind": "sfx",
+   "limiting_db": 0.0,
+   "loop": null,
+   "lufs": -14.0,
+   "sample_rate": 44100,
+   "samples": 23893,
+   "seconds": 0.541791,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "pickup"
+   ],
+   "target_lufs": -14.0
+  },
+  "hurt": {
+   "category": "sfx",
+   "channels": 1,
+   "description": "Player takes damage: a gritty square falling a fifth (E5 -> A4) with a fast wobble, 0.3 s.",
+   "file": "res://assets/generated/audio/sfx/hurt.wav",
+   "kind": "sfx",
+   "limiting_db": 0.02,
+   "loop": null,
+   "lufs": -14.0,
+   "sample_rate": 44100,
+   "samples": 26413,
+   "seconds": 0.598934,
+   "status": "draft",
+   "style_version": 1,
+   "tags": [
+    "player",
+    "damage"
+   ],
+   "target_lufs": -14.0
+  }
+ },
+ "files": [
+  {
+   "path": "assets/generated/audio/manifest.json",
+   "bytes": 1918
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.wav",
+   "bytes": 47830
+  },
+  {
+   "path": "assets/generated/audio/sfx/coin.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/hurt.wav",
+   "bytes": 52870
+  },
+  {
+   "path": "assets/generated/audio/sfx/hurt.wav.import",
+   "bytes": 125
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.wav",
+   "bytes": 46108
+  },
+  {
+   "path": "assets/generated/audio/sfx/jump.wav.import",
+   "bytes": 125
+  }
+ ],
+ "godot": {
+  "path": "assets/generated/audio/sfx/jump.wav.import",
+  "text": "[remap]\n\nimporter=\"wav\"\ntype=\"AudioStreamWAV\"\n\n[params]\n\nedit/loop_mode=1\nedit/loop_begin=0\nedit/loop_end=-1\ncompress/mode=2"
+ },
+ "sheet_x": [
+  0.06166666666666667,
+  0.9866666666666667
+ ],
+ "next": [
+  {
+   "to": "03-vary",
+   "say": "They'll play all the time. Can they vary a bit?"
+  }
+ ]
+}
