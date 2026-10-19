@@ -177,7 +177,10 @@ export class Player {
     try {
       const stems = this.opts.stems;
       const buffers = stems ? await Promise.all(stems.map((s) => load(withBase(this.opts.base + s.audio)))) : [await load(withBase(this.opts.base + out.audio))];
-      this.voice?.stop();
+      // detach the old voice before stopping it, so its onended doesn't release this player's claim
+      const old = this.voice;
+      this.voice = null;
+      old?.stop();
       const sheetOut = stems ? { ...stems[0], sheet: out.sheet } : out;
       const voice = new Voice(buffers, sheetOut, this.looping, offset, when, stems ? this.stemLevels : []);
       voice.onended = () => {

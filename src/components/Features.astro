@@ -246,7 +246,10 @@ $Coin.play()                        # a different variation each time`;
     button.classList.add("on");
     try {
       const buffer = await load(url);
-      voice?.stop();
+      // detach the old voice first, so its onended doesn't release the claim this shot holds
+      const old = voice;
+      voice = null;
+      old?.stop();
       const v = new Voice([buffer], { id: "", label: "", audio: url, rate: buffer.sampleRate, samples: buffer.length, seconds: buffer.duration, channels: buffer.numberOfChannels, loop: null, sheet: null }, false);
       voice = v;
       v.onended = () => {
