@@ -49,16 +49,16 @@
      "label": "main",
      "audio": "space/02-engine/engine.wav",
      "rate": 44100,
-     "samples": 65172,
-     "seconds": 1.477823,
+     "samples": 66258,
+     "seconds": 1.502449,
      "channels": 1,
      "loop": null,
      "sheet": "space/02-engine/engine.listen.webp",
      "seam": null,
      "lufs": -14.0,
      "target": -14.0,
-     "peak": -4.7,
-     "lead_in_ms": 1.07
+     "peak": -4.67,
+     "lead_in_ms": 0.32
     },
     {
      "id": "phase:hum",
@@ -76,7 +76,7 @@
      "seam": "space/02-engine/engine.hum.seam.webp",
      "lufs": -14.0,
      "target": -14.0,
-     "peak": -4.7,
+     "peak": -4.67,
      "lead_in_ms": 0.0,
      "seam_click": 0.0
     },
@@ -85,32 +85,32 @@
      "label": "start",
      "audio": "space/02-engine/engine.start.wav",
      "rate": 44100,
-     "samples": 45619,
-     "seconds": 1.034444,
+     "samples": 44176,
+     "seconds": 1.001723,
      "channels": 1,
      "loop": null,
      "sheet": "space/02-engine/engine.start.listen.webp",
      "seam": null,
-     "lufs": -14.0,
+     "lufs": -14.04,
      "target": -14.0,
-     "peak": -1.95,
-     "lead_in_ms": 0.39
+     "peak": -1.0,
+     "lead_in_ms": 0.27
     },
     {
      "id": "phase:stop",
      "label": "stop",
      "audio": "space/02-engine/engine.stop.wav",
      "rate": 44100,
-     "samples": 46329,
-     "seconds": 1.050544,
+     "samples": 44478,
+     "seconds": 1.008571,
      "channels": 1,
      "loop": null,
      "sheet": "space/02-engine/engine.stop.listen.webp",
      "seam": null,
      "lufs": -14.0,
      "target": -14.0,
-     "peak": -1.0,
-     "lead_in_ms": 0.39
+     "peak": -1.75,
+     "lead_in_ms": 0.27
     }
    ]
   }
@@ -140,20 +140,20 @@
      "channels": 1,
      "file": "res://assets/generated/audio/sfx/engine.start.wav",
      "loop": null,
-     "samples": 45619,
-     "seconds": 1.034444
+     "samples": 44176,
+     "seconds": 1.001723
     },
     "stop": {
      "channels": 1,
      "file": "res://assets/generated/audio/sfx/engine.stop.wav",
      "loop": null,
-     "samples": 46329,
-     "seconds": 1.050544
+     "samples": 44478,
+     "seconds": 1.008571
     }
    },
    "sample_rate": 44100,
-   "samples": 65172,
-   "seconds": 1.477823,
+   "samples": 66258,
+   "seconds": 1.502449,
    "status": "draft",
    "style_version": 1,
    "tags": [
@@ -167,7 +167,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 2801
+   "bytes": 2822
   },
   {
    "path": "assets/generated/audio/sfx/engine.hum.wav",
@@ -179,7 +179,7 @@
   },
   {
    "path": "assets/generated/audio/sfx/engine.start.wav",
-   "bytes": 91282
+   "bytes": 88396
   },
   {
    "path": "assets/generated/audio/sfx/engine.start.wav.import",
@@ -187,7 +187,7 @@
   },
   {
    "path": "assets/generated/audio/sfx/engine.stop.wav",
-   "bytes": 92702
+   "bytes": 89000
   },
   {
    "path": "assets/generated/audio/sfx/engine.stop.wav.import",
@@ -195,7 +195,7 @@
   },
   {
    "path": "assets/generated/audio/sfx/engine.wav",
-   "bytes": 130388
+   "bytes": 132560
   },
   {
    "path": "assets/generated/audio/sfx/engine.wav.import",

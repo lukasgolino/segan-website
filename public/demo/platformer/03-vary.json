@@ -337,7 +337,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 4235
+   "bytes": 4256
   },
   {
    "path": "assets/generated/audio/sfx/coin.1.wav",

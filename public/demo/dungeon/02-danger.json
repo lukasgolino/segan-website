@@ -240,7 +240,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 3584
+   "bytes": 3605
   },
   {
    "path": "assets/generated/audio/music/dungeon.danger.wav",

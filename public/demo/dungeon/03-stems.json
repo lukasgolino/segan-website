@@ -215,7 +215,10 @@
       "start": 105840
      },
      "samples": 952560,
-     "seconds": 21.6
+     "seconds": 21.6,
+     "tracks": [
+      "bass"
+     ]
     },
     "drums": {
      "channels": 2,
@@ -225,7 +228,10 @@
       "start": 105840
      },
      "samples": 952560,
-     "seconds": 21.6
+     "seconds": 21.6,
+     "tracks": [
+      "drums"
+     ]
     },
     "harmony": {
      "channels": 2,
@@ -235,7 +241,10 @@
       "start": 105840
      },
      "samples": 952560,
-     "seconds": 21.6
+     "seconds": 21.6,
+     "tracks": [
+      "harmony"
+     ]
     },
     "lead": {
      "channels": 2,
@@ -245,7 +254,10 @@
       "start": 105840
      },
      "samples": 952560,
-     "seconds": 21.6
+     "seconds": 21.6,
+     "tracks": [
+      "lead"
+     ]
     }
    },
    "steps_per_beat": 4,
@@ -324,7 +336,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 4919
+   "bytes": 5160
   },
   {
    "path": "assets/generated/audio/music/dungeon.danger.wav",

@@ -18,7 +18,7 @@ art/
   steps/<scenario>/<step>/    one real SEGAN project per agent turn (copied forward and edited, so each is a real diff)
   steps/features/stomp-v1/    the stomp's first, lint-failing version (W005 lead-in, shown in the demo and features)
   hero/                       the hero's theme song and the sound logo (sfx/jingle)
-  showcase/                   SEGAN's own examples/demo at v0.1.0 (output_dir changed): kits, songs, SFX, gallery
+  showcase/                   SEGAN's own examples/demo at v0.4.1 (output_dir changed): kits, songs, SFX, gallery
   gallery.yaml                which projects' sounds the gallery lists
   brand/                      the logo and icon, PAGAN sprites (generators/logo.py)
 tools/build_site_assets.py    builds every project with SEGAN -> public/demo, public/brand, public/og, src/content/docs

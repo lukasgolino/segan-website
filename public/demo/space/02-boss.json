@@ -142,7 +142,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 2034
+   "bytes": 2055
   },
   {
    "path": "assets/generated/audio/sfx/boss_explosion.wav",

@@ -144,7 +144,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 3970
+   "bytes": 3991
   },
   {
    "path": "assets/generated/audio/sfx/charge.charge.wav",
@@ -180,7 +180,7 @@
   },
   {
    "path": "assets/generated/audio/sfx/engine.start.wav",
-   "bytes": 91282
+   "bytes": 88396
   },
   {
    "path": "assets/generated/audio/sfx/engine.start.wav.import",
@@ -188,7 +188,7 @@
   },
   {
    "path": "assets/generated/audio/sfx/engine.stop.wav",
-   "bytes": 92702
+   "bytes": 89000
   },
   {
    "path": "assets/generated/audio/sfx/engine.stop.wav.import",
@@ -196,7 +196,7 @@
   },
   {
    "path": "assets/generated/audio/sfx/engine.wav",
-   "bytes": 130388
+   "bytes": 132560
   },
   {
    "path": "assets/generated/audio/sfx/engine.wav.import",

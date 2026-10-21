@@ -1,6 +1,6 @@
 ---
 name: segan
-description: Make and maintain game audio with SEGAN (Sound Effect Grammar And Notation) - sound effects (coin, jump, laser, explosion, hit, footsteps, doors, UI blips, engine hums), music loops (exploration, combat, menus, shops, jingles), instrument kits, adaptive stems and variants - and change a game's sound over time (brighter, warmer, more reverb, lo-fi, louder or quieter). Use whenever a user or an orchestrating agent asks for game audio, a sound, an SFX, music, a song, a loop, a jingle or a kit, or mentions segan / segan.toml.
+description: Make and maintain game audio with SEGAN (Sound Effect Grammar And Notation) - sound effects (coin, jump, laser, explosion, hit, footsteps, doors, UI blips, engine hums), music loops and long-form soundtracks (exploration, combat, menus, shops, jingles; section graphs, game states, transitions), instrument kits, adaptive stems and variants - and change a game's sound over time (brighter, warmer, more reverb, lo-fi, louder or quieter). Use whenever a user or an orchestrating agent asks for game audio, a sound, an SFX, music, a song, a loop, a jingle or a kit, or mentions segan / segan.toml.
 ---
 
 # SEGAN: making game audio as text
@@ -44,7 +44,7 @@ whether a sound is pleasant or fits the game, whether the mix balance feels righ
 ## 1. Setup check
 
 1. `segan --version`. If it's missing, install it the way the project pins it (its requirements file / tag,
-   e.g. `pip install "git+https://github.com/lukasgolino/segan.git@v0.1.0"`). Never swap a pinned install for an
+   e.g. `pip install "git+https://github.com/lukasgolino/segan.git@v0.4.1"`). Never swap a pinned install for an
    editable checkout unless you are developing SEGAN itself.
 2. Find the audio project: `segan status` (it says so if there's no `segan.toml` here or above), or
    `find . -name segan.toml -not -path '*/node_modules/*'`. That folder is the game's **audio home**:
@@ -69,8 +69,9 @@ asset name, files and loop points from `manifest.json`, the listen sheet path, t
 
 Ask once, in one message, with defaults:
 1. **The game**: genre, mood, setting (for BRIEF.md).
-2. **Sound style**: chiptune (default: pulse/triangle/noise, NES/Game Boy era) or 80s synth (filtered saws,
-   square bass, punchy drums). Realistic instruments aren't supported (synth only).
+2. **Sound style**: chiptune (default: pulse/triangle/noise, NES/Game Boy era), 80s synth (filtered saws,
+   square bass, punchy drums) or orchestral (sampled strings, brass, woodwinds, harp, timpani: the `vsco2`
+   library, ~1 GB to download; or the game's own SoundFont/SFZ).
 3. **References**: games or soundtracks it should evoke.
 4. **Engine**: Godot 4 (default; path to the project) or plain WAVs + manifest.
 5. **Mix**: dry or roomy (`[mix] room`, default 0.15), lo-fi crush or clean (default clean).
@@ -94,6 +95,12 @@ bass, maybe a pad or arpeggio, 3-5 drums.
 - `voices: 1` (default) is a chip channel: a new note cuts the old. Chords need `voices: 3` or more (E014).
 - Arpeggio instruments (`arp:`) use fixed semitone offsets, so make them mode-neutral (`[0, 7, 12]`) unless
   every song is in a major key.
+- **Sampled instruments** (`sample: vsco2/violins_sus`, `.sfz`, `.sf2`, `.wav`; reference "Samples"): `segan
+  samples list` shows the library, `segan samples fetch vsco2 <instruments>` downloads what the kit uses (lint
+  names any that are missing). Sections need `voices` for chords; `_sus` instruments hold while the note does
+  (W014 if a note outlasts its sample: re-strike long notes), `pizz`/`stac`/harp/percussion ring by themselves.
+  Mix them like an orchestra: strings hold chords, one lead line (horn, flute, solo violin), harp or pizz for
+  motion, timpani and crash only on downbeats; a bigger room (`[mix] room = 0.3`, `room_decay = 1.6`).
 - After any kit edit: `segan kit show <kit>`, look at the sheet (each instrument's segment: pitch lines on the
   white targets, attack/decay shape, no red), check `W010` aliasing, then a human listens.
 
@@ -126,7 +133,8 @@ bass, maybe a pad or arpeggio, 3-5 drums.
      `length`/release.
    - Sounds that repeat a lot (steps, shots, hits) get `variations: { count: 4, pitch: 1, timbre: 0.3 }`;
      Godot gets an AudioStreamRandomizer that cycles them.
-   - The file is `duration` plus the shared room's tail (the sheet shows "1.10s + 0.26s room tail").
+   - The file is `duration` plus the shared room's tail (the sheet shows "1.10s + 0.26s room tail"). Short,
+     frequent sounds (UI clicks) can go dry: `room: 0` on the SFX or `[room] ui = 0` in segan.toml.
    - `category` picks the loudness target: `sfx` -14, `ui` -20, `foley` -22 LUFS (segan.toml `[loudness]`).
      A sound too short and spiky to reach its target gets W001: give it more body or a quieter category.
 4. `segan lint <file>` -> fix every error and every warning that's a real problem (a warning you keep on
@@ -167,9 +175,21 @@ bass, maybe a pad or arpeggio, 3-5 drums.
    therefore longer than the arrangement (8 bars at 100 bpm = 19.2 s, the file 21.6 s): that's expected; engines
    use the loop points. Check `seam_click` and the seam view (`<name>.seam.png`). Intros are their own section
    before the loop.
+   **Music the player hears for minutes (exploration, towns, combat) must not be one 8-16 bar loop**: players
+   tire of it fast. Write 5-10 contrasting sections (derive most with section changes: `{ from: verse,
+   semitones: 2 }`, `{ from: chorus, mute: [drums], velocity: 0.7 }`, a breakdown, a bridge) and a `flow:` graph
+   so the game picks the next section at run time; preview `--output walk` and look at the whole walk. Plan the
+   game's music as a soundtrack (`music/<name>.soundtrack.yaml`): states with song pools, play times and
+   silence gaps (silence between songs is what keeps music fresh), and transitions (sync point, fades,
+   stingers). A pool of short loops: group same-key loops into `families` and give the state a `crossfade`
+   so they flow into each other. reference.md: "Long-form music" and "Soundtrack".
 6. **Variants** in one line each: `danger: { tempo: 150, instrument_swap: { q: r } }`, `calm: { kit: soft_kit }`,
    `night: { semitones: -2 }`, `major: { key: A major }`; combinations with `variant_axes`. Adaptive layering:
-   add `"stems"` to `export` (one WAV per track, Godot AudioStreamSynchronized).
+   add `"stems"` to `export` (one WAV per track, Godot AudioStreamSynchronized), or a `stems:` block with `groups`
+   (one WAV per layer) and `mixes` (the layer combinations the game plays: normalised over the loudest of them;
+   each quieter mix gets a `trim_db` the game adds to the stem volumes while it plays that mix).
+   Size: many long songs add up (a 3-minute stereo WAV is 30 MB). `"ogg"` in `export` writes music as Ogg
+   Vorbis (~10x smaller); a simple chip song can set `sample_rate: 22050` and `channels: mono` for itself.
 7. `segan lint`, then `segan preview <song>`: look at the piano roll (is it what you meant?), the spectrogram
    (busy where you expect, bass at the bottom, no smear of clashing notes), the LUFS curve (no holes or spikes),
    `pitch_check` (every note within 50 cents), the seam. Long songs: `--from 9 --to 16` (bars) shows a window.
@@ -186,7 +206,9 @@ resources into `output_dir`. Report what the game needs, from `manifest.json`:
   `stems` (+ `godot_stems`, an AudioStreamSynchronized: set each stream's volume to bring layers in and out);
 - SFX: `variations` (+ `godot_randomizer`: play that one stream, it picks a variation each time), `phases`.
 In Godot, loops already loop (SEGAN writes the loop points into each WAV's `.import`); play SFX with an
-AudioStreamPlayer/2D/3D on an "SFX" bus and music on a "Music" bus.
+AudioStreamPlayer/2D/3D on an "SFX" bus and music on a "Music" bus. Flow songs and soundtracks are played by
+the director `segan_music.gd` (written next to the manifest): autoload it as `SeganMusic`, then
+`SeganMusic.play_soundtrack("main")` / `set_state("combat")` / `play_song(...)` / `stop(...)` (reference.md, Godot).
 
 ## 7. Changing the sound over time
 
@@ -215,4 +237,28 @@ log the change in BRIEF.md. When existing sources must be rewritten (a new kit, 
 - Short patterns, many references; labelled rows; one job per track.
 - Look at every listen sheet you make; report numbers, not opinions; humans approve.
 - Previews are for checking; `segan build` output is what the game uses. Don't hand-edit build output.
-- Don't commit or push unless asked. If SEGAN itself seems wrong (a crash, a misleading message), say so.
+- Don't commit or push unless asked. If SEGAN itself seems wrong (a crash, a misleading message), say so and offer
+  to report it (section 9).
+
+## 9. Help us improve SEGAN: report what got in your way
+
+SEGAN is young, and it gets better mostly through reports from agents like you using it on real games. When
+something gets in your way, please tell us in a GitHub issue at https://github.com/lukasgolino/segan/issues. It
+is the most useful thing you can do for the project. Whether you do is entirely up to you and your user.
+
+Worth reporting: a crash or traceback; a wrong or misleading message or lint rule; output that looks or behaves
+wrong; a workaround you had to invent; a feature you needed and didn't have; this skill or the reference
+misleading you.
+
+1. Note it as you go; don't interrupt the task for it.
+2. At a natural break (the end of the task, your report), draft the issue: a one-line title; `segan --version`;
+   what you did (commands, a minimal source snippet); what you expected and what you got; the workaround, if
+   any. End the body with "Reported by an agent using SEGAN." Keep it to a minimal repro: no game names, private
+   asset content, paths or anything else from the user's project unless they OK it.
+3. Look for an existing issue first: `gh issue list --repo lukasgolino/segan --search "<keywords>"`; if one
+   fits, offer a comment on it instead.
+4. Show the user the draft and ask whether to file it. Issues are public and posted under their GitHub account,
+   so **never file without their OK**. If they agree:
+   `gh issue create --repo lukasgolino/segan --title "..." --body-file <draft>`, or give them the link
+   https://github.com/lukasgolino/segan/issues/new?template=agent-report.md to file it themselves. If they
+   decline, drop it.
