@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-05
+
 ### Added
 
 - Cloudflare Web Analytics beacon on every page (cookieless, production builds only). CI checks that each built
@@ -13,3 +15,6 @@ All notable changes to this project are documented here. The format follows
 - CHANGELOG.md, a check workflow (type-check + build on every push and PR), and a release workflow that publishes
   a GitHub release for each `vX.Y.Z` tag, refusing tags that don't match package.json or have no CHANGELOG
   section ([#2](https://github.com/lukasgolino/segan-website/issues/2)).
+
+[Unreleased]: https://github.com/lukasgolino/segan-website/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/lukasgolino/segan-website/releases/tag/v0.1.0
