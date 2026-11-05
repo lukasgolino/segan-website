@@ -2,10 +2,8 @@
 # committed output differs, so the site can never play or show anything SEGAN doesn't produce.
 name: assets
 
+# Manual only (Actions minutes): run once per PR, just before merge, with `gh workflow run assets --ref <branch>`.
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:
 
 jobs:
