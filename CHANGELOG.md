@@ -6,8 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-06
+
 ### Changed
 
+- KILN links point at its own domain, https://kiln3d.dev/ ([#6](https://github.com/lukasgolino/segan-website/issues/6)).
 - The site build check runs on every push. The slow asset check runs on the PR once it leaves draft, and again only
   if a commit lands after that, as the last gate before merge.
   Deploys skip pushes that only touch the changelog, README or CI-only workflows.
@@ -22,5 +25,6 @@ All notable changes to this project are documented here. The format follows
   a GitHub release for each `vX.Y.Z` tag, refusing tags that don't match package.json or have no CHANGELOG
   section ([#2](https://github.com/lukasgolino/segan-website/issues/2)).
 
-[Unreleased]: https://github.com/lukasgolino/segan-website/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/lukasgolino/segan-website/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/lukasgolino/segan-website/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/lukasgolino/segan-website/releases/tag/v0.1.0
