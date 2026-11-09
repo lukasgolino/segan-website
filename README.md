@@ -75,4 +75,4 @@ sounds on every push and PR and fails if they're out of date.
 
 ## License
 
-MIT, like SEGAN: see [LICENSE](LICENSE).
+Apache 2.0, like SEGAN: see [LICENSE](LICENSE).

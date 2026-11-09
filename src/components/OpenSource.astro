@@ -11,7 +11,7 @@ const jingle = readJson("public/demo/hero.json").sounds.jingle;
       <span class="eyebrow">Open source</span>
       <h2>Free, for good</h2>
       <p class="lede">
-        SEGAN is MIT-licensed. Every released version stays free to use, change and ship, commercially or
+        SEGAN is Apache 2.0 licensed. Every released version stays free to use, change and ship, commercially or
         not. No account, no telemetry, no cloud: it runs on your machine.
       </p>
       <ul>
@@ -27,7 +27,7 @@ const jingle = readJson("public/demo/hero.json").sounds.jingle;
     </div>
     <div class="badge panel">
       <img class="px" src={asset("brand/mark@12x.png")} width="192" height="192" alt="The SEGAN icon, a speech bubble holding a waveform" />
-      <p>MIT · free forever · icon made with PAGAN</p>
+      <p>Apache 2.0 · free forever · icon made with PAGAN</p>
       <div class="jingle">
         <segan-player data-player={playerData(jingle, "demo/", { compact: true })}></segan-player>
       </div>
