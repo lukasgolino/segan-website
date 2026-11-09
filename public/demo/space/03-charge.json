@@ -23,9 +23,9 @@
    {
     "path": "sfx/charge.sfx.yaml",
     "status": "added",
-    "added": 30,
+    "added": 31,
     "removed": 0,
-    "diff": "@@ -0,0 +1,30 @@\n+name: charge\n+description: \"Charge shot: a rising, trembling square while the button is held (looping), then a heavy blast on release.\"\n+category: sfx\n+status: draft\n+style_version: 1\n+tags: [player, weapon, loop]\n+duration: 0.8\n+layers:\n+  - id: whine\n+    osc: pulse\n+    duty: 0.25\n+    pitch: [[0, E4], [0.7, E6]]\n+    slide: true\n+    vibrato: [14, 0.3]\n+    env: [0.002, 0.1, 0.8, 0.05]\n+    gain: -8\n+phases:\n+  charge:                     # charge.charge.wav: loops while the button is held\n+    duration: 0.5\n+    loop: true\n+    crossfade: 0.08\n+    layers:\n+      - { id: whine, osc: pulse, duty: 0.25, pitch: E6, vibrato: [14, 0.3], tremolo: [12, 0.4], env: [0.002, 0.1, 0.8, 0.002], gain: -8 }\n+      - { id: sparkle, osc: triangle, pitch: E7, tremolo: [20, 0.6], env: [0.002, 0.1, 0.6, 0.002], gain: -18 }\n+  release:                    # charge.release.wav: the shot itself\n+    duration: 0.6\n+    layers:\n+      - { id: blast, osc: pulse, duty: 0.5, pitch: [[0, E6], [0.35, E3]], slide: true, env: [0.001, 0.1, 0.6, 0.15], length: 0.3, gain: -5 }\n+      - { id: crunch, osc: bitnoise, pitch: [[0, E5], [0.4, E2]], slide: true, env: [0.001, 0.15, 0.2, 0.1], gain: -10 }\n+      - { id: thump, drum: kick, tune: 45, decay: 0.3, punch: 24, gain: -6 }"
+    "diff": "@@ -0,0 +1,31 @@\n+name: charge\n+description: \"Charge shot: a rising, trembling square while the button is held (looping), then a heavy blast on release.\"\n+category: sfx\n+status: draft\n+lint: { disable: [W027] }      # the charge loop is one sustained tone: its attack is the loop start\n+style_version: 1\n+tags: [player, weapon, loop]\n+duration: 0.8\n+layers:\n+  - id: whine\n+    osc: pulse\n+    duty: 0.25\n+    pitch: [[0, E4], [0.7, E6]]\n+    slide: true\n+    vibrato: [14, 0.3]\n+    env: [0.002, 0.1, 0.8, 0.05]\n+    gain: -8\n+phases:\n+  charge:                     # charge.charge.wav: loops while the button is held\n+    duration: 0.5\n+    loop: true\n+    crossfade: 0.08\n+    layers:\n+      - { id: whine, osc: pulse, duty: 0.25, pitch: E6, vibrato: [14, 0.3], tremolo: [12, 0.4], env: [0.002, 0.1, 0.8, 0.002], gain: -8 }\n+      - { id: sparkle, osc: triangle, pitch: E7, tremolo: [20, 0.6], env: [0.002, 0.1, 0.6, 0.002], gain: -18 }\n+  release:                    # charge.release.wav: the shot itself\n+    duration: 0.6\n+    layers:\n+      - { id: blast, osc: pulse, duty: 0.5, pitch: [[0, E6], [0.35, E3]], slide: true, env: [0.001, 0.1, 0.6, 0.15], length: 0.3, gain: -5 }\n+      - { id: crunch, osc: bitnoise, pitch: [[0, E5], [0.4, E2]], slide: true, env: [0.001, 0.15, 0.2, 0.1], gain: -10 }\n+      - { id: thump, drum: kick, tune: 45, decay: 0.3, punch: 24, gain: -6 }"
    },
    {
     "path": "BRIEF.md",
@@ -104,6 +104,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Charge shot: a rising, trembling square while the button is held (looping), then a heavy blast on release.",
+   "dry_seconds": 0.8,
    "file": "res://assets/generated/audio/sfx/charge.wav",
    "kind": "sfx",
    "limiting_db": 0.0,
@@ -122,6 +123,7 @@
     },
     "release": {
      "channels": 1,
+     "dry_seconds": 0.6,
      "file": "res://assets/generated/audio/sfx/charge.release.wav",
      "loop": null,
      "samples": 36105,
@@ -144,7 +146,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 3991
+   "bytes": 4187
   },
   {
    "path": "assets/generated/audio/sfx/charge.charge.wav",

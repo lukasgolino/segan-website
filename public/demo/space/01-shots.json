@@ -123,6 +123,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Player blaster: a bright square diving two octaves (C7 -> C5) in 0.18 s with a ring-modulated fizz.",
+   "dry_seconds": 0.26,
    "file": "res://assets/generated/audio/sfx/laser.wav",
    "kind": "sfx",
    "limiting_db": 0.0,
@@ -143,6 +144,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Enemy ship explodes: falling crunch noise through a closing low-pass over a deep thump, about 1.3 s.",
+   "dry_seconds": 1.3,
    "file": "res://assets/generated/audio/sfx/explosion.wav",
    "kind": "sfx",
    "limiting_db": 0.27,
@@ -163,7 +165,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 1400
+   "bytes": 1454
   },
   {
    "path": "assets/generated/audio/sfx/explosion.wav",

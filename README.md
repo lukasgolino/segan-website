@@ -60,7 +60,7 @@ images with a small tolerance (SEGAN guarantees ±1 LSB across machines, not ide
 - `show:` in the scenario says what the turn displays: `sounds` (asset names), and `compare` (A/B against the
   previous turn), `variations` (play again), `variants` (switch at the same bar), `stems` (mute buttons),
   `phases` (hold to play), `seam` (the loop seam view), `before` (a first version from `steps/features/`).
-- Upgrading SEGAN: bump the tag in `requirements.txt`, rebuild, look at the diff of `public/demo`.
+- Upgrading SEGAN: bump the `segan-gen` version in `requirements.txt`, rebuild, look at the diff of `public/demo`.
 
 ## Sound review
 

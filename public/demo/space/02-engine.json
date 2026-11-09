@@ -23,9 +23,9 @@
    {
     "path": "sfx/engine.sfx.yaml",
     "status": "added",
-    "added": 43,
+    "added": 44,
     "removed": 0,
-    "diff": "@@ -0,0 +1,43 @@\n+name: engine\n+description: \"Ship engine while thrusting: a detuned saw drone with a low pulse and filtered rumble. Three phases: spin up, a seamless hum loop, spin down.\"\n+category: sfx\n+status: draft\n+style_version: 1\n+tags: [player, engine, loop]\n+duration: 1.0\n+layers:                       # the hum; each phase below reuses these layers unless it lists its own\n+  - id: drone\n+    osc: saw\n+    unison: 3\n+    detune: 12\n+    pitch: A1\n+    filter: { type: lp, cutoff: 900, resonance: 0.3 }\n+    tremolo: [9, 0.25]\n+    env: [0.002, 0.1, 1.0, 0.002]\n+    gain: -6\n+  - id: body\n+    osc: pulse\n+    duty: 0.3\n+    pitch: A2\n+    filter: { type: lp, cutoff: 600 }\n+    env: [0.002, 0.1, 1.0, 0.002]\n+    gain: -12\n+  - id: rumble\n+    osc: noise\n+    filter: { type: lp, cutoff: 400 }\n+    env: [0.002, 0.1, 1.0, 0.002]\n+    gain: -16\n+phases:\n+  start:                      # engine.start.wav: spinning up from silence to the hum\n+    duration: 0.6\n+    layers:\n+      - { id: drone, osc: saw, unison: 3, detune: 12, pitch: [[0, A0], [0.55, A1]], slide: true, filter: { type: lp, cutoff: 900, resonance: 0.3 }, env: [0.002, 0.1, 1.0, 0.05], gain: -6 }\n+      - { id: rumble, osc: noise, filter: { type: lp, cutoff: 400 }, env: [0.002, 0.1, 1.0, 0.05], gain: -16 }\n+  hum:                        # engine.hum.wav: loops seamlessly while thrusting\n+    duration: 1.0\n+    loop: true\n+    crossfade: 0.1\n+  stop:                       # engine.stop.wav: winding down\n+    duration: 0.7\n+    layers:\n+      - { id: drone, osc: saw, unison: 3, detune: 12, pitch: [[0, A1], [0.6, A0]], slide: true, filter: { type: lp, cutoff: 900, resonance: 0.3 }, env: [0.002, 0.1, 1.0, 0.1], length: 0.55, gain: -6 }"
+    "diff": "@@ -0,0 +1,44 @@\n+name: engine\n+description: \"Ship engine while thrusting: a detuned saw drone with a low pulse and filtered rumble. Three phases: spin up, a seamless hum loop, spin down.\"\n+category: sfx\n+status: draft\n+lint: { disable: [W018, W027] } # the rumble is a felt sub layer, not a heard one; the hum is one sustained loop, its attack is the loop start\n+style_version: 1\n+tags: [player, engine, loop]\n+duration: 1.0\n+layers:                       # the hum; each phase below reuses these layers unless it lists its own\n+  - id: drone\n+    osc: saw\n+    unison: 3\n+    detune: 12\n+    pitch: A1\n+    filter: { type: lp, cutoff: 900, resonance: 0.3 }\n+    tremolo: [9, 0.25]\n+    env: [0.002, 0.1, 1.0, 0.002]\n+    gain: -6\n+  - id: body\n+    osc: pulse\n+    duty: 0.3\n+    pitch: A2\n+    filter: { type: lp, cutoff: 600 }\n+    env: [0.002, 0.1, 1.0, 0.002]\n+    gain: -12\n+  - id: rumble\n+    osc: noise\n+    filter: { type: lp, cutoff: 400 }\n+    env: [0.002, 0.1, 1.0, 0.002]\n+    gain: -16\n+phases:\n+  start:                      # engine.start.wav: spinning up from silence to the hum\n+    duration: 0.6\n+    layers:\n+      - { id: drone, osc: saw, unison: 3, detune: 12, pitch: [[0, A0], [0.55, A1]], slide: true, filter: { type: lp, cutoff: 900, resonance: 0.3 }, env: [0.002, 0.1, 1.0, 0.05], gain: -6 }\n+      - { id: rumble, osc: noise, filter: { type: lp, cutoff: 400 }, env: [0.002, 0.1, 1.0, 0.05], gain: -16 }\n+  hum:                        # engine.hum.wav: loops seamlessly while thrusting\n+    duration: 1.0\n+    loop: true\n+    crossfade: 0.1\n+  stop:                       # engine.stop.wav: winding down\n+    duration: 0.7\n+    layers:\n+      - { id: drone, osc: saw, unison: 3, detune: 12, pitch: [[0, A1], [0.6, A0]], slide: true, filter: { type: lp, cutoff: 900, resonance: 0.3 }, env: [0.002, 0.1, 1.0, 0.1], length: 0.55, gain: -6 }"
    },
    {
     "path": "BRIEF.md",
@@ -120,6 +120,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Ship engine while thrusting: a detuned saw drone with a low pulse and filtered rumble. Three phases: spin up, a seamless hum loop, spin down.",
+   "dry_seconds": 1.0,
    "file": "res://assets/generated/audio/sfx/engine.wav",
    "kind": "sfx",
    "limiting_db": 0.0,
@@ -138,6 +139,7 @@
     },
     "start": {
      "channels": 1,
+     "dry_seconds": 0.6,
      "file": "res://assets/generated/audio/sfx/engine.start.wav",
      "loop": null,
      "samples": 44176,
@@ -145,6 +147,7 @@
     },
     "stop": {
      "channels": 1,
+     "dry_seconds": 0.7,
      "file": "res://assets/generated/audio/sfx/engine.stop.wav",
      "loop": null,
      "samples": 44478,
@@ -167,7 +170,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 2822
+   "bytes": 2962
   },
   {
    "path": "assets/generated/audio/sfx/engine.hum.wav",

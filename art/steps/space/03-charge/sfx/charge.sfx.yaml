@@ -2,6 +2,7 @@ name: charge
 description: "Charge shot: a rising, trembling square while the button is held (looping), then a heavy blast on release."
 category: sfx
 status: draft
+lint: { disable: [W027] }      # the charge loop is one sustained tone: its attack is the loop start
 style_version: 1
 tags: [player, weapon, loop]
 duration: 0.8

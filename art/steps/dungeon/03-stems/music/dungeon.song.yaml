@@ -6,6 +6,7 @@ meter: [4, 4]
 steps_per_beat: 4             # 16th-note grid; `|` marks each beat
 key: D harmonic_minor         # the raised 7th (C#) gives the tension
 status: draft
+lint: { disable: [W025] }      # the site's dungeon story starts from SEGAN's own dungeon example on purpose
 style_version: 1
 tags: [music, dungeon, loop]
 

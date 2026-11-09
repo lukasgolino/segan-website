@@ -69,6 +69,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Landing on an enemy: a squashy square bounce down an octave over a short kick thud, with a soft pop.",
+   "dry_seconds": 0.34,
    "file": "res://assets/generated/audio/sfx/stomp.wav",
    "kind": "sfx",
    "limiting_db": 1.15,
@@ -89,7 +90,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 2519
+   "bytes": 2627
   },
   {
    "path": "assets/generated/audio/sfx/coin.wav",
@@ -140,7 +141,7 @@
     {
      "rule": "W001",
      "severity": "warning",
-     "message": "stomp reaches only -15.5 LUFS of its -14 target: it's too peaky to get louder without more than 3 dB of limiting. Give it more body (longer decay/sustain, less transient) or a quieter category",
+     "message": "stomp reaches only -15.5 LUFS of its -14 target: it's too peaky to get louder without more than 3 dB of limiting. Stagger layer starts by a few ms (3-9 ms) so transients don't stack, tame the peakiest layer (saturate or compress noise layers with distort, lower its gain), give it more body (longer decay/sustain), or use a quieter category. `segan preview --json` lists each layer's peak, loudness and crest",
      "path": "sfx/stomp.sfx.yaml",
      "line": null,
      "where": "stomp"

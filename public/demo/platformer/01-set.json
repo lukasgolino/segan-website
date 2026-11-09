@@ -157,6 +157,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.",
+   "dry_seconds": 0.3,
    "file": "res://assets/generated/audio/sfx/jump.wav",
    "kind": "sfx",
    "limiting_db": 1.21,
@@ -177,6 +178,7 @@
    "category": "pickup",
    "channels": 1,
    "description": "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.",
+   "dry_seconds": 0.42,
    "file": "res://assets/generated/audio/sfx/coin.wav",
    "kind": "sfx",
    "limiting_db": 0.0,
@@ -196,6 +198,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Player takes damage: a gritty square falling a fifth (E5 -> A4) with a fast wobble, 0.3 s.",
+   "dry_seconds": 0.36,
    "file": "res://assets/generated/audio/sfx/hurt.wav",
    "kind": "sfx",
    "limiting_db": 0.0,
@@ -216,7 +219,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 1939
+   "bytes": 2020
   },
   {
    "path": "assets/generated/audio/sfx/coin.wav",
