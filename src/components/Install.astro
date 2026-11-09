@@ -4,13 +4,13 @@ import { escapeHtml } from "../scripts/highlight";
 
 const { segan } = readJson("src/content/docs/meta.json");
 const tag = `v${segan}`;
-const repo = "git+https://github.com/lukasgolino/segan.git";
+const pin = `segan-gen==${segan}`;
 const tabs = [
   {
     id: "skill",
     label: "Claude Code skill",
     steps: [
-      [`pip install "${repo}@${tag}"`, "install SEGAN (Python 3.11+)"],
+      [`pip install ${pin}`, "install SEGAN (Python 3.11+; on PyPI as segan-gen)"],
       ["segan skill install", "copy the skill into this repo's .claude/skills/"],
     ],
     then: `Then ask Claude: "I'm making a dungeon crawler; make a tense exploration loop and a door creak."`,
@@ -19,16 +19,15 @@ const tabs = [
     id: "mcp",
     label: "MCP (any agent)",
     steps: [
-      [`pip install "segan[mcp] @ ${repo}@${tag}"`, "SEGAN with the MCP server"],
-      ["claude mcp add segan -- segan mcp --project ./audio", "or in any client: command `segan mcp --project <dir>`"],
+      [`claude mcp add segan -- uvx segan-gen@${segan} mcp --project /path/to/audio`, "no install needed (uv); or `segan mcp` after pip install"],
     ],
-    then: `Works with Claude Desktop, Claude Code, Cursor or your own agent. Listen sheets come back as images. Add --allow-godot to let it verify builds in headless Godot.`,
+    then: `Works with Claude Desktop, Claude Code, Cursor or your own agent (command uvx, args segan-gen@${segan} mcp --project <dir>); listed in the MCP Registry as io.github.lukasgolino/segan. Listen sheets come back as images. Add --allow-godot to let it verify builds in headless Godot.`,
   },
   {
     id: "cli",
     label: "CLI",
     steps: [
-      [`pip install "${repo}@${tag}"`, "install"],
+      [`pip install ${pin}`, "install"],
       ["segan init audio --style chiptune", "a project: segan.toml, kits/, music/, sfx/"],
       ['cd audio && segan new sfx coin --preset coin --description "bright pickup"', "write a sound"],
       ["segan lint && segan preview coin && segan build", "check it, look at it, build it"],
@@ -42,7 +41,7 @@ const tabs = [
   <div class="wrap">
     <span class="eyebrow">Install</span>
     <h2>One line, then ask</h2>
-    <p class="lede">Requires Python 3.11+. Pin a tag so your sounds build the same way next year ({tag} is current).</p>
+    <p class="lede">Requires Python 3.11+. Pin a version so your sounds build the same way next year ({tag} is current). Upgrading from a <code>segan @ git+…</code> install? Run <code>pip uninstall segan</code> first: both packages own the same files.</p>
     <div class="tabs panel" id="install-tabs">
       <div role="tablist" aria-label="Install method">
         {

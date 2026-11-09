@@ -14,8 +14,17 @@
  },
  "lint": {
   "errors": 0,
-  "warnings": 0,
-  "findings": []
+  "warnings": 1,
+  "findings": [
+   {
+    "rule": "W025",
+    "severity": "warning",
+    "message": "is close to SEGAN's example or template segan:demo/dungeon (88% alike in its first 8 bars): defaults and examples are where every project starts, so move away from them (key, progression, rhythm, instruments)",
+    "path": "music/dungeon.song.yaml",
+    "line": null,
+    "where": "patterns"
+   }
+  ]
  },
  "diffs": {
   "02-danger": [
@@ -336,7 +345,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 5160
+   "bytes": 5161
   },
   {
    "path": "assets/generated/audio/music/dungeon.danger.wav",

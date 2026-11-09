@@ -1,6 +1,7 @@
 ---
 import Doc from "../../layouts/Doc.astro";
-import { asset } from "../../lib/data";
+import { asset, readJson } from "../../lib/data";
+const { segan } = readJson("src/content/docs/meta.json");
 ---
 
 <Doc title="Docs" description="SEGAN documentation: the agent workflow, the full notation reference and the changelog.">
@@ -8,7 +9,7 @@ import { asset } from "../../lib/data";
   <p>
     These pages are generated from the files that ship with SEGAN, so they always match the release.
     The same text is what your agent reads: the skill installs it into your repo, and the MCP server
-    serves it as <code>segan://workflow</code> and <code>segan://reference</code>.
+    serves it as <code>segan://workflow</code> and <code>segan://docs/&#123;topic&#125;</code> (one per reference section).
   </p>
   <ul>
     <li><a href={asset("docs/workflow/")}>Workflow</a>: how an agent sets up a game's audio, reads listen sheets, makes SFX and songs, and changes the sound over time.</li>
@@ -16,7 +17,7 @@ import { asset } from "../../lib/data";
     <li><a href={asset("docs/changelog/")}>Changelog</a>: every release, and what forces a version bump.</li>
   </ul>
   <h2>Five-minute start</h2>
-  <pre><code>pip install "git+https://github.com/lukasgolino/segan.git@v0.1.0"
+  <pre><code>pip install segan-gen=={segan}
 segan init audio --style chiptune   # segan.toml, BRIEF.md, SOUND.md, kits/chip.kit.yaml
 cd audio
 segan kit show                      # every instrument: previews/kits/chip.listen.png + WAVs

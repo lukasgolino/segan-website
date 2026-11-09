@@ -1,4 +1,6 @@
 ---
+import { readJson } from "../../lib/data";
+const { segan } = readJson("src/content/docs/meta.json");
 import Landing from "../../layouts/Landing.astro";
 ---
 
@@ -11,12 +13,12 @@ import Landing from "../../layouts/Landing.astro";
     "Listen sheets come back as images (piano roll, waveform, spectrogram, loudness), WAVs as audio, so the model checks what it made.",
     "Resources: the full workflow and notation reference, the project's brief, sound bible and manifest.",
     "The same JSON as the CLI's <code>--json</code>: one contract for agents and scripts.",
-    "Works with Claude Desktop, Claude Code, Cursor or your own agent. Runs locally over stdio; no cloud, no key.",
+    "Works with Claude Desktop, Claude Code, Cursor or your own agent. Runs locally over stdio; no cloud, no key. Listed in the MCP Registry as io.github.lukasgolino/segan.",
   ]}
-  code={`pip install "segan[mcp] @ git+https://github.com/lukasgolino/segan.git@v0.1.0"
-claude mcp add segan -- segan mcp --project ./audio
+  code={`claude mcp add segan -- uvx segan-gen@${segan} mcp --project /path/to/audio
 
-# any other client: command "segan", args ["mcp", "--project", "./audio"]`}
+# any other client: command "uvx", args ["segan-gen@${segan}", "mcp", "--project", "/path/to/audio"]
+# or pip install segan-gen==${segan}, then command "segan", args ["mcp", "--project", "/path/to/audio"]`}
 >
   <p>
     Audio models return a file you can't edit. SEGAN's tools work on source files instead: the agent writes

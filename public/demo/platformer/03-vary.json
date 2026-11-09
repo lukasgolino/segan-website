@@ -228,6 +228,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Springy platformer jump: a thin square sweeping up C4 -> G5 in 0.14 s, with a tiny airy lift on top.",
+   "dry_seconds": 0.3,
    "file": "res://assets/generated/audio/sfx/jump.wav",
    "godot_randomizer": "res://assets/generated/audio/sfx/jump.tres",
    "kind": "sfx",
@@ -247,35 +248,51 @@
    "variations": [
     {
      "channels": 1,
+     "dry_seconds": 0.3,
      "file": "res://assets/generated/audio/sfx/jump.1.wav",
+     "limiting_db": 2.7,
      "loop": null,
+     "lufs": -14.49,
      "pitch_offset_semitones": 0.2385,
      "samples": 22950,
-     "seconds": 0.520408
+     "seconds": 0.520408,
+     "target_lufs": -14.0
     },
     {
      "channels": 1,
+     "dry_seconds": 0.3,
      "file": "res://assets/generated/audio/sfx/jump.2.wav",
+     "limiting_db": 3.0,
      "loop": null,
+     "lufs": -14.58,
      "pitch_offset_semitones": -0.1668,
      "samples": 23100,
-     "seconds": 0.52381
+     "seconds": 0.52381,
+     "target_lufs": -14.0
     },
     {
      "channels": 1,
+     "dry_seconds": 0.3,
      "file": "res://assets/generated/audio/sfx/jump.3.wav",
+     "limiting_db": 2.95,
      "loop": null,
+     "lufs": -14.49,
      "pitch_offset_semitones": -0.4058,
      "samples": 23188,
-     "seconds": 0.525805
+     "seconds": 0.525805,
+     "target_lufs": -14.0
     },
     {
      "channels": 1,
+     "dry_seconds": 0.3,
      "file": "res://assets/generated/audio/sfx/jump.4.wav",
+     "limiting_db": 3.0,
      "loop": null,
+     "lufs": -14.54,
      "pitch_offset_semitones": 0.3456,
      "samples": 22716,
-     "seconds": 0.515102
+     "seconds": 0.515102,
+     "target_lufs": -14.0
     }
    ]
   },
@@ -283,6 +300,7 @@
    "category": "pickup",
    "channels": 1,
    "description": "Coin pickup: a bright square stepping up a fourth (B5 -> E6) with an octave shimmer, short, no tail.",
+   "dry_seconds": 0.42,
    "file": "res://assets/generated/audio/sfx/coin.wav",
    "godot_randomizer": "res://assets/generated/audio/sfx/coin.tres",
    "kind": "sfx",
@@ -301,35 +319,51 @@
    "variations": [
     {
      "channels": 1,
+     "dry_seconds": 0.42,
      "file": "res://assets/generated/audio/sfx/coin.1.wav",
+     "limiting_db": 0.0,
      "loop": null,
+     "lufs": -13.29,
      "pitch_offset_semitones": 0.2268,
      "samples": 23518,
-     "seconds": 0.533288
+     "seconds": 0.533288,
+     "target_lufs": -13.286436
     },
     {
      "channels": 1,
+     "dry_seconds": 0.42,
      "file": "res://assets/generated/audio/sfx/coin.2.wav",
+     "limiting_db": 0.0,
      "loop": null,
+     "lufs": -13.08,
      "pitch_offset_semitones": 0.295,
      "samples": 25181,
-     "seconds": 0.570998
+     "seconds": 0.570998,
+     "target_lufs": -13.076431
     },
     {
      "channels": 1,
+     "dry_seconds": 0.42,
      "file": "res://assets/generated/audio/sfx/coin.3.wav",
+     "limiting_db": 0.0,
      "loop": null,
+     "lufs": -14.43,
      "pitch_offset_semitones": 0.4563,
      "samples": 25564,
-     "seconds": 0.579683
+     "seconds": 0.579683,
+     "target_lufs": -14.426505
     },
     {
      "channels": 1,
+     "dry_seconds": 0.42,
      "file": "res://assets/generated/audio/sfx/coin.4.wav",
+     "limiting_db": 0.0,
      "loop": null,
+     "lufs": -14.78,
      "pitch_offset_semitones": 0.338,
      "samples": 25636,
-     "seconds": 0.581315
+     "seconds": 0.581315,
+     "target_lufs": -14.778473
     }
    ]
   }
@@ -337,7 +371,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 4256
+   "bytes": 5306
   },
   {
    "path": "assets/generated/audio/sfx/coin.1.wav",

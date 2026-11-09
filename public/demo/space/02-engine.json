@@ -15,8 +15,33 @@
  },
  "lint": {
   "errors": 0,
-  "warnings": 0,
-  "findings": []
+  "warnings": 3,
+  "findings": [
+   {
+    "rule": "W018",
+    "severity": "warning",
+    "message": "layer rumble: its filter removes 17 dB of the noise's level, so it sits 28 dB under the loudest layer: raise its gain by about 22 dB if it should be heard in the mix, or widen the filter (a quiet layer on purpose: lower its gain instead and disable W018)",
+    "path": "sfx/engine.sfx.yaml",
+    "line": 25,
+    "where": "rumble"
+   },
+   {
+    "rule": "W018",
+    "severity": "warning",
+    "message": "layer rumble: its filter removes 16 dB of the noise's level, so it sits 29 dB under the loudest layer: raise its gain by about 23 dB if it should be heard in the mix, or widen the filter (a quiet layer on purpose: lower its gain instead and disable W018)",
+    "path": "sfx/engine.sfx.yaml",
+    "line": 35,
+    "where": "rumble"
+   },
+   {
+    "rule": "W027",
+    "severity": "warning",
+    "message": "engine.hum: an onset at 0.01s falls inside the 0.1s loop crossfade, so it's blended down at 18% of its level: start it after the crossfade, or shorten the crossfade",
+    "path": "sfx/engine.sfx.yaml",
+    "line": null,
+    "where": "crossfade"
+   }
+  ]
  },
  "diffs": {
   "01-shots": [
@@ -120,6 +145,7 @@
    "category": "sfx",
    "channels": 1,
    "description": "Ship engine while thrusting: a detuned saw drone with a low pulse and filtered rumble. Three phases: spin up, a seamless hum loop, spin down.",
+   "dry_seconds": 1.0,
    "file": "res://assets/generated/audio/sfx/engine.wav",
    "kind": "sfx",
    "limiting_db": 0.0,
@@ -138,6 +164,7 @@
     },
     "start": {
      "channels": 1,
+     "dry_seconds": 0.6,
      "file": "res://assets/generated/audio/sfx/engine.start.wav",
      "loop": null,
      "samples": 44176,
@@ -145,6 +172,7 @@
     },
     "stop": {
      "channels": 1,
+     "dry_seconds": 0.7,
      "file": "res://assets/generated/audio/sfx/engine.stop.wav",
      "loop": null,
      "samples": 44478,
@@ -167,7 +195,7 @@
  "files": [
   {
    "path": "assets/generated/audio/manifest.json",
-   "bytes": 2822
+   "bytes": 2962
   },
   {
    "path": "assets/generated/audio/sfx/engine.hum.wav",

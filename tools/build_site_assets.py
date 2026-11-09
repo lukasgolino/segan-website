@@ -13,7 +13,7 @@ copy of the project), then writes what the page shows:
   public/demo/features/                      the lint feature's first, failing version (art/steps/features)
   public/demo/gallery.json                   every asset on the site with its gallery cell (art/gallery.yaml)
   public/brand/, public/og/                  the logo and icon (PAGAN sprites, art/brand) and link-preview images
-  src/content/docs/                          reference.md, SKILL.md and CHANGELOG.md from SEGAN
+  src/content/docs/                          reference.md (the skill's topics), SKILL.md and CHANGELOG.md from SEGAN
 
 The site can't play or show anything SEGAN doesn't produce. SFX are published as the exact WAVs the game gets;
 music, stems and kit auditions are encoded to Ogg Vorbis (sample-exact length, so the manifest's loop points
@@ -568,6 +568,25 @@ def og_images(public: Path, demo: Path) -> None:
     save_png(image, out / "segan.png")
 
 
+TOPIC_ORDER = ["setup", "kits", "sfx", "songs", "soundtrack", "long-form", "samples", "recorded", "models", "listening",
+               "config", "commands", "lint", "build", "godot", "engines", "evolve", "api", "report"]
+
+
+def reference(topics: Path) -> str:
+    """The skill's topics (SEGAN ships them instead of one reference.md) as one page: each topic's headings one level
+    down under the page title, code blocks untouched. Reading order: TOPIC_ORDER, then the rest alphabetically."""
+    names = sorted(p.stem for p in topics.glob("*.md"))
+    parts = ["# SEGAN reference\n\nEverything an agent needs to write SEGAN files, one section per `segan docs` topic.\n"]
+    for name in [n for n in TOPIC_ORDER if n in names] + [n for n in names if n not in TOPIC_ORDER]:
+        lines, fenced = [], False
+        for line in (topics / f"{name}.md").read_text(encoding="utf-8").splitlines():
+            if line.startswith("```"):
+                fenced = not fenced
+            lines.append("#" + line if not fenced and line.startswith("#") else line)
+        parts.append("\n".join(lines).strip() + "\n")
+    return "\n".join(parts)
+
+
 def docs(content: Path, segan_repo: Path | None) -> None:
     """One source of truth: the reference and workflow ship inside the segan package; the changelog comes
     from a SEGAN checkout (pass --segan-repo or set SEGAN_REPO)."""
@@ -576,13 +595,18 @@ def docs(content: Path, segan_repo: Path | None) -> None:
     out = content / "docs"
     out.mkdir(parents=True)
     skill = Path(segan_pkg.__file__).parent / "skill"
-    shutil.copyfile(skill / "reference.md", out / "reference.md")
-    workflow = (skill / "SKILL.md").read_text(encoding="utf-8").replace("](reference.md)", "](../reference/)")
+    (out / "reference.md").write_text(reference(skill / "topics"), encoding="utf-8")
+    workflow = (skill / "SKILL.md").read_text(encoding="utf-8")
+    # on the site every `segan docs` topic is a section of the reference page: say so under the first heading
+    head, sep, rest = workflow.partition("\n# ")
+    title, _, body = rest.partition("\n")
+    note = "> Every topic named here (`segan docs <topic>`) is a section of the [reference](../reference/).\n"
+    workflow = f"{head}{sep}{title}\n\n{note}{body}" if sep else workflow
     (out / "workflow.md").write_text(workflow, encoding="utf-8")
     if segan_repo is None or not (segan_repo / "CHANGELOG.md").is_file():
         raise SystemExit("CHANGELOG.md not found: pass --segan-repo <SEGAN checkout> or set SEGAN_REPO")
     shutil.copyfile(segan_repo / "CHANGELOG.md", out / "changelog.md")
-    write_json(out / "meta.json", {"segan": metadata.version("segan"), "pagan": metadata.version("pagan")})
+    write_json(out / "meta.json", {"segan": metadata.version("segan-gen"), "pagan": metadata.version("pagan")})
 
 
 # --- main ----------------------------------------------------------------------------------------
@@ -701,7 +725,7 @@ def main() -> None:
                 shutil.rmtree(target)
             shutil.copytree(fresh[key], target)
     steps = sum(len(s["steps"]) for s in scenarios)
-    print(f"Built {len(scenarios)} scenarios, {steps} steps with segan {metadata.version('segan')}.")
+    print(f"Built {len(scenarios)} scenarios, {steps} steps with segan {metadata.version('segan-gen')}.")
 
 
 if __name__ == "__main__":

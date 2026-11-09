@@ -6,6 +6,17 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-09
+
+### Changed
+
+- Install from PyPI: `pip install segan-gen==0.17.0`, and the MCP server through `uvx segan-gen@0.17.0 mcp` (listed in
+  the MCP Registry as `io.github.lukasgolino/segan`). The old `segan @ git+...` lines stop working from SEGAN 0.17.0,
+  which is published as `segan-gen`. The site says to `pip uninstall segan` first when upgrading from a git install.
+- The site's sounds are built with SEGAN 0.17.0 (was 0.4.1): the demo listen sheets and data are rebuilt. The docs
+  reference page is assembled from the skill's topics, which replaced `reference.md`, and the workflow page links
+  to it. The MCP resources are `segan://workflow` and `segan://docs/{topic}`.
+
 ## [0.3.1] - 2026-11-09
 
 ### Added
@@ -55,7 +66,8 @@ All notable changes to this project are documented here. The format follows
   a GitHub release for each `vX.Y.Z` tag, refusing tags that don't match package.json or have no CHANGELOG
   section ([#2](https://github.com/lukasgolino/segan-website/issues/2)).
 
-[Unreleased]: https://github.com/lukasgolino/segan-website/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/lukasgolino/segan-website/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/lukasgolino/segan-website/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/lukasgolino/segan-website/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/lukasgolino/segan-website/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/lukasgolino/segan-website/compare/v0.1.1...v0.2.0
