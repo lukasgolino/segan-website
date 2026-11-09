@@ -15,17 +15,8 @@
  },
  "lint": {
   "errors": 0,
-  "warnings": 1,
-  "findings": [
-   {
-    "rule": "W025",
-    "severity": "warning",
-    "message": "is close to SEGAN's example or template segan:demo/dungeon (88% alike in its first 8 bars): defaults and examples are where every project starts, so move away from them (key, progression, rhythm, instruments)",
-    "path": "music/dungeon.song.yaml",
-    "line": null,
-    "where": "patterns"
-   }
-  ]
+  "warnings": 0,
+  "findings": []
  },
  "diffs": {
   "01-loop": [

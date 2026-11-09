@@ -15,50 +15,17 @@
  },
  "lint": {
   "errors": 0,
-  "warnings": 4,
-  "findings": [
-   {
-    "rule": "W027",
-    "severity": "warning",
-    "message": "charge.charge: an onset at 0.06s falls inside the 0.08s loop crossfade, so it's blended down at 95% of its level: start it after the crossfade, or shorten the crossfade",
-    "path": "sfx/charge.sfx.yaml",
-    "line": null,
-    "where": "crossfade"
-   },
-   {
-    "rule": "W018",
-    "severity": "warning",
-    "message": "layer rumble: its filter removes 17 dB of the noise's level, so it sits 28 dB under the loudest layer: raise its gain by about 22 dB if it should be heard in the mix, or widen the filter (a quiet layer on purpose: lower its gain instead and disable W018)",
-    "path": "sfx/engine.sfx.yaml",
-    "line": 25,
-    "where": "rumble"
-   },
-   {
-    "rule": "W018",
-    "severity": "warning",
-    "message": "layer rumble: its filter removes 16 dB of the noise's level, so it sits 29 dB under the loudest layer: raise its gain by about 23 dB if it should be heard in the mix, or widen the filter (a quiet layer on purpose: lower its gain instead and disable W018)",
-    "path": "sfx/engine.sfx.yaml",
-    "line": 35,
-    "where": "rumble"
-   },
-   {
-    "rule": "W027",
-    "severity": "warning",
-    "message": "engine.hum: an onset at 0.01s falls inside the 0.1s loop crossfade, so it's blended down at 18% of its level: start it after the crossfade, or shorten the crossfade",
-    "path": "sfx/engine.sfx.yaml",
-    "line": null,
-    "where": "crossfade"
-   }
-  ]
+  "warnings": 0,
+  "findings": []
  },
  "diffs": {
   "02-engine": [
    {
     "path": "sfx/charge.sfx.yaml",
     "status": "added",
-    "added": 30,
+    "added": 31,
     "removed": 0,
-    "diff": "@@ -0,0 +1,30 @@\n+name: charge\n+description: \"Charge shot: a rising, trembling square while the button is held (looping), then a heavy blast on release.\"\n+category: sfx\n+status: draft\n+style_version: 1\n+tags: [player, weapon, loop]\n+duration: 0.8\n+layers:\n+  - id: whine\n+    osc: pulse\n+    duty: 0.25\n+    pitch: [[0, E4], [0.7, E6]]\n+    slide: true\n+    vibrato: [14, 0.3]\n+    env: [0.002, 0.1, 0.8, 0.05]\n+    gain: -8\n+phases:\n+  charge:                     # charge.charge.wav: loops while the button is held\n+    duration: 0.5\n+    loop: true\n+    crossfade: 0.08\n+    layers:\n+      - { id: whine, osc: pulse, duty: 0.25, pitch: E6, vibrato: [14, 0.3], tremolo: [12, 0.4], env: [0.002, 0.1, 0.8, 0.002], gain: -8 }\n+      - { id: sparkle, osc: triangle, pitch: E7, tremolo: [20, 0.6], env: [0.002, 0.1, 0.6, 0.002], gain: -18 }\n+  release:                    # charge.release.wav: the shot itself\n+    duration: 0.6\n+    layers:\n+      - { id: blast, osc: pulse, duty: 0.5, pitch: [[0, E6], [0.35, E3]], slide: true, env: [0.001, 0.1, 0.6, 0.15], length: 0.3, gain: -5 }\n+      - { id: crunch, osc: bitnoise, pitch: [[0, E5], [0.4, E2]], slide: true, env: [0.001, 0.15, 0.2, 0.1], gain: -10 }\n+      - { id: thump, drum: kick, tune: 45, decay: 0.3, punch: 24, gain: -6 }"
+    "diff": "@@ -0,0 +1,31 @@\n+name: charge\n+description: \"Charge shot: a rising, trembling square while the button is held (looping), then a heavy blast on release.\"\n+category: sfx\n+status: draft\n+lint: { disable: [W027] }      # the charge loop is one sustained tone: its attack is the loop start\n+style_version: 1\n+tags: [player, weapon, loop]\n+duration: 0.8\n+layers:\n+  - id: whine\n+    osc: pulse\n+    duty: 0.25\n+    pitch: [[0, E4], [0.7, E6]]\n+    slide: true\n+    vibrato: [14, 0.3]\n+    env: [0.002, 0.1, 0.8, 0.05]\n+    gain: -8\n+phases:\n+  charge:                     # charge.charge.wav: loops while the button is held\n+    duration: 0.5\n+    loop: true\n+    crossfade: 0.08\n+    layers:\n+      - { id: whine, osc: pulse, duty: 0.25, pitch: E6, vibrato: [14, 0.3], tremolo: [12, 0.4], env: [0.002, 0.1, 0.8, 0.002], gain: -8 }\n+      - { id: sparkle, osc: triangle, pitch: E7, tremolo: [20, 0.6], env: [0.002, 0.1, 0.6, 0.002], gain: -18 }\n+  release:                    # charge.release.wav: the shot itself\n+    duration: 0.6\n+    layers:\n+      - { id: blast, osc: pulse, duty: 0.5, pitch: [[0, E6], [0.35, E3]], slide: true, env: [0.001, 0.1, 0.6, 0.15], length: 0.3, gain: -5 }\n+      - { id: crunch, osc: bitnoise, pitch: [[0, E5], [0.4, E2]], slide: true, env: [0.001, 0.15, 0.2, 0.1], gain: -10 }\n+      - { id: thump, drum: kick, tune: 45, decay: 0.3, punch: 24, gain: -6 }"
    },
    {
     "path": "BRIEF.md",

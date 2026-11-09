@@ -14,17 +14,8 @@
  },
  "lint": {
   "errors": 0,
-  "warnings": 1,
-  "findings": [
-   {
-    "rule": "W025",
-    "severity": "warning",
-    "message": "is close to SEGAN's example or template segan:demo/dungeon (88% alike in its first 8 bars): defaults and examples are where every project starts, so move away from them (key, progression, rhythm, instruments)",
-    "path": "music/dungeon.song.yaml",
-    "line": null,
-    "where": "patterns"
-   }
-  ]
+  "warnings": 0,
+  "findings": []
  },
  "diffs": {
   "01-loop": [
@@ -33,7 +24,7 @@
     "status": "modified",
     "added": 3,
     "removed": 0,
-    "diff": "@@ -105,3 +105,6 @@\n   main: [a, b, a, c]\n arrangement: [main]\n loop: main                    # the whole song loops\n+\n+variants:                     # each one is music/dungeon.<variant>.wav, same bars and loop points in bars\n+  danger: { tempo: 124, instrument_swap: { q: r } }   # enemies near: faster, a thinner, edgier arpeggio"
+    "diff": "@@ -106,3 +106,6 @@\n   main: [a, b, a, c]\n arrangement: [main]\n loop: main                    # the whole song loops\n+\n+variants:                     # each one is music/dungeon.<variant>.wav, same bars and loop points in bars\n+  danger: { tempo: 124, instrument_swap: { q: r } }   # enemies near: faster, a thinner, edgier arpeggio"
    },
    {
     "path": "BRIEF.md",
