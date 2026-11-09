@@ -6,6 +6,12 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-11-09
+
+### Changed
+
+- Pins SEGAN 0.17.1; assets rebuilt with it.
+
 ## [0.4.1] - 2026-11-09
 
 ### Changed
