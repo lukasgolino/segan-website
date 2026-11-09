@@ -6,6 +6,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-11-09
+
+### Changed
+
+- Licensed under the Apache License 2.0 instead of MIT (#15). Releases up to 0.4.0 stay
+  available under MIT.
+
 ## [0.4.0] - 2026-11-09
 
 ### Changed
@@ -66,7 +73,8 @@ All notable changes to this project are documented here. The format follows
   a GitHub release for each `vX.Y.Z` tag, refusing tags that don't match package.json or have no CHANGELOG
   section ([#2](https://github.com/lukasgolino/segan-website/issues/2)).
 
-[Unreleased]: https://github.com/lukasgolino/segan-website/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/lukasgolino/segan-website/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/lukasgolino/segan-website/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/lukasgolino/segan-website/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/lukasgolino/segan-website/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/lukasgolino/segan-website/compare/v0.2.0...v0.3.0

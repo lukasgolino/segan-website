@@ -31,7 +31,7 @@ Read it fully first (README, `src/`, `tools/build_site_assets.py`, `.github/work
 **You speak English. Your agent speaks SEGAN.** SEGAN is a language for game audio: instrument kits, sound
 effects, music patterns and mix rules, written as plain text. The agent writes SEGAN, SEGAN checks it, renders
 it, shows the agent a picture of it (it can't hear, so it reads listen sheets and numbers), and your game gets
-engine-ready WAVs, loop points and a manifest. Free, MIT, local, offline, deterministic.
+engine-ready WAVs, loop points and a manifest. Free, Apache 2.0, local, offline, deterministic.
 
 The translation diagram, as on PAGAN's site:
 ```
